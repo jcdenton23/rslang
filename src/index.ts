@@ -1,5 +1,5 @@
 import './style.scss';
 
-console.log('');
+console.log('1');
 // let i = 0;
 // i++;

@@ -14,5 +14,11 @@
     "declaration-colon-newline-after": null,
     "value-list-comma-newline-after": null,
     "color-hex-length": "long"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*/.scss"],
+      "customSyntax": "postcss-scss"
+    }
+  ]
 }

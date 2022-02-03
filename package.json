@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --env development",
+    "start": "webpack serve --env development --open",
     "build": "webpack",
     "lint": "eslint ./ --ext ts --color",
     "lint:styles": "stylelint **/src/**/*.scss",
@@ -48,8 +48,11 @@
   },
   "config": {
     "commit-message-validator": {
-      "pattern": "^((feat|fix|docs|style|refactor|test|chore)?: (.+))",
+      "pattern": "^RS-(XXX|\\d{1,5}) (build|ci|chore|docs|feat|fix|perf|refactor|revert|style|test) ?\\((\\*|.{1,20})\\):",
       "errorMessage": "Invalid commit comment"
     }
+  },
+  "dependencies": {
+    "normalize-scss": "^7.0.1"
   }
 }
