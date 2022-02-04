@@ -1,0 +1,41 @@
+.header {
+  position: relative;
+  min-height: 90px;
+  padding-top: 20px;
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__btn {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    color: #ffffff;
+    border: none;
+  }
+}
+
+.hamburger {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 21px;
+  cursor: pointer;
+
+  span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: #151812;
+  }
+
+  span.long {
+    width: 36px;
+  }
+}
