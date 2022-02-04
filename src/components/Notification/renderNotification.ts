@@ -1,9 +1,13 @@
 import { Toast } from 'bootstrap';
+import PaletteBootstrap from '../constants';
 
-export default (message: string, palette: { bg: string; text: string }) => {
-  const boxNotification = document.querySelector('.notification') as HTMLDivElement;
+const notificationContainer = document.createElement('div');
+notificationContainer.classList.add('toast-container', 'position-absolute', 'top-0', 'end-0', 'p-3');
+document.body.append(notificationContainer);
+
+export default (message = 'Error', palette = PaletteBootstrap.error) => {
   const layout = document.createElement('div');
-  layout.classList.add('toast', 'align-items-center', palette.bg, palette.text, 'border-0');
+  layout.classList.add('toast', palette.bg, palette.text, 'border-0');
   layout.setAttribute('role', 'alert');
   layout.setAttribute('aria-live', 'assertive');
   layout.setAttribute('aria-atomic', 'true');
@@ -21,7 +25,7 @@ export default (message: string, palette: { bg: string; text: string }) => {
     layout.remove();
   });
 
-  boxNotification.append(layout);
+  notificationContainer.append(layout);
   const toast = new Toast(layout);
   toast.show();
 };

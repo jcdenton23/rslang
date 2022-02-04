@@ -1,4 +1,4 @@
-export enum BackgroundBoodstrap {
+export enum BackgroundBootstrap {
   primary = 'bg-primary',
   secondary = 'bg-secondary',
   success = 'bg-success',
@@ -12,7 +12,7 @@ export enum BackgroundBoodstrap {
   transparent = 'bg-transparent',
 }
 
-export enum TextColorBoodstrap {
+export enum TextColorBootstrap {
   primary = 'text-primary',
   secondary = 'text-secondary',
   success = 'text-success',
@@ -27,9 +27,3 @@ export enum TextColorBoodstrap {
   blackOpacity = 'text-black-50',
   whiteOpacity = 'text-white-50',
 }
-
-export const PaletteBootstrap = {
-  error: { bg: BackgroundBoodstrap.danger, text: TextColorBoodstrap.white },
-  warning: { bg: BackgroundBoodstrap.warning, text: TextColorBoodstrap.dark },
-  success: { bg: BackgroundBoodstrap.success, text: TextColorBoodstrap.white },
-};
