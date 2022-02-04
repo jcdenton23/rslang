@@ -1,11 +1,9 @@
-import renderMenu from './menu';
-import hamburgerListener from '../listeners/hamburger-listener';
+import headerListeners from './createHeaderListeners';
 
 const renderHeader = () => {
   const header = document.createElement('header');
   header.classList.add('header');
   header.innerHTML = `
-  ${renderMenu()}
   <div class="hamburger">
         <span></span>
         <span class="long"></span>
@@ -18,8 +16,8 @@ const renderHeader = () => {
         </div>
     </div>
   `;
-  document.body.insertAdjacentElement('afterbegin', header);
-  hamburgerListener();
+  document.body.appendChild(header);
+  headerListeners();
 };
 
 export default renderHeader;

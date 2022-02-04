@@ -69,17 +69,6 @@
     }
   }
 
-  &__social {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 90px;
-    transform: translateX(-50%);
-  }
-
   &__overlay {
     position: fixed;
     top: 0;

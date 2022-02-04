@@ -1,10 +1,14 @@
 import renderHeader from '../components/header';
-import renderMainMarkup from './main/mainPage';
 import renderFooter from '../components/footer';
+import renderMenu from '../components/menu';
+import addMainContent from './addMainContent';
+import { renderMainTag, getMainPageElement } from './main/mainPage';
 
 const renderAllMarkup = () => {
+  renderMenu();
   renderHeader();
-  renderMainMarkup();
+  renderMainTag();
+  addMainContent(getMainPageElement());
   renderFooter();
 };
 
