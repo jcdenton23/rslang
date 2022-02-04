@@ -8,13 +8,9 @@ const menuListeners = () => {
     menu.classList.remove('active');
   };
 
-  closeElem.addEventListener('click', () => {
-    hideMenu();
-  });
+  closeElem.addEventListener('click', hideMenu);
 
-  overlay.addEventListener('click', () => {
-    hideMenu();
-  });
+  overlay.addEventListener('click', hideMenu);
 
   menuList.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
