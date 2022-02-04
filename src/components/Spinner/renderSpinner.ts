@@ -1,4 +1,4 @@
-export default (color: string, size: number) => `<div class="spinner-border" role="status" style="
+export default (color = '#000000', size = 20) => `<div class="spinner-border" role="status" style="
 width: ${size}px;
 height: ${size}px;
 color: ${color};
