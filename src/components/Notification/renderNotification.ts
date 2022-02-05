@@ -2,7 +2,7 @@ import { Toast } from 'bootstrap';
 import PaletteBootstrap from '../constants';
 
 const notificationContainer = document.createElement('div');
-notificationContainer.classList.add('toast-container', 'position-absolute', 'top-0', 'end-0', 'p-3');
+notificationContainer.classList.add('toast-container', 'position-fixed', 'top-0', 'end-0', 'p-3');
 document.body.append(notificationContainer);
 
 export default (message = 'Error', palette = PaletteBootstrap.error) => {
