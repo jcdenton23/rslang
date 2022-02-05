@@ -1,5 +1,5 @@
-import './style.scss';
+import './sass/main.scss';
 
-console.log('1');
-// let i = 0;
-// i++;
+import renderAllMarkup from './pages/allMarkup';
+
+renderAllMarkup();
