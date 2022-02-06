@@ -1,3 +1,6 @@
+import textBookListener from './createTextBookListener';
+import mainLinkListener from './createMainListener';
+
 const menuListeners = () => {
   const menu = document.querySelector('.menu') as HTMLDivElement;
   const closeElem = document.querySelector('.menu__close') as HTMLDivElement;
@@ -18,6 +21,9 @@ const menuListeners = () => {
       hideMenu();
     }
   });
+
+  mainLinkListener();
+  textBookListener();
 };
 
 export default menuListeners;
