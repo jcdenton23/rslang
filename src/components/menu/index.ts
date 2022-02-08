@@ -26,10 +26,10 @@ const renderMenu = () => {
     
                 <nav>
                     <ul class="menu__list">
-                        <li class="menu__link" id="main-link"><a href="#">Main</a></li>
-                        <li class="menu__link" id="textbook-link"><a href="#">Textbook</a></li>
-                        <li class="menu__link"><a href="#">Minigames</a></li>
-                        <li class="menu__link"><a href="#">Statistic</a></li>
+                        <li class="menu__link main-link"><a href="#">Main</a></li>
+                        <li class="menu__link textbook-link"><a href="#">Textbook</a></li>
+                        <li class="menu__link games-link"><a href="#">Minigames</a></li>
+                        <li class="menu__link statistic-link"><a href="#">Statistic</a></li>
                     </ul>
                 </nav>
             </div>

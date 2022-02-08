@@ -1,20 +1,21 @@
-import textbookStore from '../../../store/texbookStore';
-import { updateStateAfterPagination } from '../../../utils';
+import textbookStore from '../../../store/textbookStore';
+import { loadCardsPage } from './utils';
+import renderSpinner from '../../../components/Spinner/renderSpinner';
 
 const createPaginationListener = (paginationEl: HTMLElement) => {
-  const nextBtn = paginationEl.querySelector('.pagination-next') as HTMLButtonElement;
-  const prevBtn = paginationEl.querySelector('.pagination-prev') as HTMLButtonElement;
-
-  nextBtn.addEventListener('click', () => {
-    if (textbookStore.textbookPage === 29) return;
-    textbookStore.textbookPage += 1;
-    updateStateAfterPagination('pagePagination');
-  });
-
-  prevBtn.addEventListener('click', () => {
-    if (textbookStore.textbookPage === 0) return;
-    textbookStore.textbookPage -= 1;
-    updateStateAfterPagination('pagePagination');
+  paginationEl.addEventListener('click', (event) => {
+    const target = event.target as HTMLButtonElement;
+    if (target.classList.contains('pagination-btn')) {
+      target.disabled = true;
+      const spinner = renderSpinner('white', 16);
+      const finallyCallback = () => {
+        spinner.remove();
+        target.disabled = false;
+      };
+      const direction = Number(target.dataset.direction);
+      target.append(spinner);
+      loadCardsPage(textbookStore.textbookPage + direction, finallyCallback);
+    }
   });
 };
 

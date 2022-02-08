@@ -1,4 +1,5 @@
-import { updateStateAfterPagination } from '../../../utils';
+import { loadCardsGroup } from '../pagination/utils';
+import renderSpinner from '../../../components/Spinner/renderSpinner';
 
 const groupPaginationListener = (nav: HTMLElement) => {
   const ulElement = nav.querySelector('ul') as HTMLUListElement;
@@ -11,8 +12,11 @@ const groupPaginationListener = (nav: HTMLElement) => {
       });
       const listItem = target.closest('.page-item') as HTMLLIElement;
       listItem.classList.add('active');
-      const group = +target.innerHTML - 1;
-      updateStateAfterPagination('group', group);
+      const spinner = renderSpinner('black', 30);
+      nav.append(spinner);
+      const finallyCallback = () => spinner.remove();
+      const group = target.dataset.group as string;
+      loadCardsGroup(+group - 1, finallyCallback);
     }
   });
 };

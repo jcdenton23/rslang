@@ -6,14 +6,12 @@ const renderGroupPagination = () => {
   nav.innerHTML = `
     <h4 class="group-pagination__title">Groups</h4>
     <ul class="group-pagination__items pagination pagination-md">
-      <li class="page-item active" aria-current="page">
-        <span class="page-link">1</span>
-      </li>
-      <li class="page-item"><a class="page-link">2</a></li>
-      <li class="page-item"><a class="page-link">3</a></li>
-      <li class="page-item"><a class="page-link">4</a></li>
-      <li class="page-item"><a class="page-link">5</a></li>
-      <li class="page-item"><a class="page-link">6</a></li>
+    <li class="page-item active"><a class="page-link" data-group="1">1</a></li>
+      <li class="page-item"><a class="page-link" data-group="2">2</a></li>
+      <li class="page-item"><a class="page-link" data-group="3">3</a></li>
+      <li class="page-item"><a class="page-link" data-group="4">4</a></li>
+      <li class="page-item"><a class="page-link" data-group="5">5</a></li>
+      <li class="page-item"><a class="page-link" data-group="6">6</a></li>
     </ul>
     `;
 

@@ -1,4 +1,4 @@
-interface IWord {
+export interface IWord {
   id: string;
   group: number;
   page: number;
@@ -15,4 +15,8 @@ interface IWord {
   wordTranslate: string;
 }
 
-export default IWord;
+export interface ITextbookStore {
+  words: IWord[];
+  textbookPage: number;
+  textbookGroup: number;
+}

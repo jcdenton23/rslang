@@ -1,5 +1,5 @@
-import textBookListener from './createTextBookListener';
-import mainLinkListener from './createMainListener';
+import textbookLinkHandler from './createTextBookHandler';
+import mainLinkHandler from './createMainHandler';
 
 const menuListeners = () => {
   const menu = document.querySelector('.menu') as HTMLDivElement;
@@ -20,10 +20,13 @@ const menuListeners = () => {
     if (target.closest('.menu__link')) {
       hideMenu();
     }
+    if (target.closest('.textbook-link')) {
+      textbookLinkHandler();
+    }
+    if (target.closest('.main-link')) {
+      mainLinkHandler();
+    }
   });
-
-  mainLinkListener();
-  textBookListener();
 };
 
 export default menuListeners;
