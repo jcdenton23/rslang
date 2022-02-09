@@ -1,12 +1,7 @@
 const audioListener = (card: HTMLDivElement) => {
-  const setVolumeIcon = (icon: HTMLElement) => {
-    icon.classList.remove('fa-pause');
-    icon.classList.add('fa-volume-up');
-  };
-
-  const setPauseIcon = (icon: HTMLElement) => {
-    icon.classList.remove('fa-volume-up');
-    icon.classList.add('fa-pause');
+  const toggleIcon = (icon: HTMLElement) => {
+    icon.classList.toggle('fa-volume-up');
+    icon.classList.toggle('fa-pause');
   };
 
   const stopAllAudio = () => {
@@ -22,22 +17,21 @@ const audioListener = (card: HTMLDivElement) => {
   let isPlay = false;
 
   volumeContainer.addEventListener('click', (e) => {
-    const audiIcon = (e.currentTarget as HTMLElement).querySelector('i') as HTMLElement;
+    const audioIcon = (e.currentTarget as HTMLElement).querySelector('i') as HTMLElement;
     const audioFiles = (e.currentTarget as HTMLElement).querySelectorAll('audio');
 
+    toggleIcon(audioIcon);
     if (!isPlay) {
-      setPauseIcon(audiIcon);
       isPlay = true;
       audioFiles[0].play();
       audioFiles[0].onended = () => audioFiles[1].play();
       audioFiles[1].onended = () => audioFiles[2].play();
       audioFiles[2].onended = () => {
-        setVolumeIcon(audiIcon);
+        toggleIcon(audioIcon);
         isPlay = false;
       };
     } else {
       stopAllAudio();
-      setVolumeIcon(audiIcon);
       isPlay = false;
     }
   });

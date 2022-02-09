@@ -15,8 +15,8 @@ const groupPaginationListener = (nav: HTMLElement) => {
       const spinner = renderSpinner('black', 30);
       nav.append(spinner);
       const finallyCallback = () => spinner.remove();
-      const group = target.dataset.group as string;
-      loadCardsGroup(+group - 1, finallyCallback);
+      const { group } = target.dataset;
+      loadCardsGroup(Number(group) - 1, finallyCallback);
     }
   });
 };

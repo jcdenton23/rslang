@@ -38,7 +38,7 @@ export const loadCardsGroup = async (group: number, finallyCallback: () => void)
     textbookStore.textbookPage = 0;
     textbookStore.textbookGroup = group;
     updateCards();
-    currentPage.innerHTML = `Page: ${textbookStore.textbookPage + 1}`;
+    currentPage.innerHTML = 'Page: 1';
     updatePaginationButtons();
   }
 };
