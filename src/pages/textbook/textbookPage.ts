@@ -2,6 +2,7 @@ import renderCards from './cards';
 import renderGames from './games';
 import renderGroupPagination from './groupPagination';
 import renderPagination from './pagination';
+import textbookStore from '../../store/textbookStore';
 
 const getTextbookElement = (): HTMLDivElement => {
   const elem = document.createElement('div');
@@ -18,7 +19,7 @@ const getTextbookElement = (): HTMLDivElement => {
   textbookWrapper.appendChild(renderGames());
   textbookWrapper.appendChild(renderGroupPagination());
   textbookWrapper.appendChild(renderPagination());
-  textbookWrapper.appendChild(renderCards());
+  textbookWrapper.appendChild(renderCards(textbookStore.cardClassName));
   return elem;
 };
 

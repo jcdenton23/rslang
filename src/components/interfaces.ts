@@ -19,4 +19,5 @@ export interface ITextbookStore {
   words: IWord[];
   textbookPage: number;
   textbookGroup: number;
+  cardClassName: string;
 }
