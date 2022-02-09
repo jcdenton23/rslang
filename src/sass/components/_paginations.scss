@@ -1,0 +1,25 @@
+.group-pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  &__title {
+    margin-bottom: 0;
+    color: $main-color;
+  }
+
+  &__items {
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+}
+
+.pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  .current-page {
+    color: $main-color;
+  }
+}

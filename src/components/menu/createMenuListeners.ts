@@ -1,3 +1,6 @@
+import textbookLinkHandler from './createTextBookHandler';
+import mainLinkHandler from './createMainHandler';
+
 const menuListeners = () => {
   const menu = document.querySelector('.menu') as HTMLDivElement;
   const closeElem = document.querySelector('.menu__close') as HTMLDivElement;
@@ -16,6 +19,12 @@ const menuListeners = () => {
     const target = e.target as HTMLElement;
     if (target.closest('.menu__link')) {
       hideMenu();
+    }
+    if (target.closest('.textbook-link')) {
+      textbookLinkHandler();
+    }
+    if (target.closest('.main-link')) {
+      mainLinkHandler();
     }
   });
 };
