@@ -9,10 +9,12 @@
 @import 'components/header';
 @import 'components/footer';
 @import 'components/menu';
-
+@import 'components/buttons';
+@import 'components/paginations';
 @import 'pages/main/promo';
 @import 'pages/main/advantages';
 @import 'pages/main/team';
+@import 'pages/textbook/textbook';
 
 *,
 *::before,
@@ -40,4 +42,8 @@ a {
   height: 3px;
   margin: 25px auto 0;
   background-color: $main-color;
+}
+
+.toast-container {
+  z-index: 100;
 }
