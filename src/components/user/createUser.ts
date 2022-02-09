@@ -2,7 +2,7 @@ import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import BASE_LINK from '../../services/settings';
 import { Method } from '../enum';
 import { IUser } from '../interfaces';
-import { signIn } from './signIn';
+import signIn from './signIn';
 
 export default async function createUser(user: IUser) {
   const url = `${BASE_LINK}users`;

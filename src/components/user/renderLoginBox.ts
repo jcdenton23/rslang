@@ -1,6 +1,6 @@
 import { IUser } from '../interfaces';
 import createUser from './createUser';
-import { signIn } from './signIn';
+import signIn from './signIn';
 
 export default () => {
   const modal = document.createElement('div');

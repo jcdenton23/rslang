@@ -1,5 +1,6 @@
 import { Modal } from 'bootstrap';
 import { BackgroundBootstrap, TextColorBootstrap } from './enum';
+import { IAuth } from './interfaces';
 
 export const PaletteBootstrap = {
   error: { bg: BackgroundBootstrap.danger, text: TextColorBootstrap.white },
@@ -8,5 +9,13 @@ export const PaletteBootstrap = {
 };
 
 export const modals: Modal[] = [];
+
+export const auth: IAuth = {
+  message: '',
+  token: '',
+  refreshToken: '',
+  userId: '',
+  name: '',
+};
 
 // export default PaletteBootstrap;

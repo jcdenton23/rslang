@@ -1,18 +1,10 @@
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import BASE_LINK from '../../services/settings';
-import { modals } from '../constants';
+import { auth, modals } from '../constants';
 import { Method } from '../enum';
 import { IAuth, IUser } from '../interfaces';
 
-export const auth: IAuth = {
-  message: '',
-  token: '',
-  refreshToken: '',
-  userId: '',
-  name: '',
-};
-
-export async function signIn(user: IUser) {
+export default async function signIn(user: IUser) {
   const url = `${BASE_LINK}signin`;
   const headers = new Headers({ 'Content-Type': 'application/json' });
   const request: IAuth = await fetchWithErrorHandling(url, () => {}, {

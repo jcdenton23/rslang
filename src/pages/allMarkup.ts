@@ -4,8 +4,10 @@ import renderMenu from '../components/menu';
 import addMainContent from './addMainContent';
 import { renderMainTag, getMainPageElement } from './main/mainPage';
 import renderLoginBox from '../components/user/renderLoginBox';
+import getLocalUser from '../components/user/getLocalUser';
 
 const renderAllMarkup = () => {
+  getLocalUser();
   renderLoginBox();
   renderMenu();
   renderHeader();
