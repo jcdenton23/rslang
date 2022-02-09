@@ -27,3 +27,10 @@ export enum TextColorBootstrap {
   blackOpacity = 'text-black-50',
   whiteOpacity = 'text-white-50',
 }
+
+export enum Method {
+  POST = 'POST',
+  DELETE = 'DELETE',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+}

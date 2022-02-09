@@ -12,7 +12,7 @@ const renderHeader = () => {
     <div class="container">
         <div class="header__wrapper">
             <div class="header__title title title--fz16">Main</div>
-            <button type="button" class="btn btn-primary">Login</button>
+            <button type="button" id='btn-login' class="btn btn-primary">Login</button>
         </div>
     </div>
   `;
