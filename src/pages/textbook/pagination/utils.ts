@@ -37,6 +37,7 @@ export const loadCardsGroup = async (group: number, finallyCallback: () => void,
     textbookStore.words = res;
     textbookStore.textbookPage = 0;
     textbookStore.textbookGroup = group;
+    textbookStore.cardClassName = cardClassName;
     updateCards(cardClassName);
     currentPage.innerHTML = 'Page: 1';
     updatePaginationButtons();
