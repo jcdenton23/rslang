@@ -4,37 +4,17 @@ import { Method } from '../enum';
 import { IUser } from '../interfaces';
 import signIn from './signIn';
 
-export default async function createUser(user: IUser) {
+export default async function createUser(user: IUser, finallyCallback: () => void) {
   const url = `${BASE_LINK}users`;
   const headers = new Headers({ 'Content-Type': 'application/json' });
 
-  const request = await fetchWithErrorHandling(url, () => console.log('lol'), {
+  const request = await fetchWithErrorHandling(url, finallyCallback, {
     method: Method.POST,
     body: JSON.stringify(user),
     headers,
   });
 
   if (request) {
-    signIn(user);
+    signIn(user, finallyCallback);
   }
-  console.log(request);
 }
-
-// const createUser = async user => {
-//   const rawResponse = await fetch('https://<your-app-name>.herokuapp.com/users', {
-//     method: 'POST',
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(user)
-//   });
-//   const content = await rawResponse.json();
-
-//   console.log(content);
-// };
-// -------------------------------------------------------------------
-// Console: {
-// id: "5ec993df4ca9d600178740ae",
-// email: "hello@user.com"
-// }
