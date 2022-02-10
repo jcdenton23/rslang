@@ -14,7 +14,8 @@ const createPaginationListener = (paginationEl: HTMLElement) => {
       };
       const direction = Number(target.dataset.direction);
       target.append(spinner);
-      loadCardsPage(textbookStore.textbookPage + direction, finallyCallback);
+      const { textbookPage, cardClassName } = textbookStore;
+      loadCardsPage(textbookPage + direction, finallyCallback, cardClassName);
     }
   });
 };

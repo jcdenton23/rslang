@@ -12,7 +12,7 @@ export const updatePaginationButtons = () => {
   nextBtn.disabled = textbookPage === LAST_PAGE;
 };
 
-export const loadCardsPage = async (page: number, finallyCallback: () => void) => {
+export const loadCardsPage = async (page: number, finallyCallback: () => void, cardClassName: string) => {
   const currentPage = document.querySelector('.current-page') as HTMLDivElement;
 
   const { textbookGroup } = textbookStore;
@@ -21,14 +21,14 @@ export const loadCardsPage = async (page: number, finallyCallback: () => void) =
 
   if (res) {
     textbookStore.words = res;
-    updateCards();
+    updateCards(cardClassName);
     currentPage.innerHTML = `Page: ${page + 1}`;
     textbookStore.textbookPage = page;
     updatePaginationButtons();
   }
 };
 
-export const loadCardsGroup = async (group: number, finallyCallback: () => void) => {
+export const loadCardsGroup = async (group: number, finallyCallback: () => void, cardClassName: string) => {
   const currentPage = document.querySelector('.current-page') as HTMLDivElement;
   const url = `${BASE_LINK}words?group=${group}&page=0`;
 
@@ -37,7 +37,8 @@ export const loadCardsGroup = async (group: number, finallyCallback: () => void)
     textbookStore.words = res;
     textbookStore.textbookPage = 0;
     textbookStore.textbookGroup = group;
-    updateCards();
+    textbookStore.cardClassName = cardClassName;
+    updateCards(cardClassName);
     currentPage.innerHTML = 'Page: 1';
     updatePaginationButtons();
   }
