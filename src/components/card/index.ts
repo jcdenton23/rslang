@@ -2,9 +2,9 @@ import { IWord } from '../interfaces';
 import { BASE_LINK } from '../../services/constants';
 import createAudioListener from './createAudioListener';
 
-const renderCard = (word: IWord) => {
+const renderCard = (word: IWord, classCardName: string) => {
   const card = document.createElement('div');
-  card.classList.add('textbook__card');
+  card.classList.add('textbook__card', classCardName);
   card.id = `textbook-card-${word.id}`;
   const markup = `
     <div class="textbook__card-image">
