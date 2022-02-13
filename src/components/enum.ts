@@ -34,3 +34,12 @@ export enum Method {
   PUT = 'PUT',
   PATCH = 'PATCH',
 }
+
+export enum BorderBootstrap {
+  primary = 'border-primary',
+  secondary = 'border-secondary',
+  success = 'border-success',
+  danger = 'border-danger',
+  warning = 'border-warning',
+  info = 'border-info',
+}

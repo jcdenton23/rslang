@@ -11,6 +11,12 @@
   &__items {
     margin-bottom: 0;
     cursor: pointer;
+
+    .page-item.active {
+      a {
+        background-color: $blue-300;
+      }
+    }
   }
 }
 
