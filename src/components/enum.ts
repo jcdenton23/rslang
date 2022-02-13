@@ -43,3 +43,8 @@ export enum BorderBootstrap {
   warning = 'border-warning',
   info = 'border-info',
 }
+
+export enum Difficulty {
+  normal = 'normal',
+  hard = 'hard',
+}

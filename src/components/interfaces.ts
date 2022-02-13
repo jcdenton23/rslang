@@ -42,3 +42,20 @@ export interface ITextbookStore {
 export interface IModalStore {
   modal: Modal | null;
 }
+
+export interface IOptionalWord {
+  streak: number;
+  wins: number;
+  losses: number;
+  learned: boolean;
+}
+
+export interface IBodyWord {
+  difficulty: string;
+  optional: IOptionalWord;
+}
+
+export interface IResponseBodyWord extends IBodyWord {
+  id: string;
+  wordId: string;
+}
