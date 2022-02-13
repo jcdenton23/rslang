@@ -1,6 +1,6 @@
-import renderLoginModal from './renderLoginModal';
+import createModalListeners from './createModalListeners';
 
-export default function renderLoginBox() {
+export default function renderLoginModal() {
   const modal = document.createElement('div');
   modal.classList.add('modal', 'fade');
   modal.id = 'login-modal';
@@ -108,7 +108,7 @@ export default function renderLoginBox() {
                   required
                 />
               </div>
-              <button type="submit" class="btn btn-primary" desible>Registration</button>
+              <button type="submit" class="btn btn-primary">Registration</button>
             </form>
           </div>
         </div>
@@ -116,6 +116,6 @@ export default function renderLoginBox() {
     </div>
   </div>`;
 
-  renderLoginModal(modal);
+  createModalListeners(modal);
   document.body.append(modal);
 }

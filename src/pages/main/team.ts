@@ -44,7 +44,7 @@ const renderTeam = () => `<section id="team" class="team">
 
         <div class="team__item card">
             <div class="team__image">
-            <img src="../../public/assets/img/main_photo2.jpg" alt="photo">
+            <img src="../../public/assets/img/main_photo2.webp" alt="photo">
             </div>
             <div class="team__info">
                 <h3>Yevhenii Sharovskyi</h3>

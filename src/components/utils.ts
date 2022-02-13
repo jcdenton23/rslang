@@ -5,11 +5,10 @@ import renderHeader from './header';
 import { IAuth } from './interfaces';
 
 export function getLocalUser() {
-  if (localStorage.getItem('auth')) {
-    const localUser = JSON.parse(localStorage.getItem('auth')!) as IAuth;
+  const localUser = JSON.parse(localStorage.getItem('auth')!) as IAuth;
+  if (localUser) {
     Object.entries(localUser).forEach((line) => {
-      const key = line[0];
-      const value = line[1] as string;
+      const [key, value] = line;
       authStore[key] = value;
     });
   }

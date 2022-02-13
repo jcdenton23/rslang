@@ -1,11 +1,11 @@
+import { BASE_LINK } from '../../services/constants';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
-import BASE_LINK from '../../services/settings';
 import authStore from '../../store/authStore';
 import modalStore from '../../store/modalStore';
 import { Method } from '../enum';
 import renderHeader from '../header';
-import { IAuth, IUser } from '../interfaces';
 import createLoginListeners from '../header/createLoginListeners';
+import { IAuth, IUser } from '../interfaces';
 
 function clearForm() {
   document.querySelectorAll('#login-modal form')?.forEach((form) => {
@@ -14,7 +14,7 @@ function clearForm() {
   });
 }
 
-export default async function signIn(user: IUser, finallyCallback: () => void) {
+export async function signIn(user: IUser, finallyCallback: () => void) {
   const url = `${BASE_LINK}signin`;
   const headers = new Headers({ 'Content-Type': 'application/json' });
   const request: IAuth = await fetchWithErrorHandling(url, finallyCallback, {
@@ -35,5 +35,20 @@ export default async function signIn(user: IUser, finallyCallback: () => void) {
     renderHeader();
     createLoginListeners();
     clearForm();
+  }
+}
+
+export async function signUp(user: IUser, finallyCallback: () => void) {
+  const url = `${BASE_LINK}users`;
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+
+  const request = await fetchWithErrorHandling(url, finallyCallback, {
+    method: Method.POST,
+    body: JSON.stringify(user),
+    headers,
+  });
+
+  if (request) {
+    signIn(user, finallyCallback);
   }
 }

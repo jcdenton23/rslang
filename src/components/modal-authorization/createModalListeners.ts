@@ -2,10 +2,9 @@ import { Modal } from 'bootstrap';
 import modalStore from '../../store/modalStore';
 import { IUser } from '../interfaces';
 import renderSpinner from '../Spinner/renderSpinner';
-import signUp from '../user/signUp';
-import signIn from '../user/signIn';
+import { signIn, signUp } from './utils';
 
-export default function renderLoginModal(modal: HTMLDivElement) {
+export default function createModalListeners(modal: HTMLDivElement) {
   modalStore.modal = new Modal(modal);
 
   const formSignIn = modal.querySelector('#form-signin') as HTMLFormElement;
