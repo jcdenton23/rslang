@@ -1,9 +1,13 @@
+import { Modal } from 'bootstrap';
+import modalStore from '../../store/modalStore';
 import { IUser } from '../interfaces';
 import renderSpinner from '../Spinner/renderSpinner';
-import createUser from './createUser';
-import signIn from './signIn';
+import signUp from '../user/signUp';
+import signIn from '../user/signIn';
 
-export default function createFormListeners(modal: HTMLDivElement) {
+export default function renderLoginModal(modal: HTMLDivElement) {
+  modalStore.modal = new Modal(modal);
+
   const formSignIn = modal.querySelector('#form-signin') as HTMLFormElement;
   formSignIn.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -16,8 +20,8 @@ export default function createFormListeners(modal: HTMLDivElement) {
     };
     btn.append(spinner);
     const user: IUser = {
-      email: (formSignIn.querySelector('#exampleInputEmailSignIn') as HTMLFormElement).value,
-      password: (formSignIn.querySelector('#exampleInputPasswordSignIn') as HTMLFormElement).value,
+      email: (formSignIn.querySelector('.form-signin__email') as HTMLFormElement).value,
+      password: (formSignIn.querySelector('.form-signin__password') as HTMLFormElement).value,
     };
     signIn(user, finallyCallback);
   });
@@ -35,10 +39,10 @@ export default function createFormListeners(modal: HTMLDivElement) {
     };
     btn.append(spinner);
     const user: IUser = {
-      name: (formRegistration.querySelector('#exampleInputNameReg') as HTMLFormElement).value,
-      email: (formRegistration.querySelector('#exampleInputEmailReg') as HTMLFormElement).value,
-      password: (formRegistration.querySelector('#exampleInputPasswordReg') as HTMLFormElement).value,
+      name: (formRegistration.querySelector('.form-registration__name') as HTMLFormElement).value,
+      email: (formRegistration.querySelector('.form-registration__email') as HTMLFormElement).value,
+      password: (formRegistration.querySelector('.form-registration__password') as HTMLFormElement).value,
     };
-    createUser(user, finallyCallback);
+    signUp(user, finallyCallback);
   });
 }

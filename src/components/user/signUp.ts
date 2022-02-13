@@ -4,7 +4,7 @@ import { Method } from '../enum';
 import { IUser } from '../interfaces';
 import signIn from './signIn';
 
-export default async function createUser(user: IUser, finallyCallback: () => void) {
+export default async function signUp(user: IUser, finallyCallback: () => void) {
   const url = `${BASE_LINK}users`;
   const headers = new Headers({ 'Content-Type': 'application/json' });
 

@@ -1,6 +1,6 @@
-import createFormListeners from './createFormListeners';
+import renderLoginModal from './renderLoginModal';
 
-export default () => {
+export default function renderLoginBox() {
   const modal = document.createElement('div');
   modal.classList.add('modal', 'fade');
   modal.id = 'login-modal';
@@ -48,11 +48,11 @@ export default () => {
           <div class="tab-pane fade show active" id="nav-signin" role="tabpanel" aria-labelledby="nav-signin-tab">
             <form id="form-signin">
               <div class="mb-3">
-                <label for="exampleInputEmailSignIn" class="form-label">Email address</label>
+                <label for="emailSignIn" class="form-label ">Email address</label>
                 <input
                   type="email"
-                  class="form-control"
-                  id="exampleInputEmailSignIn"
+                  class="form-control form-signin__email"
+                  id="emailSignIn"
                   aria-describedby="emailHelp"
                   required
                 />
@@ -60,11 +60,11 @@ export default () => {
                 <div class="valid-feedback">Looks good!</div>
               </div>
               <div class="mb-3">
-                <label for="exampleInputPasswordSignIn" class="form-label">Password</label>
+                <label for="passwordSignIn" class="form-label">Password</label>
                 <input
                   type="password"
-                  class="form-control"
-                  id="exampleInputPasswordSignIn"
+                  class="form-control form-signin__password"
+                  id="passwordSignIn"
                   maxlength="20"
                   minlength="8"
                   required
@@ -76,21 +76,21 @@ export default () => {
           </div>
           <div class="tab-pane fade" id="nav-registration" role="tabpanel" aria-labelledby="nav-registration-tab">
             <form id="form-registration">
-              <label for="exampleInputNameReg" class="form-label">First name</label>
+              <label for="nameReg" class="form-label">First name</label>
               <input
                 type="text"
-                class="form-control"
-                id="exampleInputNameReg"
+                class="form-control form-registration__name"
+                id="nameReg"
                 maxlength="30"
                 minlength="2"
                 required
               />
               <div class="mb-3">
-                <label for="exampleInputEmailReg" class="form-label">Email address</label>
+                <label for="emailReg" class="form-label">Email address</label>
                 <input
                   type="email"
-                  class="form-control"
-                  id="exampleInputEmailReg"
+                  class="form-control form-registration__email"
+                  id="emailReg"
                   aria-describedby="emailHelp"
                   required
                 />
@@ -98,17 +98,17 @@ export default () => {
                 <div class="valid-feedback">Looks good!</div>
               </div>
               <div class="mb-3">
-                <label for="exampleInputPasswordReg" class="form-label">Password</label>
+                <label for="passwordReg" class="form-label">Password</label>
                 <input
                   type="password"
-                  class="form-control"
-                  id="exampleInputPasswordReg"
+                  class="form-control form-registration__password"
+                  id="passwordReg"
                   maxlength="20"
                   minlength="8"
                   required
                 />
               </div>
-              <button type="submit" class="btn btn-primary" desible>>Registration</button>
+              <button type="submit" class="btn btn-primary" desible>Registration</button>
             </form>
           </div>
         </div>
@@ -116,7 +116,6 @@ export default () => {
     </div>
   </div>`;
 
-  createFormListeners(modal);
-
+  renderLoginModal(modal);
   document.body.append(modal);
-};
+}

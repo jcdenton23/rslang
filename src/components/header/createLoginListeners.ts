@@ -1,15 +1,14 @@
-import { Modal } from 'bootstrap';
-import { modals } from '../constants';
-import logout from './logout';
+import modalStore from '../../store/modalStore';
+import { logout } from '../utils';
 
 export default function createLoginListeners() {
-  modals[0] = new Modal(document.getElementById('login-modal') as HTMLDivElement);
+  // modals[0] = new Modal(document.getElementById('login-modal') as HTMLDivElement);
 
   if (document.querySelector('#btn-login')) {
     const btnLogin = document.querySelector('#btn-login') as HTMLButtonElement;
 
     btnLogin.addEventListener('click', () => {
-      modals[0].show();
+      modalStore.modal?.show();
     });
   }
 

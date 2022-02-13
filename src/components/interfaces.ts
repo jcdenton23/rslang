@@ -1,3 +1,5 @@
+import { Modal } from 'bootstrap';
+
 export interface IUser {
   name?: string;
   email: string;
@@ -34,4 +36,8 @@ export interface ITextbookStore {
   words: IWord[];
   textbookPage: number;
   textbookGroup: number;
+}
+
+export interface IModalStore {
+  modal: Modal | null;
 }

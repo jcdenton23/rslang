@@ -1,11 +1,6 @@
 import { PaletteBootstrap } from '../components/constants';
 import renderNotification from '../components/Notification/renderNotification';
-import { arrErrorMessages } from './constants';
-
-function findErrorMessage(errMessage: string) {
-  const resultFind = arrErrorMessages.filter((message) => errMessage.includes(message[0]));
-  return resultFind.length ? resultFind[0][1] : errMessage;
-}
+import findErrorMessage from './utils';
 
 export default async (url: string, finallyCallback: () => void, options: RequestInit = {}) => {
   try {
