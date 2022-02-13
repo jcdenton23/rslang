@@ -1,5 +1,5 @@
 import { Toast } from 'bootstrap';
-import PaletteBootstrap from '../constants';
+import { PaletteBootstrap } from '../constants';
 
 const notificationContainer = document.createElement('div');
 notificationContainer.classList.add('toast-container', 'position-fixed', 'top-0', 'end-0', 'p-3');

@@ -28,6 +28,13 @@ export enum TextColorBootstrap {
   whiteOpacity = 'text-white-50',
 }
 
+export enum Method {
+  POST = 'POST',
+  DELETE = 'DELETE',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+}
+
 export enum BorderBootstrap {
   primary = 'border-primary',
   secondary = 'border-secondary',

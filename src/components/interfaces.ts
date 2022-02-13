@@ -1,3 +1,20 @@
+import { Modal } from 'bootstrap';
+
+export interface IUser {
+  name?: string;
+  email: string;
+  password: string;
+}
+
+export interface IAuth {
+  message: string;
+  token: string;
+  refreshToken: string;
+  userId: string;
+  name: string;
+  [key: string]: string;
+}
+
 export interface IWord {
   id: string;
   group: number;
@@ -20,4 +37,8 @@ export interface ITextbookStore {
   textbookPage: number;
   textbookGroup: number;
   cardClassName: string;
+}
+
+export interface IModalStore {
+  modal: Modal | null;
 }
