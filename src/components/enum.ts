@@ -36,3 +36,23 @@ export enum BorderBootstrap {
   warning = 'border-warning',
   info = 'border-info',
 }
+
+export enum Games {
+  sprint = 'Sprint',
+  audio = 'Audio',
+}
+
+export enum Answers {
+  correct = 'correct',
+  wrong = 'wrong',
+}
+
+export enum GameInitators {
+  menu = 'menu',
+  textbook = 'textbook',
+}
+
+export enum Arrows {
+  left = 'ArrowLeft',
+  right = 'ArrowRight',
+}

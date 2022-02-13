@@ -8,12 +8,6 @@ export const updateCards = (cardClassName: string) => {
   textbookWrapper.appendChild(renderCards(cardClassName));
 };
 
-export const clearAndGetCards = () => {
-  const cards = document.querySelector('.textbook__cards') as HTMLDivElement;
-  cards.innerHTML = '';
-  return cards;
-};
-
 export const getCardClassName = (groupNumber: number) => {
   switch (groupNumber) {
     case 1:

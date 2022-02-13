@@ -1,5 +1,6 @@
 import textbookLinkHandler from './createTextBookHandler';
 import mainLinkHandler from './createMainHandler';
+import gamesLinkHandler from './createGamesHandler';
 
 const menuListeners = () => {
   const menu = document.querySelector('.menu') as HTMLDivElement;
@@ -25,6 +26,9 @@ const menuListeners = () => {
     }
     if (target.closest('.main-link')) {
       mainLinkHandler();
+    }
+    if (target.closest('.games-link')) {
+      gamesLinkHandler();
     }
   });
 };

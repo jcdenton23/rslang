@@ -1,0 +1,43 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+
+  &__wrapper {
+    display: flex;
+    gap: 10px;
+    max-width: 400px;
+    max-height: 230px;
+    padding: 25px 30px;
+    overflow: auto;
+    text-align: center;
+  }
+
+  &__item {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__volume {
+    cursor: pointer;
+  }
+
+  &__correct {
+    .fas {
+      color: tomato;
+    }
+  }
+
+  &__wrong {
+    .fas {
+      color: green;
+    }
+  }
+
+  &__row {
+    .fas {
+      color: $main-color;
+    }
+  }
+}
