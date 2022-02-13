@@ -1,3 +1,20 @@
+import { Modal } from 'bootstrap';
+
+export interface IUser {
+  name?: string;
+  email: string;
+  password: string;
+}
+
+export interface IAuth {
+  message: string;
+  token: string;
+  refreshToken: string;
+  userId: string;
+  name: string;
+  [key: string]: string;
+}
+
 export interface IWord {
   id: string;
   group: number;
@@ -55,4 +72,7 @@ export interface ISprintResult {
 
 export interface IRenderSprintGame {
   (w1: IWord, w2: IWord, renderSprintResult: ISprintResult, startTimer: IStartTimer): HTMLElement;
+}
+export interface IModalStore {
+  modal: Modal | null;
 }
