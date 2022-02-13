@@ -1,11 +1,11 @@
 import { loadSprintGame, resetSprintStore } from '../../../games/sprint/utils';
 import { BASE_LINK } from '../../../services/constants';
 import textbookStore from '../../../store/textbookStore';
-import renderSprintGame from '../../../games/sprint/renderSprintGame';
-import renderSprintResult from '../../../games/sprint/renderSprintResult';
 import startTimer from '../../../games/sprint/startTimer';
 import sprintStore from '../../../store/sprintStore';
 import { GameInitators } from '../../../components/enum';
+import renderSprintResult from '../../../games/sprint/results/renderSprintResult';
+import renderSprintGame from '../../../games/sprint/sprintGame/renderSprintGame';
 
 const renderGames = () => {
   const gamesWrapper = document.createElement('div') as HTMLDivElement;

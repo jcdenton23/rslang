@@ -53,7 +53,7 @@ export interface ISprintStore {
   currentGroup: number;
   score: number;
   time: number;
-  timerId: ReturnType<typeof setTimeout>;
+  timerId: number;
   gameInitiator: string;
   btnPressHandler: ((e: KeyboardEvent) => void) | null;
 }
@@ -70,9 +70,17 @@ export interface ISprintResult {
   (a: IStartTimer): HTMLElement;
 }
 
-export interface IRenderSprintGame {
-  (w1: IWord, w2: IWord, renderSprintResult: ISprintResult, startTimer: IStartTimer): HTMLElement;
+export interface IRenderSprint {
+  word: IWord;
+  translateWord: IWord;
+  renderSprintResult: ISprintResult;
+  startTimer: IStartTimer;
 }
+
+export interface IRenderSprintGame {
+  (options: IRenderSprint): HTMLElement;
+}
+
 export interface IModalStore {
   modal: Modal | null;
 }

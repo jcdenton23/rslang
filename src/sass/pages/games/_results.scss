@@ -19,6 +19,15 @@
     gap: 10px;
   }
 
+  &__word {
+    font-size: 16px;
+  }
+
+  &__word-translate {
+    font-size: 16px;
+    color: #808080;
+  }
+
   &__volume {
     cursor: pointer;
   }

@@ -1,12 +1,8 @@
-import renderSprintGame from './renderSprintGame';
-import { IStartTimer } from '../../components/interfaces';
-import { BASE_LINK } from '../../services/constants';
-import sprintStore from '../../store/sprintStore';
-import { loadSprintGame, resetSprintStore } from './utils';
-import { GameInitators } from '../../components/enum';
-import textbookStore from '../../store/textbookStore';
-import renderAnswer from './renderAnswer';
-import { removeListeners } from '../../utils';
+import { IStartTimer } from '../../../components/interfaces';
+import sprintStore from '../../../store/sprintStore';
+import { removeListeners } from '../../../utils';
+import renderAnswer from '../answers/renderAnswer';
+import tryAgainBtnListener from './createTryAgainBtnListener';
 
 const renderSprintResult = (startTimer: IStartTimer) => {
   const results = document.createElement('div');
@@ -46,26 +42,8 @@ const renderSprintResult = (startTimer: IStartTimer) => {
   correctResults.append(...correctAnswers);
   wrongResults.append(...wrongAnswers);
 
-  const tryAgainBtn = results.querySelector('.btn-again') as HTMLButtonElement;
+  tryAgainBtnListener(results, renderSprintResult, startTimer);
 
-  tryAgainBtn.addEventListener('click', async () => {
-    resetSprintStore();
-    if (sprintStore.gameInitiator === GameInitators.textbook) {
-      sprintStore.currentPage = textbookStore.textbookPage;
-      sprintStore.currentGroup = textbookStore.textbookGroup;
-    }
-    const { currentPage, currentGroup } = sprintStore;
-    const url = `${BASE_LINK}words?group=${currentGroup}&page=${currentPage}`;
-
-    const options = {
-      url,
-      renderSprintGame,
-      renderSprintResult,
-      startTimer,
-    };
-
-    loadSprintGame(options);
-  });
   return results;
 };
 

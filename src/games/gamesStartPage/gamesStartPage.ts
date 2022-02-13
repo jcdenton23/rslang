@@ -1,6 +1,4 @@
-import { clearAndGetElement } from '../utils';
-import renderSelectLevel from './renderSelectLevel';
-import { Games } from '../components/enum';
+import createPlayBtnListener from './createPlayBtnListener';
 
 const renderGamesStartPage = (): HTMLDivElement => {
   const elem = document.createElement('div');
@@ -28,25 +26,7 @@ const renderGamesStartPage = (): HTMLDivElement => {
     </div>
       `;
 
-  const playBtnHandler = (title: Games) => {
-    const gamesContent = clearAndGetElement('.games__content') as HTMLDivElement;
-    gamesContent.append(renderSelectLevel(title, renderGamesStartPage));
-  };
-
-  const createPlayListener = () => {
-    const sprintPlayBtn = elem.querySelector('.sprint-play-btn') as HTMLButtonElement;
-    const audioPlayBtn = elem.querySelector('.audio-play-btn') as HTMLButtonElement;
-
-    sprintPlayBtn.addEventListener('click', () => {
-      playBtnHandler(Games.sprint);
-    });
-
-    audioPlayBtn.addEventListener('click', () => {
-      playBtnHandler(Games.audio);
-    });
-  };
-
-  createPlayListener();
+  createPlayBtnListener(elem, renderGamesStartPage);
   return elem;
 };
 

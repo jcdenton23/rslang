@@ -1,4 +1,4 @@
-import renderGamesStartPage from './gamesStartPage';
+import renderGamesStartPage from './gamesStartPage/gamesStartPage';
 
 const getGamesPageElement = (): HTMLDivElement => {
   const elem = document.createElement('div');

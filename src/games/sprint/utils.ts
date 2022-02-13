@@ -47,9 +47,13 @@ export const loadSprintGame = async (props: ILoadSprintGame) => {
     sprintStore.translateWords = shuffleArray(res);
     main.prepend(renderTimer());
     startTimer(sprintStore.time, '.timer');
-    gamesContent.append(
-      renderSprintGame(sprintStore.words[0], sprintStore.translateWords[0], renderSprintResult, startTimer),
-    );
+    const options = {
+      word: sprintStore.words[0],
+      translateWord: sprintStore.translateWords[0],
+      renderSprintResult,
+      startTimer,
+    };
+    gamesContent.append(renderSprintGame(options));
   } else {
     addMainContent(getMainPageElement());
   }

@@ -15,7 +15,7 @@ export default {
   currentGroup: 0,
   score: 0,
   time: 60,
-  timerId: setTimeout(() => {}),
+  timerId: 0,
   gameInitiator: GameInitators.menu,
   btnPressHandler: null,
 } as ISprintStore;
