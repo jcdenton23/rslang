@@ -11,10 +11,14 @@
 @import 'components/menu';
 @import 'components/buttons';
 @import 'components/paginations';
+@import 'components/timer';
 @import 'pages/main/promo';
 @import 'pages/main/advantages';
 @import 'pages/main/team';
 @import 'pages/textbook/textbook';
+@import 'pages/games/games';
+@import 'pages/games/sprint';
+@import 'pages/games/results';
 
 *,
 *::before,
@@ -46,4 +50,8 @@ a {
 
 .toast-container {
   z-index: 10000;
+}
+
+#main {
+  min-height: 100vh;
 }

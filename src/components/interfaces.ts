@@ -39,6 +39,48 @@ export interface ITextbookStore {
   cardClassName: string;
 }
 
+export interface ISprintStore {
+  words: IWord[];
+  translateWords: IWord[];
+  correctWords: IWord[];
+  wrongWords: IWord[];
+  questionNumber: number;
+  correctAnswers: number;
+  wrongAnswers: number;
+  currentInRow: number;
+  maxInRow: number;
+  currentPage: number;
+  currentGroup: number;
+  score: number;
+  time: number;
+  timerId: number;
+  gameInitiator: string;
+  btnPressHandler: ((e: KeyboardEvent) => void) | null;
+}
+
+export interface IStartTimer {
+  (time: number, selector: string): void;
+}
+
+export interface IGamesStartPage {
+  (): HTMLElement;
+}
+
+export interface ISprintResult {
+  (a: IStartTimer): HTMLElement;
+}
+
+export interface IRenderSprint {
+  word: IWord;
+  translateWord: IWord;
+  renderSprintResult: ISprintResult;
+  startTimer: IStartTimer;
+}
+
+export interface IRenderSprintGame {
+  (options: IRenderSprint): HTMLElement;
+}
+
 export interface IModalStore {
   modal: Modal | null;
 }

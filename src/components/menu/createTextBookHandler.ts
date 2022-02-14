@@ -8,8 +8,10 @@ import renderSpinner from '../Spinner/renderSpinner';
 import updateHeader from '../header/utils';
 import { updatePaginationButtons } from '../../pages/textbook/pagination/utils';
 import createSpinnerWrapper from '../Spinner/utils';
+import { removeListeners } from '../../utils';
 
 const textbookLinkHandler = async () => {
+  removeListeners();
   updateHeader('Textbook');
   const spinner = renderSpinner('black', 40);
   const spinnerWrapper = createSpinnerWrapper();
