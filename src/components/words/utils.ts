@@ -74,3 +74,22 @@ export async function toggleDifficulty(token = '5e9f5ee35eb9e72bc21af410') {
     fetchWord(token, method, hardBody);
   }
 }
+
+export async function toggleLearned(token = '5e9f5ee35eb9e72bc21af410') {
+  const body = (await getWordInfo(token)) as IResponseBodyWord;
+  const method = body ? Method.PUT : Method.POST;
+  if (body) {
+    if (body.optional.learned) {
+      body.optional.streak = 0;
+    }
+
+    body.optional.learned = !body.optional.learned;
+
+    const { difficulty, optional } = body;
+    fetchWord(token, method, { difficulty, optional });
+  } else {
+    const newBody = createBodyWord();
+    newBody.optional.learned = !newBody.optional.learned;
+    fetchWord(token, method, body);
+  }
+}

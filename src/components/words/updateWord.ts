@@ -2,7 +2,7 @@ import { Method } from '../enum';
 import { IResponseBodyWord } from '../interfaces';
 import { fetchWord, getWordInfo, updateBody } from './utils';
 
-export default async function updateWord(token = '5e9f5ee35eb9e72bc21af4a9', win = true) {
+export default async function updateWord(token = '5e9f5ee35eb9e72bc21af410', win = true) {
   const bodyWord = (await getWordInfo(token)) as IResponseBodyWord;
 
   const method = bodyWord ? Method.PUT : Method.POST;
