@@ -13,7 +13,7 @@ const renderAudioChallengeAnswer = (word: IWord, renderAudioChallengeGame: Irend
   removeListeners();
 
   const wordTitle = document.createElement('h3');
-  wordTitle.textContent = `${word.word}`;
+  wordTitle.textContent = `${word.word}: ${word.wordTranslate}`;
   cardWrapper.prepend(wordTitle);
 
   dunnoBtn.classList.toggle('hide');
