@@ -1,5 +1,6 @@
 import { IrenderAudioChallengeGame } from '../../../components/interfaces';
 import audioChallengeStore from '../../../store/audioChallengeStore';
+import { removeListeners } from '../../../utils';
 import renderResult from '../../results/renderResult';
 import tryAgainBtnListener from './createTryAgainBtnListener';
 
@@ -30,6 +31,7 @@ const renderAudioChallengeResults = (renderAudioChallengeGame: IrenderAudioChall
             </div>
         </div>
   `;
+  removeListeners();
   const correctResults = results.querySelector('.results__correct-words') as HTMLDivElement;
   const wrongResults = results.querySelector('.results__wrong-words') as HTMLDivElement;
 
