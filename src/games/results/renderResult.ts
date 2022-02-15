@@ -1,8 +1,8 @@
-import { IWord } from '../../../components/interfaces';
-import { BASE_LINK } from '../../../services/constants';
+import { IWord } from '../../components/interfaces';
+import { BASE_LINK } from '../../services/constants';
 import audioAnswerListener from './createAudioAnswerListener';
 
-const renderAnswer = (word: IWord) => {
+const renderResult = (word: IWord) => {
   const resultItem = document.createElement('div');
   resultItem.classList.add('results__item');
   resultItem.innerHTML = `
@@ -19,4 +19,4 @@ const renderAnswer = (word: IWord) => {
   return resultItem;
 };
 
-export default renderAnswer;
+export default renderResult;

@@ -19,6 +19,7 @@
 @import 'pages/games/games';
 @import 'pages/games/sprint';
 @import 'pages/games/results';
+@import 'pages/games//audioChallenge';
 
 *,
 *::before,
@@ -54,4 +55,8 @@ a {
 
 #main {
   min-height: 100vh;
+}
+
+.hide {
+  display: none;
 }

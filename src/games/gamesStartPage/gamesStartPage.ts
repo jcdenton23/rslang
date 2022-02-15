@@ -22,7 +22,7 @@ const renderGamesStartPage = (): HTMLDivElement => {
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laborum necessitatibus accusantium
           dignissimos atque repellendus labore illo temporibus vero unde quis saepe, at doloremque vel
           tempore in eligendi qui voluptatibus nisi.</p>
-      <button type="button" class="btn btn-primary audio-play-btn" disabled>Play</button>
+      <button type="button" class="btn btn-primary audio-play-btn">Play</button>
     </div>
       `;
 

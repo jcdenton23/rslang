@@ -10,9 +10,9 @@ const renderSprintGame = (props: IRenderSprint) => {
   sprint.innerHTML = `
     <h3 class="title title--fz20">Score: ${sprintStore.score}</h3>
         <h4 class="title title--fz20">+10 points</h4>
-         <div class="sprint-item card">
-         <p class="sprint-item-word">${word.word}</p>
-        <p class="sprint-item-translate">${translateWord.wordTranslate}</p>
+         <div class="sprint__item card">
+         <p class="sprint__item-word">${word.word}</p>
+        <p class="sprint__item-translate">${translateWord.wordTranslate}</p>
         <div class="sprint-item-btns">
         <button type="button" class="btn btn-correct btn-success"><i class="fas fa-arrow-left"></i> Correct</button>
         <button type="button" class="btn btn-wrong btn-danger">Wrong <i class="fas fa-arrow-right"></i></button>
