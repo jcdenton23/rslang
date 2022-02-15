@@ -1,4 +1,4 @@
-import { KKeys } from '../../../../components/enum';
+import { Keys } from '../../../../components/enum';
 import audioChallengeStore from '../../../../store/audioChallengeStore';
 
 const spacePressListener = (el: HTMLElement) => {
@@ -11,7 +11,7 @@ const spacePressListener = (el: HTMLElement) => {
   audioChallengeStore.spacePressHandler = (event: KeyboardEvent) => {
     if (event.repeat) return;
 
-    if (event.key === KKeys.space && event.target === document.body) {
+    if (event.key === Keys.space && event.target === document.body) {
       event.preventDefault();
       audioFile.play();
     }

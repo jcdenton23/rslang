@@ -59,7 +59,7 @@ export enum GameInitators {
   textbook = 'textbook',
 }
 
-export enum KKeys {
+export enum Keys {
   one = '1',
   two = '2',
   three = '3',

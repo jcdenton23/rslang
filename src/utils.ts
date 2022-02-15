@@ -1,4 +1,3 @@
-import { IWord } from './components/interfaces';
 import audioChallengeStore from './store/audioChallengeStore';
 import sprintStore from './store/sprintStore';
 
@@ -8,7 +7,7 @@ export const clearAndGetElement = (selector: string) => {
   return element;
 };
 
-export const shuffleArray = (array: [] | IWord[]) => {
+export const shuffleArray = <T>(array: T[]): T[] => {
   const newArray = array.slice();
   for (let i = newArray.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));

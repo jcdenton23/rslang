@@ -6,23 +6,29 @@
 
   &__item {
     display: flex;
-    max-width: 550px;
+    min-width: 450px;
+    max-width: 750px;
     padding: 25px 30px;
     text-align: center;
 
     &-word {
-      font-size: 20px;
+      height: 20px;
+      color: $main-color;
     }
 
     &-volume {
+      margin-top: 20px;
       font-size: 35px;
       cursor: pointer;
     }
 
     &-btns {
       display: flex;
+      flex-direction: column;
       gap: 10px;
+      justify-content: center;
       margin-top: 20px;
+      white-space: nowrap;
     }
 
     .btn-audio-dunno,

@@ -1,4 +1,4 @@
-import { Answers, KKeys } from '../../../components/enum';
+import { Answers, Keys } from '../../../components/enum';
 import sprintStore from '../../../store/sprintStore';
 import sprintAnswerHandler from '../answers/createAnswerHandler';
 import { IAnswer } from './createClickAnswerListener';
@@ -25,10 +25,10 @@ const arrowsAnswerListener = (props: IAnswer) => {
     if (e.repeat) {
       return;
     }
-    if (e.key === KKeys.ArrowLeft) {
+    if (e.key === Keys.ArrowLeft) {
       checkAnswer(Answers.correct);
     }
-    if (e.key === KKeys.ArrowRight) {
+    if (e.key === Keys.ArrowRight) {
       checkAnswer(Answers.wrong);
     }
   };
