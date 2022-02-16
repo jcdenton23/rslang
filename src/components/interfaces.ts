@@ -84,3 +84,23 @@ export interface IRenderSprintGame {
 export interface IModalStore {
   modal: Modal | null;
 }
+
+export interface IAudioChallengeStore {
+  words: IWord[];
+  correctWords: IWord[];
+  wrongWords: IWord[];
+  questionNumber: number;
+  currentPage: number;
+  currentGroup: number;
+  currentInRow: number;
+  maxInRow: number;
+  correctAnswers: number;
+  wrongAnswers: number;
+  numPressHandler: ((e: KeyboardEvent) => void) | null;
+  spacePressHandler: ((e: KeyboardEvent) => void) | null;
+  arrowRightPressHandler: ((e: KeyboardEvent) => void) | null;
+}
+
+export interface IrenderAudioChallengeGame {
+  (word: IWord, optionsWords: IWord[]): HTMLElement;
+}
