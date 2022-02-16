@@ -57,6 +57,11 @@ a {
   min-height: calc(100vh - 200px);
 }
 
+.disable {
+  pointer-events: none;
+  cursor: default;
+}
+
 .hide {
   display: none;
 }

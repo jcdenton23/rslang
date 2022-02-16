@@ -6,6 +6,7 @@ import { getCardClassName } from '../cards/utils';
 const groupPaginationListener = (nav: HTMLElement) => {
   const ulElement = nav.querySelector('ul') as HTMLUListElement;
   const listItems = nav.querySelectorAll('li');
+  const links = nav.querySelectorAll('a');
 
   const removeActiveClass = () => {
     listItems.forEach((li) => {
@@ -27,9 +28,15 @@ const groupPaginationListener = (nav: HTMLElement) => {
       removeActiveClass();
       const listItem = target.closest('.page-item') as HTMLLIElement;
       listItem.classList.add('active');
+      links.forEach((link) => link.classList.toggle('disable'));
+
       const spinner = renderSpinner('black', 30);
       nav.append(spinner);
-      const finallyCallback = () => spinner.remove();
+      const finallyCallback = () => {
+        links.forEach((link) => link.classList.toggle('disable'));
+        spinner.remove();
+      };
+
       const { group } = target.dataset;
       const cardClassName = getCardClassName(Number(group));
       loadCardsGroup(Number(group) - 1, finallyCallback, cardClassName);
