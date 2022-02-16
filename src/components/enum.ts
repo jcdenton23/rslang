@@ -64,7 +64,12 @@ export enum GameInitators {
   textbook = 'textbook',
 }
 
-export enum Arrows {
-  left = 'ArrowLeft',
-  right = 'ArrowRight',
+export enum Keys {
+  one = '1',
+  two = '2',
+  three = '3',
+  four = '4',
+  ArrowLeft = 'ArrowLeft',
+  ArrowRight = 'ArrowRight',
+  space = ' ',
 }

@@ -7,6 +7,8 @@ const correctAnswerHandler = (word: IWord) => {
   sprintStore.score += 10;
   sprintStore.correctAnswers += 1;
   sprintStore.currentInRow += 1;
+  const { maxInRow, currentInRow } = sprintStore;
+  sprintStore.maxInRow = currentInRow > maxInRow ? currentInRow : maxInRow;
   audio.src = '../../../public/assets/sounds/correct.wav';
   audio.play();
 };
