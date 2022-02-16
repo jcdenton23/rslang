@@ -1,3 +1,5 @@
+import { Button } from 'bootstrap';
+
 const audioListener = (card: HTMLDivElement) => {
   const toggleIcon = (icon: HTMLElement) => {
     icon.classList.toggle('fa-volume-up');
@@ -35,6 +37,14 @@ const audioListener = (card: HTMLDivElement) => {
       isPlay = false;
     }
   });
+
+  const btnLearnedOnPage = card.querySelector('#btn-learned') as HTMLButtonElement;
+  const btnlearned = new Button(btnLearnedOnPage);
+  btnLearnedOnPage.addEventListener('click', () => btnlearned.toggle());
+
+  const btnHardOnPage = card.querySelector('#btn-hard') as HTMLButtonElement;
+  const btnHard = new Button(btnHardOnPage);
+  btnHardOnPage.addEventListener('click', () => btnHard.toggle());
 };
 
 export default audioListener;

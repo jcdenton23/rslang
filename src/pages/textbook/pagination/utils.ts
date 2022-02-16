@@ -2,6 +2,7 @@ import textbookStore from '../../../store/textbookStore';
 import { BASE_LINK, FIRST_PAGE, LAST_PAGE } from '../../../services/constants';
 import { updateCards } from '../cards/utils';
 import fetchWithErrorHandling from '../../../services/fetchWithErrorHandling';
+import { IRequests } from '../../../components/interfaces';
 
 export const updatePaginationButtons = () => {
   const nextBtn = document.querySelector('.pagination-next') as HTMLButtonElement;
@@ -17,7 +18,14 @@ export const loadCardsPage = async (page: number, finallyCallback: () => void, c
 
   const { textbookGroup } = textbookStore;
   const url = `${BASE_LINK}words?group=${textbookGroup}&page=${page}`;
-  const res = await fetchWithErrorHandling(url, finallyCallback);
+
+  const request: IRequests = {
+    url,
+    finallyCallback,
+    showNotification: true,
+  };
+
+  const res = await fetchWithErrorHandling(request);
 
   if (res) {
     textbookStore.words = res;
@@ -32,7 +40,13 @@ export const loadCardsGroup = async (group: number, finallyCallback: () => void,
   const currentPage = document.querySelector('.current-page') as HTMLDivElement;
   const url = `${BASE_LINK}words?group=${group}&page=0`;
 
-  const res = await fetchWithErrorHandling(url, finallyCallback);
+  const request: IRequests = {
+    url,
+    finallyCallback,
+    showNotification: true,
+  };
+
+  const res = await fetchWithErrorHandling(request);
   if (res) {
     textbookStore.words = res;
     textbookStore.textbookPage = 0;

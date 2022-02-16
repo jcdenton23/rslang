@@ -2,7 +2,7 @@ import { BASE_LINK } from '../../services/constants';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import authStore from '../../store/authStore';
 import { Difficulty, Method } from '../enum';
-import { IBodyWord, IResponseBodyWord } from '../interfaces';
+import { IBodyWord, IRequests, IResponseBodyWord } from '../interfaces';
 
 export async function getWordInfo(token: string) {
   const url = `${BASE_LINK}users/${authStore.userId}/words/${token}`;
@@ -53,12 +53,18 @@ export async function fetchWord(token: string, method: string, body: IBodyWord) 
   const url = `${BASE_LINK}users/${authStore.userId}/words/${token}`;
   const headers = new Headers({ 'Content-Type': 'application/json', Authorization: `Bearer ${authStore.token}` });
 
-  const request = await fetchWithErrorHandling(url, () => {}, {
-    method,
-    body: JSON.stringify(body),
-    headers,
-  });
-  console.log(request);
+  const request: IRequests = {
+    url,
+    options: {
+      method,
+      body: JSON.stringify(body),
+      headers,
+    },
+    showNotification: true,
+  };
+
+  const response = await fetchWithErrorHandling(request);
+  console.log(response);
 }
 
 export async function toggleDifficulty(token = '5e9f5ee35eb9e72bc21af410') {

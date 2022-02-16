@@ -1,5 +1,12 @@
 import { Modal } from 'bootstrap';
 
+export interface IRequests {
+  url: string;
+  finallyCallback?: () => void;
+  options?: RequestInit;
+  showNotification: boolean;
+}
+
 export interface IUser {
   name?: string;
   email: string;
