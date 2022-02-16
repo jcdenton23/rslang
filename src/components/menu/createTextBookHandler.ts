@@ -10,8 +10,10 @@ import { updatePaginationButtons } from '../../pages/textbook/pagination/utils';
 import createSpinnerWrapper from '../Spinner/utils';
 import { removeListeners } from '../../utils';
 import { IRequests } from '../interfaces';
+import { getAllUserWords } from '../utils';
 
 const textbookLinkHandler = async () => {
+  await getAllUserWords();
   removeListeners();
   updateHeader('Textbook');
   const spinner = renderSpinner('black', 40);

@@ -1,4 +1,5 @@
 import { Button } from 'bootstrap';
+import { toggleDifficulty, toggleLearned } from '../words/utils';
 
 const audioListener = (card: HTMLDivElement) => {
   const toggleIcon = (icon: HTMLElement) => {
@@ -38,13 +39,38 @@ const audioListener = (card: HTMLDivElement) => {
     }
   });
 
-  const btnLearnedOnPage = card.querySelector('#btn-learned') as HTMLButtonElement;
-  const btnlearned = new Button(btnLearnedOnPage);
-  btnLearnedOnPage.addEventListener('click', () => btnlearned.toggle());
+  const { id } = card.dataset;
 
   const btnHardOnPage = card.querySelector('#btn-hard') as HTMLButtonElement;
   const btnHard = new Button(btnHardOnPage);
-  btnHardOnPage.addEventListener('click', () => btnHard.toggle());
+  btnHardOnPage.addEventListener('click', () => {
+    toggleDifficulty(id as string);
+    btnHard.toggle();
+    const isActiveHard = btnHardOnPage.classList.contains('active');
+
+    if (isActiveHard) {
+      card.setAttribute('hidden', 'hidden');
+    }
+  });
+
+  const btnLearnedOnPage = card.querySelector('#btn-learned') as HTMLButtonElement;
+  const btnlearned = new Button(btnLearnedOnPage);
+
+  btnLearnedOnPage.addEventListener('click', () => {
+    toggleLearned(id as string);
+    const isActiveLearned = !btnLearnedOnPage.classList.contains('active');
+    const isActiveHard = btnHardOnPage.classList.contains('active');
+
+    if (isActiveLearned) {
+      btnHardOnPage.disabled = true;
+      if (isActiveHard) {
+        btnHard.toggle();
+      }
+    } else {
+      btnHardOnPage.disabled = false;
+    }
+    btnlearned.toggle();
+  });
 };
 
 export default audioListener;

@@ -1,4 +1,4 @@
-import { IrenderAudioChallengeGame } from '../../components/interfaces';
+import { IrenderAudioChallengeGame, IRequests } from '../../components/interfaces';
 import renderSpinner from '../../components/Spinner/renderSpinner';
 import createSpinnerWrapper from '../../components/Spinner/utils';
 import addMainContent from '../../pages/addMainContent';
@@ -26,7 +26,14 @@ export const loadAudioChallengeGame = async (url: string, renderAudioChallengeGa
   gamesContent.append(spinnerWrapper);
 
   const finallyCallback = () => spinnerWrapper.remove();
-  const res = await fetchWithErrorHandling(url, finallyCallback);
+
+  const request: IRequests = {
+    url,
+    finallyCallback,
+    showNotification: true,
+  };
+
+  const res = await fetchWithErrorHandling(request);
 
   if (res) {
     audioChallengeStore.words = shuffleArray(res);

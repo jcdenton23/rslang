@@ -8,11 +8,13 @@ export async function getWordInfo(token: string) {
   const url = `${BASE_LINK}users/${authStore.userId}/words/${token}`;
   const headers = new Headers({ 'Content-Type': 'application/json', Authorization: `Bearer ${authStore.token}` });
 
-  const res = await fetch(url, { headers });
-  if (res.ok) {
-    return res.json();
-  }
-  return false;
+  const request: IRequests = {
+    url,
+    options: { headers },
+    showNotification: false,
+  };
+
+  return fetchWithErrorHandling(request);
 }
 
 function createBodyWord(hard = false) {
@@ -63,13 +65,13 @@ export async function fetchWord(token: string, method: string, body: IBodyWord) 
     showNotification: true,
   };
 
-  const response = await fetchWithErrorHandling(request);
-  console.log(response);
+  await fetchWithErrorHandling(request);
 }
 
-export async function toggleDifficulty(token = '5e9f5ee35eb9e72bc21af410') {
+export async function toggleDifficulty(token: string) {
   const body = (await getWordInfo(token)) as IResponseBodyWord;
   const method = body ? Method.PUT : Method.POST;
+
   if (body) {
     body.difficulty = body.difficulty === Difficulty.normal ? Difficulty.hard : Difficulty.normal;
     const { difficulty, optional } = body;
@@ -77,16 +79,20 @@ export async function toggleDifficulty(token = '5e9f5ee35eb9e72bc21af410') {
   } else {
     const isHard = true;
     const hardBody = createBodyWord(isHard);
+
     fetchWord(token, method, hardBody);
   }
 }
 
-export async function toggleLearned(token = '5e9f5ee35eb9e72bc21af410') {
+export async function toggleLearned(token: string) {
   const body = (await getWordInfo(token)) as IResponseBodyWord;
   const method = body ? Method.PUT : Method.POST;
+
   if (body) {
     if (body.optional.learned) {
       body.optional.streak = 0;
+    } else {
+      body.difficulty = Difficulty.normal;
     }
 
     body.optional.learned = !body.optional.learned;
@@ -96,6 +102,7 @@ export async function toggleLearned(token = '5e9f5ee35eb9e72bc21af410') {
   } else {
     const newBody = createBodyWord();
     newBody.optional.learned = !newBody.optional.learned;
-    fetchWord(token, method, body);
+
+    fetchWord(token, method, newBody);
   }
 }

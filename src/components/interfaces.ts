@@ -92,6 +92,10 @@ export interface IModalStore {
   modal: Modal | null;
 }
 
+export interface IUserWordsStore {
+  words: IResponseBodyWord[] | null;
+}
+
 export interface IOptionalWord {
   streak: number;
   wins: number;
