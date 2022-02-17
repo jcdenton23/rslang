@@ -38,5 +38,7 @@ export async function getAllUserWords() {
     showNotification: false,
   };
 
-  userWordsStore.words = ((await fetchWithErrorHandling(request)) as IResponseBodyWord[]) ?? [];
+  const response = (await fetchWithErrorHandling(request)) as IResponseBodyWord[];
+
+  userWordsStore.words = response || [];
 }

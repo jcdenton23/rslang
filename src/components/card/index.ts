@@ -3,6 +3,7 @@ import { BASE_LINK } from '../../services/constants';
 import createAudioListener from './createCardListener';
 import userWordsStore from '../../store/userWordsStore';
 import { Difficulty } from '../enum';
+import authStore from '../../store/authStore';
 
 const renderCard = (word: IWord, classCardName: string) => {
   // eslint-disable-next-line operator-linebreak
@@ -31,7 +32,8 @@ const renderCard = (word: IWord, classCardName: string) => {
     </div>
     <p class="textbook__card-translate translate">${word.wordTranslate}</p>
     <button type="button" id="btn-learned" 
-    class="btn btn-outline-success ${learned ? 'active' : ''}">Learned</button>
+    class="btn btn-outline-success ${learned ? 'active' : ''}"
+    ${!authStore.name ? 'style="display:none;' : ''}>Learned</button>
     <button type="button" id="btn-hard" 
     class="btn btn-outline-warning ${difficulty === Difficulty.hard ? 'active' : ''}">Hard</button>
     <div class="textbook__card-meaning">
