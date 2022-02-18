@@ -7,18 +7,17 @@ import authStore from '../../store/authStore';
 import createButtonListener from './createButtonListener';
 
 const renderCard = (word: IWord, classCardName: string) => {
-  const bodyWord = userWordsStore.words?.find((userWord) => userWord.wordId === word.id);
+  const userWord = userWordsStore.words?.find((currentWord) => currentWord.wordId === word.id);
 
-  const learned = bodyWord?.optional.learned;
-  const difficulty = bodyWord?.difficulty;
+  const learned = userWord?.optional.learned;
+  const difficulty = userWord?.difficulty;
   const card = document.createElement('div');
   card.classList.add('textbook__card', classCardName);
   card.dataset.id = word.id;
 
   const buttons = `
 <button type="button" id="btn-learned" 
-class="btn btn-outline-success ${learned ? 'active' : ''}"
-${!authStore.name ? 'style="display:none;' : ''}>Learned</button>
+class="btn btn-outline-success ${learned ? 'active' : ''}">Learned</button>
 <button type="button" id="btn-hard" 
 class="btn btn-outline-warning ${difficulty === Difficulty.hard ? 'active' : ''}">Hard</button>`;
 

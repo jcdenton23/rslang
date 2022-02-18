@@ -38,38 +38,38 @@ export async function getWordInfo(wordId: string) {
   return fetchWithErrorHandling<IResponseWordInfo>(request);
 }
 
-function createBodyWord({ difficulty = Difficulty.normal, learned = false }) {
+function createWordInfo({ difficulty = Difficulty.normal, learned = false }) {
   return {
     difficulty,
     optional: { streak: 0, correctAnswer: 0, wrongAnswer: 0, learned },
   };
 }
 
-export function updateBody(isCorrect: boolean, body?: IWordInfo) {
+export function updateWordInfo(isCorrect: boolean, wordInfo?: IWordInfo) {
   const GOOD_HARD_SCORE = 5;
   const GOOD_NORMAL_SCORE = 3;
 
-  const currentBody = body || createBodyWord({});
+  const currentWord = wordInfo || createWordInfo({});
 
   if (isCorrect) {
-    currentBody.optional.streak += 1;
-    currentBody.optional.correctAnswer += 1;
+    currentWord.optional.streak += 1;
+    currentWord.optional.correctAnswer += 1;
   } else {
-    currentBody.optional.streak = 0;
-    currentBody.optional.wrongAnswer += 1;
-    currentBody.optional.learned = false;
+    currentWord.optional.streak = 0;
+    currentWord.optional.wrongAnswer += 1;
+    currentWord.optional.learned = false;
   }
 
-  const countWins = currentBody.optional.streak;
-  const { difficulty } = currentBody;
+  const countWins = currentWord.optional.streak;
+  const { difficulty } = currentWord;
   const canHard = countWins >= GOOD_HARD_SCORE && difficulty === Difficulty.hard;
   const canNormal = countWins >= GOOD_NORMAL_SCORE && difficulty === Difficulty.normal;
 
   if (canHard || canNormal) {
-    currentBody.optional.learned = true;
-    currentBody.difficulty = Difficulty.normal;
+    currentWord.optional.learned = true;
+    currentWord.difficulty = Difficulty.normal;
   }
-  return currentBody;
+  return currentWord;
 }
 
 export async function fetchWord(wordId: string, method: string, { difficulty, optional }: IWordInfo) {
@@ -90,37 +90,36 @@ export async function fetchWord(wordId: string, method: string, { difficulty, op
 }
 
 export async function toggleDifficulty(wordId: string) {
-  const body = await getWordInfo(wordId);
-  const method = body ? Method.PUT : Method.POST;
+  const wordInfo = await getWordInfo(wordId);
 
-  if (body) {
-    body.difficulty = body.difficulty === Difficulty.normal ? Difficulty.hard : Difficulty.normal;
-    await fetchWord(wordId, method, body);
+  if (wordInfo) {
+    wordInfo.difficulty = wordInfo.difficulty === Difficulty.normal ? Difficulty.hard : Difficulty.normal;
+    await fetchWord(wordId, Method.PUT, wordInfo);
   } else {
-    const hardBody = createBodyWord({ difficulty: Difficulty.hard });
+    const hardWord = createWordInfo({ difficulty: Difficulty.hard });
 
-    await fetchWord(wordId, method, hardBody);
+    await fetchWord(wordId, Method.POST, hardWord);
   }
 }
 
 export async function toggleLearned(wordId: string) {
-  const body = await getWordInfo(wordId);
-  const method = body ? Method.PUT : Method.POST;
+  const wordInfo = await getWordInfo(wordId);
+  const method = wordInfo ? Method.PUT : Method.POST;
 
-  if (body) {
-    if (body.optional.learned) {
-      body.optional.streak = 0;
+  if (wordInfo) {
+    if (wordInfo.optional.learned) {
+      wordInfo.optional.streak = 0;
     } else {
-      body.difficulty = Difficulty.normal;
+      wordInfo.difficulty = Difficulty.normal;
     }
 
-    body.optional.learned = !body.optional.learned;
+    wordInfo.optional.learned = !wordInfo.optional.learned;
 
-    await fetchWord(wordId, method, body);
+    await fetchWord(wordId, method, wordInfo);
   } else {
-    const newBody = createBodyWord({ learned: true });
+    const newWordInfo = createWordInfo({ learned: true });
 
-    await fetchWord(wordId, method, newBody);
+    await fetchWord(wordId, method, newWordInfo);
   }
 }
 
@@ -129,10 +128,10 @@ export async function updateWord(wordId: string, isCorrect: boolean) {
 
   if (wordInfo) {
     const { difficulty, optional } = wordInfo;
-    const body = updateBody(isCorrect, { difficulty, optional });
-    await fetchWord(wordId, Method.PUT, body);
+    const currentWordInfo = updateWordInfo(isCorrect, { difficulty, optional });
+    await fetchWord(wordId, Method.PUT, currentWordInfo);
   } else {
-    const body = updateBody(isCorrect);
-    await fetchWord(wordId, Method.POST, body);
+    const currentWordInfo = updateWordInfo(isCorrect);
+    await fetchWord(wordId, Method.POST, currentWordInfo);
   }
 }
