@@ -2,7 +2,9 @@ import textbookStore from '../../../store/textbookStore';
 import { BASE_LINK, FIRST_PAGE, LAST_PAGE } from '../../../services/constants';
 import { updateCards } from '../cards/utils';
 import fetchWithErrorHandling from '../../../services/fetchWithErrorHandling';
-import { IRequests } from '../../../components/interfaces';
+import { IRequests, IWord } from '../../../components/interfaces';
+import authStore from '../../../store/authStore';
+import { getAllUserWords } from '../../../components/words/utils';
 
 export const updatePaginationButtons = () => {
   const nextBtn = document.querySelector('.pagination-next') as HTMLButtonElement;
@@ -25,9 +27,13 @@ export const loadCardsPage = async (page: number, finallyCallback: () => void, c
     showNotification: true,
   };
 
-  const res = await fetchWithErrorHandling(request);
+  const res = await fetchWithErrorHandling<IWord[]>(request);
 
   if (res) {
+    if (authStore.name) {
+      await getAllUserWords();
+    }
+
     textbookStore.words = res;
     updateCards(cardClassName);
     currentPage.innerHTML = `Page: ${page + 1}`;
@@ -46,8 +52,11 @@ export const loadCardsGroup = async (group: number, finallyCallback: () => void,
     showNotification: true,
   };
 
-  const res = await fetchWithErrorHandling(request);
+  const res = await fetchWithErrorHandling<IWord[]>(request);
   if (res) {
+    if (authStore.name) {
+      await getAllUserWords();
+    }
     textbookStore.words = res;
     textbookStore.textbookPage = 0;
     textbookStore.textbookGroup = group;

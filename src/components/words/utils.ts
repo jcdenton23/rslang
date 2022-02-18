@@ -20,7 +20,7 @@ export async function getAllUserWords() {
     showNotification: false,
   };
 
-  const response = (await fetchWithErrorHandling(request)) as IResponseWordInfo[];
+  const response = await fetchWithErrorHandling<IResponseWordInfo[]>(request);
 
   userWordsStore.words = response || [];
 }
@@ -35,7 +35,7 @@ export async function getWordInfo(wordId: string) {
     showNotification: false,
   };
 
-  return fetchWithErrorHandling(request);
+  return fetchWithErrorHandling<IResponseWordInfo>(request);
 }
 
 function createBodyWord({ difficulty = Difficulty.normal, learned = false }) {
@@ -86,25 +86,25 @@ export async function fetchWord(wordId: string, method: string, { difficulty, op
     showNotification: true,
   };
 
-  await fetchWithErrorHandling(request);
+  await fetchWithErrorHandling<IResponseWordInfo>(request);
 }
 
 export async function toggleDifficulty(wordId: string) {
-  const body = (await getWordInfo(wordId)) as IResponseWordInfo;
+  const body = await getWordInfo(wordId);
   const method = body ? Method.PUT : Method.POST;
 
   if (body) {
     body.difficulty = body.difficulty === Difficulty.normal ? Difficulty.hard : Difficulty.normal;
-    fetchWord(wordId, method, body);
+    await fetchWord(wordId, method, body);
   } else {
     const hardBody = createBodyWord({ difficulty: Difficulty.hard });
 
-    fetchWord(wordId, method, hardBody);
+    await fetchWord(wordId, method, hardBody);
   }
 }
 
 export async function toggleLearned(wordId: string) {
-  const body = (await getWordInfo(wordId)) as IResponseWordInfo;
+  const body = await getWordInfo(wordId);
   const method = body ? Method.PUT : Method.POST;
 
   if (body) {
@@ -116,23 +116,23 @@ export async function toggleLearned(wordId: string) {
 
     body.optional.learned = !body.optional.learned;
 
-    fetchWord(wordId, method, body);
+    await fetchWord(wordId, method, body);
   } else {
     const newBody = createBodyWord({ learned: true });
 
-    fetchWord(wordId, method, newBody);
+    await fetchWord(wordId, method, newBody);
   }
 }
 
 export async function updateWord(wordId: string, isCorrect: boolean) {
-  const wordInfo = (await getWordInfo(wordId)) as IResponseWordInfo;
+  const wordInfo = await getWordInfo(wordId);
 
   if (wordInfo) {
     const { difficulty, optional } = wordInfo;
     const body = updateBody(isCorrect, { difficulty, optional });
-    fetchWord(wordId, Method.PUT, body);
+    await fetchWord(wordId, Method.PUT, body);
   } else {
     const body = updateBody(isCorrect);
-    fetchWord(wordId, Method.POST, body);
+    await fetchWord(wordId, Method.POST, body);
   }
 }

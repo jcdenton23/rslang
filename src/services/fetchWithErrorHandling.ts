@@ -3,7 +3,7 @@ import { IRequests } from '../components/interfaces';
 import renderNotification from '../components/Notification/renderNotification';
 import findErrorMessage from './utils';
 
-export default async (request: IRequests) => {
+export default async <T>(request: IRequests): Promise<T | undefined> => {
   const { url, finallyCallback, options = {}, showNotification } = request;
   try {
     const res = await fetch(url, options);
@@ -20,9 +20,7 @@ export default async (request: IRequests) => {
       renderNotification(findErrorMessage(errMessage), PaletteBootstrap.error);
     }
   } finally {
-    if (finallyCallback) {
-      finallyCallback();
-    }
+    finallyCallback?.();
   }
-  return false;
+  return undefined;
 };

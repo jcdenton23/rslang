@@ -1,3 +1,5 @@
+import addMainContent from '../../pages/addMainContent';
+import { getMainPageElement } from '../../pages/main/mainPage';
 import { BASE_LINK } from '../../services/constants';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import authStore from '../../store/authStore';
@@ -29,7 +31,7 @@ export async function signIn(user: IUser, finallyCallback: () => void) {
     showNotification: true,
   };
 
-  const response: IAuth = await fetchWithErrorHandling(request);
+  const response = await fetchWithErrorHandling<IAuth>(request);
 
   if (response) {
     modalStore.modal?.hide();
@@ -43,6 +45,7 @@ export async function signIn(user: IUser, finallyCallback: () => void) {
     renderHeader();
     createLoginListeners();
     clearForm();
+    addMainContent(getMainPageElement());
   }
 }
 
@@ -61,7 +64,7 @@ export async function signUp(user: IUser, finallyCallback: () => void) {
     showNotification: true,
   };
 
-  const response = await fetchWithErrorHandling(request);
+  const response = await fetchWithErrorHandling<IAuth>(request);
 
   if (response) {
     signIn(user, finallyCallback);
