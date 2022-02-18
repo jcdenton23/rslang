@@ -5,7 +5,7 @@ import modalStore from '../../store/modalStore';
 import { Method } from '../enum';
 import renderHeader from '../header';
 import createLoginListeners from '../header/createLoginListeners';
-import { IAuth, IRequests, IUser } from '../interfaces';
+import { IAuth, IUser } from '../interfaces';
 
 function clearForm() {
   document.querySelectorAll('#login-modal form')?.forEach((form) => {
@@ -18,7 +18,7 @@ export async function signIn(user: IUser, finallyCallback: () => void) {
   const url = `${BASE_LINK}signin`;
   const headers = new Headers({ 'Content-Type': 'application/json' });
 
-  const request: IRequests = {
+  const request = {
     url,
     finallyCallback,
     options: {
@@ -50,7 +50,7 @@ export async function signUp(user: IUser, finallyCallback: () => void) {
   const url = `${BASE_LINK}users`;
   const headers = new Headers({ 'Content-Type': 'application/json' });
 
-  const request: IRequests = {
+  const request = {
     url,
     finallyCallback,
     options: {

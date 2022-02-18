@@ -9,11 +9,8 @@ import updateHeader from '../header/utils';
 import { updatePaginationButtons } from '../../pages/textbook/pagination/utils';
 import createSpinnerWrapper from '../Spinner/utils';
 import { removeListeners } from '../../utils';
-import { IRequests } from '../interfaces';
-import { getAllUserWords } from '../utils';
 
 const textbookLinkHandler = async () => {
-  await getAllUserWords();
   removeListeners();
   updateHeader('Textbook');
   const spinner = renderSpinner('black', 40);
@@ -25,9 +22,7 @@ const textbookLinkHandler = async () => {
   const url = `${BASE_LINK}words?group=${textbookGroup}&page=${textbookPage}`;
   addMainContent(spinnerWrapper);
 
-  const request: IRequests = { url, finallyCallback, showNotification: true };
-
-  const res = await fetchWithErrorHandling(request);
+  const res = await fetchWithErrorHandling({ url, finallyCallback, showNotification: true });
   if (res) {
     textbookStore.words = res;
     addMainContent(getTextbookElement());

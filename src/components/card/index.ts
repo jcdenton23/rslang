@@ -1,23 +1,27 @@
-import { IResponseBodyWord, IWord } from '../interfaces';
+import { IWord } from '../interfaces';
 import { BASE_LINK } from '../../services/constants';
-import createAudioListener from './createCardListener';
+import createAudioListener from './createAudioListener';
 import userWordsStore from '../../store/userWordsStore';
 import { Difficulty } from '../enum';
 import authStore from '../../store/authStore';
+import createButtonListener from './createButtonListener';
 
 const renderCard = (word: IWord, classCardName: string) => {
-  // eslint-disable-next-line operator-linebreak
-  const bodyWord =
-    userWordsStore.words?.find((elem) => {
-      const currentWord = elem as IResponseBodyWord;
-      return currentWord.wordId === word.id;
-    }) ?? false;
+  const bodyWord = userWordsStore.words?.find((userWord) => userWord.wordId === word.id);
 
-  const learned = bodyWord ? bodyWord.optional.learned : false;
-  const difficulty = bodyWord ? bodyWord.difficulty : false;
+  const learned = bodyWord?.optional.learned;
+  const difficulty = bodyWord?.difficulty;
   const card = document.createElement('div');
   card.classList.add('textbook__card', classCardName);
   card.dataset.id = word.id;
+
+  const buttons = `
+<button type="button" id="btn-learned" 
+class="btn btn-outline-success ${learned ? 'active' : ''}"
+${!authStore.name ? 'style="display:none;' : ''}>Learned</button>
+<button type="button" id="btn-hard" 
+class="btn btn-outline-warning ${difficulty === Difficulty.hard ? 'active' : ''}">Hard</button>`;
+
   const markup = `
     <div class="textbook__card-image">
     <img src="${BASE_LINK}${word.image}">
@@ -31,11 +35,7 @@ const renderCard = (word: IWord, classCardName: string) => {
     <audio src="${BASE_LINK}${word.audioExample}"></audio>
     </div>
     <p class="textbook__card-translate translate">${word.wordTranslate}</p>
-    <button type="button" id="btn-learned" 
-    class="btn btn-outline-success ${learned ? 'active' : ''}"
-    ${!authStore.name ? 'style="display:none;' : ''}>Learned</button>
-    <button type="button" id="btn-hard" 
-    class="btn btn-outline-warning ${difficulty === Difficulty.hard ? 'active' : ''}">Hard</button>
+    ${authStore.name ? buttons : ''}
     <div class="textbook__card-meaning">
       <p>${word.textMeaning}</p>
       <p class="translate">${word.textMeaningTranslate}</p>
@@ -49,11 +49,10 @@ const renderCard = (word: IWord, classCardName: string) => {
 
   card.innerHTML = markup;
 
-  if (difficulty === Difficulty.hard) {
-    card.setAttribute('hidden', 'hidden');
-  }
-
   createAudioListener(card);
+  if (authStore.name) {
+    createButtonListener(card);
+  }
   return card;
 };
 

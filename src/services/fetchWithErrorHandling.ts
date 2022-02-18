@@ -4,9 +4,9 @@ import renderNotification from '../components/Notification/renderNotification';
 import findErrorMessage from './utils';
 
 export default async (request: IRequests) => {
-  const { url, finallyCallback, options, showNotification } = request;
+  const { url, finallyCallback, options = {}, showNotification } = request;
   try {
-    const res = await fetch(url, options ?? {});
+    const res = await fetch(url, options);
     if (!res.ok) {
       const textError = await res.text();
       throw new Error(textError);

@@ -1,12 +1,33 @@
 import { BASE_LINK } from '../../services/constants';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import authStore from '../../store/authStore';
+import userWordsStore from '../../store/userWordsStore';
 import { Difficulty, Method } from '../enum';
-import { IBodyWord, IRequests, IResponseBodyWord } from '../interfaces';
+import { IWordInfo, IRequests, IResponseWordInfo } from '../interfaces';
 
-export async function getWordInfo(token: string) {
-  const url = `${BASE_LINK}users/${authStore.userId}/words/${token}`;
-  const headers = new Headers({ 'Content-Type': 'application/json', Authorization: `Bearer ${authStore.token}` });
+const getHeaderForUser = () =>
+  // eslint-disable-next-line implicit-arrow-linebreak
+  new Headers({ 'Content-Type': 'application/json', Authorization: `Bearer ${authStore.token}` });
+
+export async function getAllUserWords() {
+  const url = `${BASE_LINK}users/${authStore.userId}/words`;
+
+  const headers = getHeaderForUser();
+
+  const request = {
+    url,
+    options: { headers },
+    showNotification: false,
+  };
+
+  const response = (await fetchWithErrorHandling(request)) as IResponseWordInfo[];
+
+  userWordsStore.words = response || [];
+}
+
+export async function getWordInfo(wordId: string) {
+  const url = `${BASE_LINK}users/${authStore.userId}/words/${wordId}`;
+  const headers = getHeaderForUser();
 
   const request: IRequests = {
     url,
@@ -17,25 +38,25 @@ export async function getWordInfo(token: string) {
   return fetchWithErrorHandling(request);
 }
 
-function createBodyWord(hard = false) {
+function createBodyWord({ difficulty = Difficulty.normal, learned = false }) {
   return {
-    difficulty: hard ? Difficulty.hard : Difficulty.normal,
-    optional: { streak: 0, wins: 0, losses: 0, learned: false },
+    difficulty,
+    optional: { streak: 0, correctAnswer: 0, wrongAnswer: 0, learned },
   };
 }
 
-export function updateBody(win: boolean, body?: IBodyWord) {
+export function updateBody(isCorrect: boolean, body?: IWordInfo) {
   const GOOD_HARD_SCORE = 5;
   const GOOD_NORMAL_SCORE = 3;
 
-  const currentBody = body || createBodyWord();
+  const currentBody = body || createBodyWord({});
 
-  if (win) {
+  if (isCorrect) {
     currentBody.optional.streak += 1;
-    currentBody.optional.wins += 1;
+    currentBody.optional.correctAnswer += 1;
   } else {
     currentBody.optional.streak = 0;
-    currentBody.optional.losses += 1;
+    currentBody.optional.wrongAnswer += 1;
     currentBody.optional.learned = false;
   }
 
@@ -51,15 +72,15 @@ export function updateBody(win: boolean, body?: IBodyWord) {
   return currentBody;
 }
 
-export async function fetchWord(token: string, method: string, body: IBodyWord) {
-  const url = `${BASE_LINK}users/${authStore.userId}/words/${token}`;
-  const headers = new Headers({ 'Content-Type': 'application/json', Authorization: `Bearer ${authStore.token}` });
+export async function fetchWord(wordId: string, method: string, { difficulty, optional }: IWordInfo) {
+  const url = `${BASE_LINK}users/${authStore.userId}/words/${wordId}`;
+  const headers = getHeaderForUser();
 
-  const request: IRequests = {
+  const request = {
     url,
     options: {
       method,
-      body: JSON.stringify(body),
+      body: JSON.stringify({ difficulty, optional }),
       headers,
     },
     showNotification: true,
@@ -68,24 +89,22 @@ export async function fetchWord(token: string, method: string, body: IBodyWord) 
   await fetchWithErrorHandling(request);
 }
 
-export async function toggleDifficulty(token: string) {
-  const body = (await getWordInfo(token)) as IResponseBodyWord;
+export async function toggleDifficulty(wordId: string) {
+  const body = (await getWordInfo(wordId)) as IResponseWordInfo;
   const method = body ? Method.PUT : Method.POST;
 
   if (body) {
     body.difficulty = body.difficulty === Difficulty.normal ? Difficulty.hard : Difficulty.normal;
-    const { difficulty, optional } = body;
-    fetchWord(token, method, { difficulty, optional });
+    fetchWord(wordId, method, body);
   } else {
-    const isHard = true;
-    const hardBody = createBodyWord(isHard);
+    const hardBody = createBodyWord({ difficulty: Difficulty.hard });
 
-    fetchWord(token, method, hardBody);
+    fetchWord(wordId, method, hardBody);
   }
 }
 
-export async function toggleLearned(token: string) {
-  const body = (await getWordInfo(token)) as IResponseBodyWord;
+export async function toggleLearned(wordId: string) {
+  const body = (await getWordInfo(wordId)) as IResponseWordInfo;
   const method = body ? Method.PUT : Method.POST;
 
   if (body) {
@@ -97,12 +116,23 @@ export async function toggleLearned(token: string) {
 
     body.optional.learned = !body.optional.learned;
 
-    const { difficulty, optional } = body;
-    fetchWord(token, method, { difficulty, optional });
+    fetchWord(wordId, method, body);
   } else {
-    const newBody = createBodyWord();
-    newBody.optional.learned = !newBody.optional.learned;
+    const newBody = createBodyWord({ learned: true });
 
-    fetchWord(token, method, newBody);
+    fetchWord(wordId, method, newBody);
+  }
+}
+
+export async function updateWord(wordId: string, isCorrect: boolean) {
+  const wordInfo = (await getWordInfo(wordId)) as IResponseWordInfo;
+
+  if (wordInfo) {
+    const { difficulty, optional } = wordInfo;
+    const body = updateBody(isCorrect, { difficulty, optional });
+    fetchWord(wordId, Method.PUT, body);
+  } else {
+    const body = updateBody(isCorrect);
+    fetchWord(wordId, Method.POST, body);
   }
 }

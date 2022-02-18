@@ -93,22 +93,22 @@ export interface IModalStore {
 }
 
 export interface IUserWordsStore {
-  words: IResponseBodyWord[] | null;
+  words: IResponseWordInfo[] | null;
 }
 
 export interface IOptionalWord {
   streak: number;
-  wins: number;
-  losses: number;
+  correctAnswer: number;
+  wrongAnswer: number;
   learned: boolean;
 }
 
-export interface IBodyWord {
+export interface IWordInfo {
   difficulty: string;
   optional: IOptionalWord;
 }
 
-export interface IResponseBodyWord extends IBodyWord {
+export interface IResponseWordInfo extends IWordInfo {
   id: string;
   wordId: string;
 }
