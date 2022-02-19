@@ -12,9 +12,9 @@ import { getAllUserWords } from '../words/utils';
 import { IWord } from '../interfaces';
 import { checkIsPageLearned } from '../../pages/textbook/groupPagination/utils';
 import { Routes } from '../enum';
-import router from '../../router';
+import { IRouter } from '../../router/types';
 
-const textbookLinkHandler = async () => {
+const textbookLinkHandler = async (router: IRouter) => {
   removeListeners();
   updateHeader('Textbook');
   const spinner = renderSpinner('black', 40);

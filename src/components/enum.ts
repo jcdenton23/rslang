@@ -83,4 +83,5 @@ export enum Routes {
   textbook = 'textbook',
   games = 'games',
   statistic = 'statistic',
+  textbookHander = 'textbookHandler',
 }

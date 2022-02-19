@@ -2,14 +2,19 @@ import { Routes } from '../components/enum';
 import getGamesPageElement from '../games/gamesPage';
 import addMainContent from '../pages/addMainContent';
 import { getMainPageElement } from '../pages/main/mainPage';
-import getTextbookElement from '../pages/textbook/textbookPage';
 import { IRouter } from './types';
+import createTextBookHandler from '../components/menu/createTextBookHandler';
+import getTextbookElement from '../pages/textbook/textbookPage';
 
 const router: IRouter = {
   push(route: string) {
     switch (route) {
       case Routes.main: {
         addMainContent(getMainPageElement(this));
+        break;
+      }
+      case Routes.textbookHander: {
+        createTextBookHandler(this);
         break;
       }
       case Routes.textbook: {
