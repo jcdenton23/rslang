@@ -4,6 +4,7 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    padding: 20px;
   }
 
   &__cards {
@@ -56,4 +57,16 @@
   .translate {
     color: #808080;
   }
+}
+
+.bg-learned {
+  background-color: #dbfcd8;
+}
+
+.bg-hard {
+  background-color: #fdfdd8;
+}
+
+.bg-learned-page {
+  background-color: #e4fff7;
 }

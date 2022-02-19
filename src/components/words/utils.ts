@@ -3,7 +3,7 @@ import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import authStore from '../../store/authStore';
 import userWordsStore from '../../store/userWordsStore';
 import { Difficulty, Method } from '../enum';
-import { IWordInfo, IRequests, IResponseWordInfo } from '../interfaces';
+import { IWordInfo, IRequests, IResponseWordInfo, IAgregatedResponse } from '../interfaces';
 
 const getHeaderForUser = () =>
   // eslint-disable-next-line implicit-arrow-linebreak
@@ -124,14 +124,32 @@ export async function toggleLearned(wordId: string) {
 }
 
 export async function updateWord(wordId: string, isCorrect: boolean) {
-  const wordInfo = await getWordInfo(wordId);
+  if (authStore.name) {
+    const wordInfo = await getWordInfo(wordId);
 
-  if (wordInfo) {
-    const { difficulty, optional } = wordInfo;
-    const currentWordInfo = updateWordInfo(isCorrect, { difficulty, optional });
-    await fetchWord(wordId, Method.PUT, currentWordInfo);
-  } else {
-    const currentWordInfo = updateWordInfo(isCorrect);
-    await fetchWord(wordId, Method.POST, currentWordInfo);
+    if (wordInfo) {
+      const { difficulty, optional } = wordInfo;
+      const currentWordInfo = updateWordInfo(isCorrect, { difficulty, optional });
+      await fetchWord(wordId, Method.PUT, currentWordInfo);
+    } else {
+      const currentWordInfo = updateWordInfo(isCorrect);
+      await fetchWord(wordId, Method.POST, currentWordInfo);
+    }
   }
+}
+
+export async function getLearnedAndHardWords(page: number, group: number) {
+  // eslint-disable-next-line max-len
+  const filter = `{"$and":[{"$or":[{"userWord.difficulty":"hard"},{"userWord.optional.learned":true}]}, {"$and":[{"page":${page}, "userWord":{"$exists": true}}]}]}`;
+  // eslint-disable-next-line max-len
+  const url = `${BASE_LINK}users/${authStore.userId}/aggregatedWords?group=${group}&filter=${filter}`;
+  const headers = getHeaderForUser();
+
+  const request: IRequests = {
+    url,
+    options: { headers },
+    showNotification: false,
+  };
+
+  return fetchWithErrorHandling<IAgregatedResponse[]>(request);
 }

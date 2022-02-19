@@ -73,3 +73,7 @@ export enum Keys {
   ArrowRight = 'ArrowRight',
   space = ' ',
 }
+
+export enum Filters {
+  hard = '{"userWord.difficulty":"hard"}',
+}

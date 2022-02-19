@@ -12,6 +12,7 @@ import { removeListeners } from '../../utils';
 import authStore from '../../store/authStore';
 import { getAllUserWords } from '../words/utils';
 import { IWord } from '../interfaces';
+import { checkIsPageLearned } from '../../pages/textbook/groupPagination/utils';
 
 const textbookLinkHandler = async () => {
   removeListeners();
@@ -33,6 +34,9 @@ const textbookLinkHandler = async () => {
   if (res) {
     textbookStore.words = res;
     addMainContent(getTextbookElement());
+    if (authStore.name) {
+      await checkIsPageLearned(textbookPage, textbookGroup);
+    }
     updatePaginationButtons();
   } else {
     addMainContent(getMainPageElement());

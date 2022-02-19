@@ -2,6 +2,7 @@ import { loadCardsGroup } from '../pagination/utils';
 import renderSpinner from '../../../components/Spinner/renderSpinner';
 import textbookStore from '../../../store/textbookStore';
 import { getCardClassName } from '../cards/utils';
+import { loadHardwordCards } from './utils';
 
 const groupPaginationListener = (nav: HTMLElement) => {
   const ulElement = nav.querySelector('ul') as HTMLUListElement;
@@ -38,6 +39,21 @@ const groupPaginationListener = (nav: HTMLElement) => {
       };
 
       const { group } = target.dataset;
+      const textbookWrapper = document.querySelector('.textbook__wrapper') as HTMLDivElement;
+      const pagination = textbookWrapper.querySelector('.pagination-page') as HTMLDivElement;
+      const audioGameBtn = textbookWrapper.querySelector('.btn-audio') as HTMLButtonElement;
+      const sprintGameBtn = textbookWrapper.querySelector('.btn-sprint') as HTMLButtonElement;
+
+      if (Number(group) === 7) {
+        textbookWrapper.classList.remove('bg-learned-page');
+        pagination.classList.add('hide');
+        sprintGameBtn.disabled = true;
+        audioGameBtn.disabled = true;
+        loadHardwordCards(finallyCallback, 'border-primary');
+        return;
+      }
+
+      pagination.classList.remove('hide');
       const cardClassName = getCardClassName(Number(group));
       loadCardsGroup(Number(group) - 1, finallyCallback, cardClassName);
     }

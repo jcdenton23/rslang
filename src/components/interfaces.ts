@@ -44,6 +44,7 @@ export interface ITextbookStore {
   textbookPage: number;
   textbookGroup: number;
   cardClassName: string;
+  isPageLearned: boolean;
 }
 
 export interface ISprintStore {
@@ -94,6 +95,7 @@ export interface IModalStore {
 
 export interface IUserWordsStore {
   words: IResponseWordInfo[] | null;
+  hardWords: IWord[];
 }
 
 export interface IOptionalWord {
@@ -131,4 +133,46 @@ export interface IAudioChallengeStore {
 
 export interface IrenderAudioChallengeGame {
   (word: IWord, optionsWords: IWord[]): HTMLElement;
+}
+
+export interface IAgregatedWord {
+  _id: string;
+  group: number;
+  page: number;
+  word: string;
+  image: string;
+  audio: string;
+  audioMeaning: string;
+  audioExample: string;
+  textMeaning: string;
+  textExample: string;
+  transcription: string;
+  textExampleTranslate: string;
+  textMeaningTranslate: string;
+  wordTranslate: string;
+  options: IWordInfo;
+}
+
+export interface ICount {
+  count: number;
+}
+export interface IAgregatedResponse {
+  paginatedResults: IAgregatedWord[];
+  totalCount: ICount[];
+}
+
+export interface IloadHardwordCards {
+  (finallyCallback: () => void, cardClassName: string): void;
+}
+
+export interface ICheckPageIsLearned {
+  (page: number, group: number): void;
+}
+
+export interface IRenderCard {
+  word: IWord;
+  cardClassName: string;
+  loadHardwordCards?: IloadHardwordCards;
+  isHardCard?: boolean;
+  checkIsPageLearned: ICheckPageIsLearned;
 }
