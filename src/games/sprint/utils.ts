@@ -6,7 +6,7 @@ import { getMainPageElement } from '../../pages/main/mainPage';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import sprintStore from '../../store/sprintStore';
 import { clearAndGetElement, shuffleArray } from '../../utils';
-import { IRenderSprintGame, ISprintResult, IStartTimer } from '../../components/interfaces';
+import { IRenderSprintGame, IRequests, ISprintResult, IStartTimer, IWord } from '../../components/interfaces';
 
 export const resetSprintStore = () => {
   sprintStore.score = 0;
@@ -40,7 +40,14 @@ export const loadSprintGame = async (props: ILoadSprintGame) => {
   gamesContent.append(spinnerWrapper);
 
   const finallyCallback = () => spinnerWrapper.remove();
-  const res = await fetchWithErrorHandling(url, finallyCallback);
+
+  const request: IRequests = {
+    url,
+    finallyCallback,
+    showNotification: true,
+  };
+
+  const res = await fetchWithErrorHandling<IWord[]>(request);
 
   if (res) {
     sprintStore.words = shuffleArray(res);
@@ -68,7 +75,14 @@ export const loadSprintNewWords = async (url: string) => {
   gamesContent.append(spinnerWrapper);
 
   const finallyCallback = () => spinnerWrapper.remove();
-  const res = await fetchWithErrorHandling(url, finallyCallback);
+
+  const request: IRequests = {
+    url,
+    finallyCallback,
+    showNotification: true,
+  };
+
+  const res = await fetchWithErrorHandling<IWord[]>(request);
 
   if (res) {
     sprintStore.words = shuffleArray(res);

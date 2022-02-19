@@ -1,3 +1,5 @@
+import addMainContent from '../../pages/addMainContent';
+import { getMainPageElement } from '../../pages/main/mainPage';
 import { BASE_LINK } from '../../services/constants';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import authStore from '../../store/authStore';
@@ -17,24 +19,33 @@ function clearForm() {
 export async function signIn(user: IUser, finallyCallback: () => void) {
   const url = `${BASE_LINK}signin`;
   const headers = new Headers({ 'Content-Type': 'application/json' });
-  const request: IAuth = await fetchWithErrorHandling(url, finallyCallback, {
-    method: Method.POST,
-    body: JSON.stringify(user),
-    headers,
-  });
 
-  if (request) {
+  const request = {
+    url,
+    finallyCallback,
+    options: {
+      method: Method.POST,
+      body: JSON.stringify(user),
+      headers,
+    },
+    showNotification: true,
+  };
+
+  const response = await fetchWithErrorHandling<IAuth>(request);
+
+  if (response) {
     modalStore.modal?.hide();
-    authStore.message = request.message;
-    authStore.token = request.token;
-    authStore.refreshToken = request.refreshToken;
-    authStore.userId = request.userId;
-    authStore.name = request.name;
+    authStore.message = response.message;
+    authStore.token = response.token;
+    authStore.refreshToken = response.refreshToken;
+    authStore.userId = response.userId;
+    authStore.name = response.name;
     localStorage.setItem('auth', JSON.stringify(authStore));
     document.querySelector('.header')?.remove();
     renderHeader();
     createLoginListeners();
     clearForm();
+    addMainContent(getMainPageElement());
   }
 }
 
@@ -42,13 +53,20 @@ export async function signUp(user: IUser, finallyCallback: () => void) {
   const url = `${BASE_LINK}users`;
   const headers = new Headers({ 'Content-Type': 'application/json' });
 
-  const request = await fetchWithErrorHandling(url, finallyCallback, {
-    method: Method.POST,
-    body: JSON.stringify(user),
-    headers,
-  });
+  const request = {
+    url,
+    finallyCallback,
+    options: {
+      method: Method.POST,
+      body: JSON.stringify(user),
+      headers,
+    },
+    showNotification: true,
+  };
 
-  if (request) {
+  const response = await fetchWithErrorHandling<IAuth>(request);
+
+  if (response) {
     signIn(user, finallyCallback);
   }
 }

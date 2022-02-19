@@ -1,8 +1,10 @@
 import { PaletteBootstrap } from '../components/constants';
+import { IRequests } from '../components/interfaces';
 import renderNotification from '../components/Notification/renderNotification';
 import findErrorMessage from './utils';
 
-export default async (url: string, finallyCallback: () => void, options: RequestInit = {}) => {
+export default async <T>(request: IRequests): Promise<T | undefined> => {
+  const { url, finallyCallback, options = {}, showNotification } = request;
   try {
     const res = await fetch(url, options);
     if (!res.ok) {
@@ -14,9 +16,11 @@ export default async (url: string, finallyCallback: () => void, options: Request
     const errMessage = (e as Error).message;
     // console.log(errMessage);
     // if (errMessage === 'Access token is missing or invalid'){}
-    renderNotification(findErrorMessage(errMessage), PaletteBootstrap.error);
+    if (showNotification) {
+      renderNotification(findErrorMessage(errMessage), PaletteBootstrap.error);
+    }
   } finally {
-    finallyCallback();
+    finallyCallback?.();
   }
-  return false;
+  return undefined;
 };

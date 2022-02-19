@@ -44,6 +44,11 @@ export enum BorderBootstrap {
   info = 'border-info',
 }
 
+export enum Difficulty {
+  normal = 'normal',
+  hard = 'hard',
+}
+
 export enum Games {
   sprint = 'Sprint',
   audio = 'Audio',

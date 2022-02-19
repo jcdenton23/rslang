@@ -1,5 +1,12 @@
 import { Modal } from 'bootstrap';
 
+export interface IRequests {
+  url: string;
+  finallyCallback?: () => void;
+  options?: RequestInit;
+  showNotification: boolean;
+}
+
 export interface IUser {
   name?: string;
   email: string;
@@ -83,6 +90,27 @@ export interface IRenderSprintGame {
 
 export interface IModalStore {
   modal: Modal | null;
+}
+
+export interface IUserWordsStore {
+  words: IResponseWordInfo[] | null;
+}
+
+export interface IOptionalWord {
+  streak: number;
+  correctAnswer: number;
+  wrongAnswer: number;
+  learned: boolean;
+}
+
+export interface IWordInfo {
+  difficulty: string;
+  optional: IOptionalWord;
+}
+
+export interface IResponseWordInfo extends IWordInfo {
+  id: string;
+  wordId: string;
 }
 
 export interface IAudioChallengeStore {
