@@ -1,10 +1,11 @@
 import { IrenderAudioChallengeGame } from '../../../components/interfaces';
+import { IRouter } from '../../../router/types';
 import audioChallengeStore from '../../../store/audioChallengeStore';
 import { removeListeners } from '../../../utils';
 import renderResult from '../../results/renderResult';
 import tryAgainBtnListener from './createTryAgainBtnListener';
 
-const renderAudioChallengeResults = (renderAudioChallengeGame: IrenderAudioChallengeGame) => {
+const renderAudioChallengeResults = (renderAudioChallengeGame: IrenderAudioChallengeGame, router: IRouter) => {
   const results = document.createElement('div');
   results.classList.add('results');
   results.innerHTML = `
@@ -40,7 +41,7 @@ const renderAudioChallengeResults = (renderAudioChallengeGame: IrenderAudioChall
   correctResults.append(...correctAnswers);
   wrongResults.append(...wrongAnswers);
 
-  tryAgainBtnListener(results, renderAudioChallengeGame);
+  tryAgainBtnListener(results, renderAudioChallengeGame, router);
 
   return results;
 };

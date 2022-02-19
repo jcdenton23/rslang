@@ -4,7 +4,7 @@ import arrowsAnswerListener from './createArrowsAnswerListener';
 import clickAnswerListener from './createClickAnswerListener';
 
 const renderSprintGame = (props: IRenderSprint) => {
-  const { word, translateWord, renderSprintResult, startTimer } = props;
+  const { word, translateWord, renderSprintResult, startTimer, router } = props;
   const sprint = document.createElement('div');
   sprint.classList.add('sprint');
   sprint.innerHTML = `
@@ -26,6 +26,7 @@ const renderSprintGame = (props: IRenderSprint) => {
     renderSprintGame,
     renderSprintResult,
     startTimer,
+    router,
   };
 
   clickAnswerListener(sprint, options);

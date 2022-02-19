@@ -24,8 +24,8 @@ const renderCard = (props: IRenderCard) => {
   `;
 
   const wordAnswers = `<div>
-  <span class="badge bg-success">${userWord ? userWord?.optional.correctAnswer : '0'}</span>
-  <span class="badge bg-danger">${userWord ? userWord?.optional.wrongAnswer : '0'}</span>
+  <span title="Correct answers" class="badge bg-success">${userWord ? userWord.optional.correctAnswer : '0'}</span>
+  <span title="Wrong answers" class="badge bg-danger">${userWord ? userWord.optional.wrongAnswer : '0'}</span>
 </div>`;
 
   const buttons = `

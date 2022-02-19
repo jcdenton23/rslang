@@ -1,6 +1,7 @@
 import { IRenderSprintGame, ISprintResult, IStartTimer, IWord } from '../../../components/interfaces';
 import sprintAnswerHandler from '../answers/createAnswerHandler';
 import { Answers } from '../../../components/enum';
+import { IRouter } from '../../../router/types';
 
 export interface IAnswer {
   word: IWord;
@@ -8,10 +9,11 @@ export interface IAnswer {
   renderSprintGame: IRenderSprintGame;
   renderSprintResult: ISprintResult;
   startTimer: IStartTimer;
+  router: IRouter;
 }
 
 const clickAnswerListener = (elem: HTMLElement, props: IAnswer) => {
-  const { word, translateWord, renderSprintGame, renderSprintResult, startTimer } = props;
+  const { word, translateWord, renderSprintGame, renderSprintResult, startTimer, router } = props;
 
   const btnsWrapper = elem.querySelector('.sprint-item-btns') as HTMLDivElement;
   btnsWrapper.addEventListener('click', (event) => {
@@ -25,6 +27,7 @@ const clickAnswerListener = (elem: HTMLElement, props: IAnswer) => {
         renderSprintResult,
         startTimer,
         type: answer,
+        router,
       });
     };
 

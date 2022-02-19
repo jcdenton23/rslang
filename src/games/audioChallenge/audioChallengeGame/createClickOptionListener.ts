@@ -1,7 +1,7 @@
-import { IrenderAudioChallengeGame, IWord } from '../../../components/interfaces';
+import { IKeyPressListener } from '../../../components/interfaces';
 import audioChallengeAnswersHandler from '../answers/createAnswersHandler';
 
-const clickOptionListener = (el: HTMLElement, word: IWord, renderAudioChallengeGame: IrenderAudioChallengeGame) => {
+const clickOptionListener = ({ el, word, renderAudioChallengeGame, router }: IKeyPressListener) => {
   const btnsWrapper = el.querySelector('.audio-challenge__item-btns') as HTMLDivElement;
 
   btnsWrapper.addEventListener('click', (event) => {
@@ -13,6 +13,7 @@ const clickOptionListener = (el: HTMLElement, word: IWord, renderAudioChallengeG
         word,
         optionId: String(optionId),
         renderAudioChallengeGame,
+        router,
       };
 
       audioChallengeAnswersHandler(options);

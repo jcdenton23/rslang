@@ -1,6 +1,6 @@
-import addMainContent from '../pages/addMainContent';
-import { getMainPageElement } from '../pages/main/mainPage';
+import router from '../router';
 import authStore from '../store/authStore';
+import { Routes } from './enum';
 import renderHeader from './header';
 import { IAuth } from './interfaces';
 
@@ -22,5 +22,5 @@ export function logout() {
   localStorage.removeItem('auth');
   document.querySelector('.header')?.remove();
   renderHeader();
-  addMainContent(getMainPageElement());
+  router.push(Routes.main);
 }

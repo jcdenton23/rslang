@@ -1,13 +1,6 @@
 import renderCards from '.';
 import { BorderBootstrap } from '../../../components/enum';
-import { ICheckPageIsLearned, IloadHardwordCards } from '../../../components/interfaces';
-
-interface IUpdateCards {
-  cardClassName: string;
-  loadHardwordCards?: IloadHardwordCards;
-  isHardCard: boolean;
-  checkIsPageLearned: ICheckPageIsLearned;
-}
+import { IUpdateCards } from '../../../components/interfaces';
 
 export const updateCards = (props: IUpdateCards) => {
   const { cardClassName, loadHardwordCards, isHardCard, checkIsPageLearned } = props;

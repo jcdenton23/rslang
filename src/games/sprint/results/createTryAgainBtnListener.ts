@@ -1,12 +1,22 @@
 import { GameInitators } from '../../../components/enum';
 import { ISprintResult, IStartTimer } from '../../../components/interfaces';
+import { IRouter } from '../../../router/types';
 import { BASE_LINK } from '../../../services/constants';
 import sprintStore from '../../../store/sprintStore';
 import textbookStore from '../../../store/textbookStore';
 import renderSprintGame from '../sprintGame/renderSprintGame';
 import { loadSprintGame, resetSprintStore } from '../utils';
 
-const tryAgainBtnListener = (elem: HTMLElement, renderSprintResult: ISprintResult, startTimer: IStartTimer) => {
+interface ITryAgainBtnListener {
+  elem: HTMLElement;
+  renderSprintResult: ISprintResult;
+  startTimer: IStartTimer;
+  router: IRouter;
+}
+
+const tryAgainBtnListener = (props: ITryAgainBtnListener) => {
+  const { elem, renderSprintResult, startTimer, router } = props;
+
   const tryAgainBtn = elem.querySelector('.btn-again') as HTMLButtonElement;
 
   tryAgainBtn.addEventListener('click', async () => {
@@ -23,6 +33,7 @@ const tryAgainBtnListener = (elem: HTMLElement, renderSprintResult: ISprintResul
       renderSprintGame,
       renderSprintResult,
       startTimer,
+      router,
     };
 
     loadSprintGame(options);

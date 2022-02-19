@@ -4,8 +4,9 @@ import renderGroupPagination from './groupPagination';
 import renderPagination from './pagination';
 import textbookStore from '../../store/textbookStore';
 import { checkIsPageLearned } from './groupPagination/utils';
+import { IRouter } from '../../router/types';
 
-const getTextbookElement = (): HTMLDivElement => {
+const getTextbookElement = (router: IRouter): HTMLDivElement => {
   const elem = document.createElement('div');
   elem.classList.add('textbook-page');
   elem.innerHTML = `
@@ -17,7 +18,7 @@ const getTextbookElement = (): HTMLDivElement => {
   </section>
   `;
   const textbookWrapper = elem.querySelector('.textbook__wrapper') as HTMLDivElement;
-  textbookWrapper.appendChild(renderGames());
+  textbookWrapper.appendChild(renderGames(router));
   textbookWrapper.appendChild(renderGroupPagination());
   textbookWrapper.appendChild(renderPagination());
   const { cardClassName } = textbookStore;

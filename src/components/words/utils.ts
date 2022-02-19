@@ -141,7 +141,6 @@ export async function updateWord(wordId: string, isCorrect: boolean) {
 export async function getLearnedAndHardWords(page: number, group: number) {
   // eslint-disable-next-line max-len
   const filter = `{"$and":[{"$or":[{"userWord.difficulty":"hard"},{"userWord.optional.learned":true}]}, {"$and":[{"page":${page}, "userWord":{"$exists": true}}]}]}`;
-  // eslint-disable-next-line max-len
   const url = `${BASE_LINK}users/${authStore.userId}/aggregatedWords?group=${group}&filter=${filter}`;
   const headers = getHeaderForUser();
 

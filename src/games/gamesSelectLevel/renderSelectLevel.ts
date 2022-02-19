@@ -1,8 +1,9 @@
 import { IGamesStartPage } from '../../components/interfaces';
+import { IRouter } from '../../router/types';
 import backBtnListener from './createBackBtnListener';
 import selectLevelListener from './createSelectLevelListener';
 
-const renderSelectLevel = (levelTitle: string, renderGamesStartPage: IGamesStartPage) => {
+const renderSelectLevel = (levelTitle: string, renderGamesStartPage: IGamesStartPage, router: IRouter) => {
   const elem = document.createElement('div');
   elem.classList.add('games__level');
   elem.innerHTML = `
@@ -19,8 +20,8 @@ const renderSelectLevel = (levelTitle: string, renderGamesStartPage: IGamesStart
         <button type="button" class="btn btn-primary back-games-btn">Back</button>
       `;
 
-  backBtnListener(elem, renderGamesStartPage);
-  selectLevelListener(elem, levelTitle);
+  backBtnListener(elem, renderGamesStartPage, router);
+  selectLevelListener(elem, levelTitle, router);
 
   return elem;
 };

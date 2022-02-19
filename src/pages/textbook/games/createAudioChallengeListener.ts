@@ -1,10 +1,11 @@
 import renderAudioChallengeGame from '../../../games/audioChallenge/audioChallengeGame/renderAudioChallengeGame';
 import loadAudioGame, { resetAudioChallengeStore } from '../../../games/audioChallenge/utils';
+import { IRouter } from '../../../router/types';
 import { BASE_LINK } from '../../../services/constants';
 import audioChallengeStore from '../../../store/audioChallengeStore';
 import textbookStore from '../../../store/textbookStore';
 
-const audioChallengeBtnListener = (elem: HTMLElement) => {
+const audioChallengeBtnListener = (elem: HTMLElement, router: IRouter) => {
   const audioBtn = elem.querySelector('.btn-audio') as HTMLButtonElement;
   audioBtn.addEventListener('click', () => {
     resetAudioChallengeStore();
@@ -20,7 +21,7 @@ const audioChallengeBtnListener = (elem: HTMLElement) => {
     audioChallengeStore.currentGroup = textbookGroup;
     const url = `${BASE_LINK}words?group=${textbookGroup}&page=${textbookPage}`;
 
-    loadAudioGame(url, renderAudioChallengeGame);
+    loadAudioGame(url, renderAudioChallengeGame, router);
   });
 };
 

@@ -1,6 +1,7 @@
+import { IRouter } from '../../router/types';
 import createPlayBtnListener from './createPlayBtnListener';
 
-const renderGamesStartPage = (): HTMLDivElement => {
+const renderGamesStartPage = (router: IRouter): HTMLDivElement => {
   const elem = document.createElement('div');
   elem.classList.add('games__wrapper');
   elem.innerHTML = `
@@ -26,7 +27,7 @@ const renderGamesStartPage = (): HTMLDivElement => {
     </div>
       `;
 
-  createPlayBtnListener(elem, renderGamesStartPage);
+  createPlayBtnListener(elem, renderGamesStartPage, router);
   return elem;
 };
 

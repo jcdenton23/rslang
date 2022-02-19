@@ -1,8 +1,8 @@
+import { Routes } from '../../components/enum';
 import { IrenderAudioChallengeGame, IRequests, IWord } from '../../components/interfaces';
 import renderSpinner from '../../components/Spinner/renderSpinner';
 import createSpinnerWrapper from '../../components/Spinner/utils';
-import addMainContent from '../../pages/addMainContent';
-import { getMainPageElement } from '../../pages/main/mainPage';
+import { IRouter } from '../../router/types';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import audioChallengeStore from '../../store/audioChallengeStore';
 import { clearAndGetElement, shuffleArray } from '../../utils';
@@ -17,7 +17,11 @@ export const resetAudioChallengeStore = () => {
   audioChallengeStore.wrongWords = [];
 };
 
-export const loadAudioChallengeGame = async (url: string, renderAudioChallengeGame: IrenderAudioChallengeGame) => {
+export const loadAudioChallengeGame = async (
+  url: string,
+  renderAudioChallengeGame: IrenderAudioChallengeGame,
+  router: IRouter,
+) => {
   const gamesContent = clearAndGetElement('.games__content') as HTMLDivElement;
 
   const spinner = renderSpinner('black', 40);
@@ -41,9 +45,9 @@ export const loadAudioChallengeGame = async (url: string, renderAudioChallengeGa
     const currentWord = words[questionNumber];
     const restWords = shuffleArray(words.filter((word) => word.id !== currentWord.id));
     const optionsWords = shuffleArray([currentWord, restWords[0], restWords[1], restWords[2]]);
-    gamesContent.append(renderAudioChallengeGame(currentWord, optionsWords));
+    gamesContent.append(renderAudioChallengeGame(currentWord, optionsWords, router));
   } else {
-    addMainContent(getMainPageElement());
+    router.push(Routes.main);
   }
 };
 

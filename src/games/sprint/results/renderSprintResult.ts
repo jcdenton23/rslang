@@ -1,10 +1,11 @@
 import { IStartTimer } from '../../../components/interfaces';
+import { IRouter } from '../../../router/types';
 import sprintStore from '../../../store/sprintStore';
 import { removeListeners } from '../../../utils';
 import renderResult from '../../results/renderResult';
 import tryAgainBtnListener from './createTryAgainBtnListener';
 
-const renderSprintResult = (startTimer: IStartTimer) => {
+const renderSprintResult = (startTimer: IStartTimer, router: IRouter) => {
   const results = document.createElement('div');
   results.classList.add('results');
   results.innerHTML = `
@@ -42,7 +43,7 @@ const renderSprintResult = (startTimer: IStartTimer) => {
   correctResults.append(...correctAnswers);
   wrongResults.append(...wrongAnswers);
 
-  tryAgainBtnListener(results, renderSprintResult, startTimer);
+  tryAgainBtnListener({ elem: results, renderSprintResult, startTimer, router });
 
   return results;
 };

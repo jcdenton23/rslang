@@ -1,6 +1,6 @@
 import { Difficulty } from '../enum';
 
-const initializeCardStyles = (card: HTMLElement, difficulty: string | undefined, learned: boolean | undefined) => {
+const initializeCardStyles = (card: HTMLElement, difficulty?: string, learned?: boolean) => {
   if (difficulty === Difficulty.hard) {
     card.classList.add('bg-hard');
   }

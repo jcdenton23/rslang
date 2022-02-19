@@ -9,8 +9,9 @@ import renderSprintGame from '../sprint/sprintGame/renderSprintGame';
 import renderAudioChallengeGame from '../audioChallenge/audioChallengeGame/renderAudioChallengeGame';
 import startTimer from '../sprint/startTimer';
 import { loadSprintGame, resetSprintStore } from '../sprint/utils';
+import { IRouter } from '../../router/types';
 
-const selectLevelListener = (el: HTMLElement, gameName: string) => {
+const selectLevelListener = (el: HTMLElement, gameName: string, router: IRouter) => {
   const btnsWrapper = el.querySelector('.games__level-btns') as HTMLDivElement;
   btnsWrapper.addEventListener('click', async (event) => {
     const target = event.target as HTMLButtonElement;
@@ -28,6 +29,7 @@ const selectLevelListener = (el: HTMLElement, gameName: string) => {
           renderSprintGame,
           startTimer,
           renderSprintResult,
+          router,
         };
         loadSprintGame(options);
       }
@@ -39,7 +41,7 @@ const selectLevelListener = (el: HTMLElement, gameName: string) => {
         const { currentPage, currentGroup } = audioChallengeStore;
 
         const url = `${BASE_LINK}words?group=${currentGroup}&page=${currentPage}`;
-        loadAudioGame(url, renderAudioChallengeGame);
+        loadAudioGame(url, renderAudioChallengeGame, router);
       }
     }
   });

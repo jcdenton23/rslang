@@ -43,8 +43,9 @@ const groupPaginationListener = (nav: HTMLElement) => {
       const pagination = textbookWrapper.querySelector('.pagination-page') as HTMLDivElement;
       const audioGameBtn = textbookWrapper.querySelector('.btn-audio') as HTMLButtonElement;
       const sprintGameBtn = textbookWrapper.querySelector('.btn-sprint') as HTMLButtonElement;
+      const HARD_GROUP_NUMBER = 7;
 
-      if (Number(group) === 7) {
+      if (Number(group) === HARD_GROUP_NUMBER) {
         textbookWrapper.classList.remove('bg-learned-page');
         pagination.classList.add('hide');
         sprintGameBtn.disabled = true;

@@ -1,9 +1,10 @@
+import { IRouter } from '../../router/types';
 import sprintStore from '../../store/sprintStore';
 import { clearAndGetElement } from '../../utils';
 import { TIMER_NINE, TIMER_ZERO } from './constants';
 import renderSprintResult from './results/renderSprintResult';
 
-const startTimer = (time: number, selector: string) => {
+const startTimer = (time: number, selector: string, router: IRouter) => {
   const timerEl = document.querySelector(selector) as HTMLDivElement;
   let currentTime = time;
   function timer() {
@@ -17,7 +18,7 @@ const startTimer = (time: number, selector: string) => {
       clearInterval(sprintStore.timerId);
       timerEl.remove();
       const gamesContent = clearAndGetElement('.games__content') as HTMLDivElement;
-      gamesContent.append(renderSprintResult(startTimer));
+      gamesContent.append(renderSprintResult(startTimer, router));
     }
   }
   sprintStore.timerId = window.setInterval(timer, 1000);

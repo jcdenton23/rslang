@@ -1,4 +1,5 @@
 import { Modal } from 'bootstrap';
+import { IRouter } from '../router/types';
 
 export interface IRequests {
   url: string;
@@ -67,15 +68,15 @@ export interface ISprintStore {
 }
 
 export interface IStartTimer {
-  (time: number, selector: string): void;
+  (time: number, selector: string, router: IRouter): void;
 }
 
 export interface IGamesStartPage {
-  (): HTMLElement;
+  (router: IRouter): HTMLElement;
 }
 
 export interface ISprintResult {
-  (a: IStartTimer): HTMLElement;
+  (a: IStartTimer, router: IRouter): HTMLElement;
 }
 
 export interface IRenderSprint {
@@ -83,6 +84,7 @@ export interface IRenderSprint {
   translateWord: IWord;
   renderSprintResult: ISprintResult;
   startTimer: IStartTimer;
+  router: IRouter;
 }
 
 export interface IRenderSprintGame {
@@ -132,7 +134,7 @@ export interface IAudioChallengeStore {
 }
 
 export interface IrenderAudioChallengeGame {
-  (word: IWord, optionsWords: IWord[]): HTMLElement;
+  (word: IWord, optionsWords: IWord[], router: IRouter): HTMLElement;
 }
 
 export interface IAgregatedWord {
@@ -174,5 +176,33 @@ export interface IRenderCard {
   cardClassName: string;
   loadHardwordCards?: IloadHardwordCards;
   isHardCard?: boolean;
+  checkIsPageLearned: ICheckPageIsLearned;
+}
+
+export interface IAnswerHandler {
+  word: IWord;
+  optionId: string;
+  renderAudioChallengeGame: IrenderAudioChallengeGame;
+  router: IRouter;
+}
+
+export interface IKeyPressListener {
+  el: HTMLElement;
+  word: IWord;
+  renderAudioChallengeGame: IrenderAudioChallengeGame;
+  router: IRouter;
+}
+
+export interface IRenderCards {
+  cardClassName: string;
+  loadHardwordCards?: IloadHardwordCards;
+  isHardCard: boolean;
+  checkIsPageLearned: ICheckPageIsLearned;
+}
+
+export interface IUpdateCards {
+  cardClassName: string;
+  loadHardwordCards?: IloadHardwordCards;
+  isHardCard: boolean;
   checkIsPageLearned: ICheckPageIsLearned;
 }

@@ -1,5 +1,5 @@
 import { Filters } from '../../../components/enum';
-import { IAgregatedResponse, IAgregatedWord, IRequests } from '../../../components/interfaces';
+import { IAgregatedResponse, IRequests } from '../../../components/interfaces';
 import { getAllUserWords, getLearnedAndHardWords } from '../../../components/words/utils';
 import { BASE_LINK } from '../../../services/constants';
 import fetchWithErrorHandling from '../../../services/fetchWithErrorHandling';
@@ -43,7 +43,7 @@ export const loadHardwordCards = async (finallyCallback: () => void, cardClassNa
   if (res) {
     await getAllUserWords();
     const words = res[0].paginatedResults;
-    userWordsStore.hardWords = words.map((w: IAgregatedWord) => ({
+    userWordsStore.hardWords = words.map((w) => ({
       ...w,
       // eslint-disable-next-line no-underscore-dangle
       id: w._id,
