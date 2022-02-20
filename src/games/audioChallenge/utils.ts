@@ -58,7 +58,7 @@ export const loadNewAudioChallengeWords = async (props: ILoadNewAudioChalllengeW
       const unlearned = aggregatedWords?.[0].paginatedResults;
       audioChallengeStore.needLearnWords = res.filter(
         // eslint-disable-next-line no-underscore-dangle
-        (word) => unlearned?.find((unlearnedWord) => unlearnedWord._id === word.id),
+        (word) => unlearned?.some((unlearnedWord) => unlearnedWord._id === word.id),
         // eslint-disable-next-line function-paren-newline
       );
       if (audioChallengeStore.needLearnWords.length === 0) {
@@ -108,7 +108,7 @@ export const loadAudioChallengeGame = async (
       const unlearned = aggregatedWords?.[0].paginatedResults;
       audioChallengeStore.needLearnWords = res.filter(
         // eslint-disable-next-line no-underscore-dangle
-        (word) => unlearned?.find((unlearnedWord) => unlearnedWord._id === word.id),
+        (word) => unlearned?.some((unlearnedWord) => unlearnedWord._id === word.id),
         // eslint-disable-next-line function-paren-newline
       );
     } else {

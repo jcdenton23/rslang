@@ -63,7 +63,7 @@ export const loadSprintGame = async (props: ILoadSprintGame) => {
       const unlearned = aggregatedWords?.[0].paginatedResults;
       sprintStore.needLearnWords = res.filter(
         // eslint-disable-next-line no-underscore-dangle
-        (word) => unlearned?.find((unlearnedWord) => unlearnedWord._id === word.id),
+        (word) => unlearned?.some((unlearnedWord) => unlearnedWord._id === word.id),
         // eslint-disable-next-line function-paren-newline
       );
     } else {
@@ -124,7 +124,7 @@ export const loadSprintNewWords = async (props: ILoadSprintNewWords) => {
       const unlearned = aggregatedWords?.[0].paginatedResults;
       sprintStore.needLearnWords = res.filter(
         // eslint-disable-next-line no-underscore-dangle
-        (word) => unlearned?.find((unlearnedWord) => unlearnedWord._id === word.id),
+        (word) => unlearned?.some((unlearnedWord) => unlearnedWord._id === word.id),
         // eslint-disable-next-line function-paren-newline
       );
       if (sprintStore.needLearnWords.length === 0) {
