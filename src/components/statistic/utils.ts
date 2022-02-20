@@ -6,7 +6,7 @@ import userWordsStore from '../../store/userWordsStore';
 import { LearnedIn, Method } from '../enum';
 import { IAudioChallengeStore, ISprintStore, IStatistics } from '../interfaces';
 import { getHeaderForUser } from '../utils';
-import { getAllUserWords } from '../words/utils';
+import getAllUserWords from '../words/getUserWords';
 
 export default async function getStatistics() {
   const url = `${BASE_LINK}users/${authStore.userId}/statistics`;
@@ -28,6 +28,12 @@ export default async function getStatistics() {
 export async function setStatistics() {
   const url = `${BASE_LINK}users/${authStore.userId}/statistics`;
   const headers = getHeaderForUser();
+  await getAllUserWords();
+  statisticsStore.learnedWords = userWordsStore.words!.filter(
+    (word) => word.optional.firstLearned === new Date().toISOString().slice(0, 10),
+  ).length;
+  console.log(statisticsStore.learnedWords);
+
   await fetchWithErrorHandling<IStatistics>({
     url,
     options: { headers, method: Method.PUT, body: JSON.stringify(statisticsStore) },

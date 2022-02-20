@@ -10,8 +10,8 @@ import { updatePaginationButtons } from '../../pages/textbook/pagination/utils';
 import createSpinnerWrapper from '../Spinner/utils';
 import { removeListeners } from '../../utils';
 import authStore from '../../store/authStore';
-import { getAllUserWords } from '../words/utils';
 import { IWord } from '../interfaces';
+import getAllUserWords from '../words/getUserWords';
 
 const textbookLinkHandler = async () => {
   removeListeners();

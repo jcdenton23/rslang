@@ -4,7 +4,7 @@ import { updateCards } from '../cards/utils';
 import fetchWithErrorHandling from '../../../services/fetchWithErrorHandling';
 import { IRequests, IWord } from '../../../components/interfaces';
 import authStore from '../../../store/authStore';
-import { getAllUserWords } from '../../../components/words/utils';
+import getAllUserWords from '../../../components/words/getUserWords';
 
 export const updatePaginationButtons = () => {
   const nextBtn = document.querySelector('.pagination-next') as HTMLButtonElement;

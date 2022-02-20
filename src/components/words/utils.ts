@@ -1,26 +1,11 @@
 import { BASE_LINK } from '../../services/constants';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import authStore from '../../store/authStore';
-import userWordsStore from '../../store/userWordsStore';
 import { Difficulty, LearnedIn, Method } from '../enum';
 import { IWordInfo, IRequests, IResponseWordInfo } from '../interfaces';
+import { setStatistics } from '../statistic/utils';
 import { getHeaderForUser } from '../utils';
-
-export async function getAllUserWords() {
-  const url = `${BASE_LINK}users/${authStore.userId}/words`;
-
-  const headers = getHeaderForUser();
-
-  const request = {
-    url,
-    options: { headers },
-    showNotification: false,
-  };
-
-  const response = await fetchWithErrorHandling<IResponseWordInfo[]>(request);
-
-  userWordsStore.words = response || [];
-}
+import getAllUserWords from './getUserWords';
 
 export async function getWordInfo(wordId: string) {
   const url = `${BASE_LINK}users/${authStore.userId}/words/${wordId}`;
@@ -114,6 +99,8 @@ export async function toggleLearned(wordId: string) {
       if (!wordInfo.optional.firstLearned) {
         wordInfo.optional.firstLearned = new Date().toISOString().slice(0, 10);
         wordInfo.optional.learnedIn = LearnedIn.textbook;
+        await getAllUserWords();
+        await setStatistics();
       }
       wordInfo.difficulty = Difficulty.normal;
     }
