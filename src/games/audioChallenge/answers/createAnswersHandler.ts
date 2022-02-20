@@ -1,4 +1,6 @@
+import { LearnedIn } from '../../../components/enum';
 import { IrenderAudioChallengeGame, IWord } from '../../../components/interfaces';
+import { updateWord } from '../../../components/words/utils';
 import audioChallengeStore from '../../../store/audioChallengeStore';
 import renderAudioChallengeAnswer from './renderAudioChallengeAnswer';
 
@@ -12,6 +14,7 @@ const correctAnswerHandler = (word: IWord, optionId: string, renderAudioChalleng
   const { maxInRow, currentInRow } = audioChallengeStore;
   audioChallengeStore.maxInRow = currentInRow > maxInRow ? currentInRow : maxInRow;
   renderAudioChallengeAnswer(word, renderAudioChallengeGame);
+  updateWord(word.id, true, LearnedIn.audio);
 };
 
 const wrongAnswerHandler = (word: IWord, optionId: string, renderAudioChallengeGame: IrenderAudioChallengeGame) => {
@@ -24,6 +27,7 @@ const wrongAnswerHandler = (word: IWord, optionId: string, renderAudioChallengeG
   audioChallengeStore.maxInRow = currentInRow > maxInRow ? currentInRow : maxInRow;
   audioChallengeStore.currentInRow = 0;
   renderAudioChallengeAnswer(word, renderAudioChallengeGame);
+  updateWord(word.id, false, LearnedIn.audio);
 };
 
 interface IAudioChallangeAnsHandler {

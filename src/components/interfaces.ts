@@ -101,6 +101,8 @@ export interface IOptionalWord {
   correctAnswer: number;
   wrongAnswer: number;
   learned: boolean;
+  firstLearned?: string;
+  learnedIn?: string;
 }
 
 export interface IWordInfo {
@@ -131,4 +133,23 @@ export interface IAudioChallengeStore {
 
 export interface IrenderAudioChallengeGame {
   (word: IWord, optionsWords: IWord[]): HTMLElement;
+}
+
+export interface IGamesResult {
+  newWords: number;
+  maxInRow: number;
+  correctAnswers: number;
+  wrongAnswers: number;
+}
+
+export interface IOptionalStatistics {
+  currentDate: string;
+  sprint: IGamesResult;
+  audioChallenge: IGamesResult;
+}
+
+export interface IStatistics {
+  learnedWords: number;
+  optional: IOptionalStatistics;
+  [key: string]: number | IOptionalStatistics;
 }

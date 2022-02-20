@@ -2,12 +2,9 @@ import { BASE_LINK } from '../../services/constants';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import authStore from '../../store/authStore';
 import userWordsStore from '../../store/userWordsStore';
-import { Difficulty, Method } from '../enum';
+import { Difficulty, LearnedIn, Method } from '../enum';
 import { IWordInfo, IRequests, IResponseWordInfo } from '../interfaces';
-
-const getHeaderForUser = () =>
-  // eslint-disable-next-line implicit-arrow-linebreak
-  new Headers({ 'Content-Type': 'application/json', Authorization: `Bearer ${authStore.token}` });
+import { getHeaderForUser } from '../utils';
 
 export async function getAllUserWords() {
   const url = `${BASE_LINK}users/${authStore.userId}/words`;
@@ -45,11 +42,11 @@ function createWordInfo({ difficulty = Difficulty.normal, learned = false }) {
   };
 }
 
-export function updateWordInfo(isCorrect: boolean, wordInfo?: IWordInfo) {
+export function updateWordInfo(isCorrect: boolean, pageName: LearnedIn, wordInfo?: IWordInfo) {
   const GOOD_HARD_SCORE = 5;
   const GOOD_NORMAL_SCORE = 3;
 
-  const currentWord = wordInfo || createWordInfo({});
+  const currentWord: IWordInfo = wordInfo || createWordInfo({});
 
   if (isCorrect) {
     currentWord.optional.streak += 1;
@@ -68,6 +65,10 @@ export function updateWordInfo(isCorrect: boolean, wordInfo?: IWordInfo) {
   if (canHard || canNormal) {
     currentWord.optional.learned = true;
     currentWord.difficulty = Difficulty.normal;
+    if (!currentWord.optional.firstLearned) {
+      currentWord.optional.firstLearned = new Date().toISOString().slice(0, 10);
+      currentWord.optional.learnedIn = pageName;
+    }
   }
   return currentWord;
 }
@@ -83,7 +84,7 @@ export async function fetchWord(wordId: string, method: string, { difficulty, op
       body: JSON.stringify({ difficulty, optional }),
       headers,
     },
-    showNotification: true,
+    showNotification: false,
   };
 
   await fetchWithErrorHandling<IResponseWordInfo>(request);
@@ -110,6 +111,10 @@ export async function toggleLearned(wordId: string) {
     if (wordInfo.optional.learned) {
       wordInfo.optional.streak = 0;
     } else {
+      if (!wordInfo.optional.firstLearned) {
+        wordInfo.optional.firstLearned = new Date().toISOString().slice(0, 10);
+        wordInfo.optional.learnedIn = LearnedIn.textbook;
+      }
       wordInfo.difficulty = Difficulty.normal;
     }
 
@@ -123,15 +128,15 @@ export async function toggleLearned(wordId: string) {
   }
 }
 
-export async function updateWord(wordId: string, isCorrect: boolean) {
+export async function updateWord(wordId: string, isCorrect: boolean, pageName: LearnedIn) {
   const wordInfo = await getWordInfo(wordId);
 
   if (wordInfo) {
     const { difficulty, optional } = wordInfo;
-    const currentWordInfo = updateWordInfo(isCorrect, { difficulty, optional });
+    const currentWordInfo = updateWordInfo(isCorrect, pageName, { difficulty, optional });
     await fetchWord(wordId, Method.PUT, currentWordInfo);
   } else {
-    const currentWordInfo = updateWordInfo(isCorrect);
+    const currentWordInfo = updateWordInfo(isCorrect, pageName);
     await fetchWord(wordId, Method.POST, currentWordInfo);
   }
 }

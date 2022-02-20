@@ -24,3 +24,7 @@ export function logout() {
   renderHeader();
   addMainContent(getMainPageElement());
 }
+
+export const getHeaderForUser = () =>
+  // eslint-disable-next-line implicit-arrow-linebreak
+  new Headers({ 'Content-Type': 'application/json', Authorization: `Bearer ${authStore.token}` });

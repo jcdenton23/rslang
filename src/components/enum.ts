@@ -73,3 +73,9 @@ export enum Keys {
   ArrowRight = 'ArrowRight',
   space = ' ',
 }
+
+export enum LearnedIn {
+  sprint = 'Sprint',
+  audio = 'Audio',
+  textbook = 'textbook',
+}

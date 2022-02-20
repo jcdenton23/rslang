@@ -1,4 +1,6 @@
+import { LearnedIn } from '../../../components/enum';
 import { IrenderAudioChallengeGame } from '../../../components/interfaces';
+import { getGameStatistics } from '../../../components/statistic/utils';
 import audioChallengeStore from '../../../store/audioChallengeStore';
 import { removeListeners } from '../../../utils';
 import renderResult from '../../results/renderResult';
@@ -31,6 +33,7 @@ const renderAudioChallengeResults = (renderAudioChallengeGame: IrenderAudioChall
             </div>
         </div>
   `;
+  getGameStatistics(LearnedIn.audio, audioChallengeStore);
   removeListeners();
   const correctResults = results.querySelector('.results__correct-words') as HTMLDivElement;
   const wrongResults = results.querySelector('.results__wrong-words') as HTMLDivElement;

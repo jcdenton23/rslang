@@ -1,4 +1,6 @@
+import { LearnedIn } from '../../../components/enum';
 import { IStartTimer } from '../../../components/interfaces';
+import { getGameStatistics } from '../../../components/statistic/utils';
 import sprintStore from '../../../store/sprintStore';
 import { removeListeners } from '../../../utils';
 import renderResult from '../../results/renderResult';
@@ -32,6 +34,8 @@ const renderSprintResult = (startTimer: IStartTimer) => {
             </div>
         </div>
   `;
+
+  getGameStatistics(LearnedIn.sprint, sprintStore);
 
   removeListeners();
   const correctResults = results.querySelector('.results__correct-words') as HTMLDivElement;
