@@ -6,6 +6,7 @@ export default {
   translateWords: [],
   correctWords: [],
   wrongWords: [],
+  needLearnWords: [],
   questionNumber: 0,
   correctAnswers: 0,
   wrongAnswers: 0,
@@ -18,4 +19,5 @@ export default {
   timerId: 0,
   gameInitiator: GameInitators.menu,
   btnPressHandler: null,
+  isGameFinished: false,
 } as ISprintStore;

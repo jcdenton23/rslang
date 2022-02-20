@@ -13,7 +13,7 @@ const router: IRouter = {
         addMainContent(getMainPageElement(this));
         break;
       }
-      case Routes.textbookHander: {
+      case Routes.textbookHandler: {
         createTextBookHandler(this);
         break;
       }

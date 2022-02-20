@@ -21,7 +21,7 @@ export const getMainPageElement = (router: IRouter): HTMLDivElement => {
 
   const btnStart = elem.querySelector('.btn-main-start') as HTMLButtonElement;
   btnStart.addEventListener('click', () => {
-    router.push(Routes.textbookHander);
+    router.push(Routes.textbookHandler);
   });
   return elem;
 };

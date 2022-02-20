@@ -53,6 +53,7 @@ export interface ISprintStore {
   translateWords: IWord[];
   correctWords: IWord[];
   wrongWords: IWord[];
+  needLearnWords: IWord[];
   questionNumber: number;
   correctAnswers: number;
   wrongAnswers: number;
@@ -65,6 +66,7 @@ export interface ISprintStore {
   timerId: number;
   gameInitiator: string;
   btnPressHandler: ((e: KeyboardEvent) => void) | null;
+  isGameFinished: boolean;
 }
 
 export interface IStartTimer {
@@ -121,7 +123,10 @@ export interface IAudioChallengeStore {
   words: IWord[];
   correctWords: IWord[];
   wrongWords: IWord[];
-  questionNumber: number;
+  needLearnWords: IWord[];
+  wordForOptions: IWord[];
+  questionIndex: number;
+  currentQuestionNumber: number;
   currentPage: number;
   currentGroup: number;
   currentInRow: number;
@@ -131,6 +136,8 @@ export interface IAudioChallengeStore {
   numPressHandler: ((e: KeyboardEvent) => void) | null;
   spacePressHandler: ((e: KeyboardEvent) => void) | null;
   arrowRightPressHandler: ((e: KeyboardEvent) => void) | null;
+  gameInitiator: string;
+  isGameFinished: boolean;
 }
 
 export interface IrenderAudioChallengeGame {
@@ -205,4 +212,8 @@ export interface IUpdateCards {
   loadHardwordCards?: IloadHardwordCards;
   isHardCard: boolean;
   checkIsPageLearned: ICheckPageIsLearned;
+}
+
+export interface IRenderAuidoChallengeResults {
+  (renderAudioChallengeGame: IrenderAudioChallengeGame, router: IRouter): HTMLDivElement;
 }
