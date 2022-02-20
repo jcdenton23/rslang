@@ -1,11 +1,16 @@
 import { Keys } from '../../../components/enum';
 import { IrenderAudioChallengeGame, IWord } from '../../../components/interfaces';
+import { IRouter } from '../../../router/types';
 import audioChallengeStore from '../../../store/audioChallengeStore';
 import { removeListeners } from '../../../utils';
 import spacePressListener from '../audioChallengeGame/keyPressListeners/createSpacePressListener';
 import nextBtnListener from './createNextBtnListener';
 
-const renderAudioChallengeAnswer = (word: IWord, renderAudioChallengeGame: IrenderAudioChallengeGame) => {
+const renderAudioChallengeAnswer = (
+  word: IWord,
+  renderAudioChallengeGame: IrenderAudioChallengeGame,
+  router: IRouter,
+) => {
   const cardWrapper = document.querySelector('.audio-challenge__item') as HTMLDivElement;
   const btns = cardWrapper.querySelectorAll('.audio-challenge__item-btns .btn');
   const dunnoBtn = document.querySelector('.btn-audio-dunno') as HTMLButtonElement;
@@ -19,13 +24,13 @@ const renderAudioChallengeAnswer = (word: IWord, renderAudioChallengeGame: Irend
   btns.forEach((btn) => (btn as HTMLButtonElement).setAttribute('disabled', 'true'));
 
   nextBtn.addEventListener('click', () => {
-    nextBtnListener(renderAudioChallengeGame);
+    nextBtnListener(renderAudioChallengeGame, router);
   });
 
   audioChallengeStore.arrowRightPressHandler = (event: KeyboardEvent) => {
     if (event.repeat) return;
     if (event.key === Keys.ArrowRight) {
-      nextBtnListener(renderAudioChallengeGame);
+      nextBtnListener(renderAudioChallengeGame, router);
     }
   };
   document.addEventListener('keydown', audioChallengeStore.arrowRightPressHandler);

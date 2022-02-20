@@ -1,7 +1,8 @@
+import { IRouter } from '../../../router/types';
 import audioChallengeBtnListener from './createAudioChallengeListener';
 import sprintBtnListener from './createSprintBtnListener';
 
-const renderGames = () => {
+const renderGames = (router: IRouter) => {
   const gamesWrapper = document.createElement('div') as HTMLDivElement;
   gamesWrapper.classList.add('textbook__games');
   gamesWrapper.innerHTML = `
@@ -19,8 +20,8 @@ const renderGames = () => {
       </button>
     `;
 
-  sprintBtnListener(gamesWrapper);
-  audioChallengeBtnListener(gamesWrapper);
+  sprintBtnListener(gamesWrapper, router);
+  audioChallengeBtnListener(gamesWrapper, router);
 
   return gamesWrapper;
 };

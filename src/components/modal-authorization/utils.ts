@@ -1,10 +1,9 @@
-import addMainContent from '../../pages/addMainContent';
-import { getMainPageElement } from '../../pages/main/mainPage';
+import router from '../../router';
 import { BASE_LINK } from '../../services/constants';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import authStore from '../../store/authStore';
 import modalStore from '../../store/modalStore';
-import { Method } from '../enum';
+import { Method, Routes } from '../enum';
 import renderHeader from '../header';
 import createLoginListeners from '../header/createLoginListeners';
 import { IAuth, IUser } from '../interfaces';
@@ -45,7 +44,7 @@ export async function signIn(user: IUser, finallyCallback: () => void) {
     renderHeader();
     createLoginListeners();
     clearForm();
-    addMainContent(getMainPageElement());
+    router.push(Routes.main);
   }
 }
 

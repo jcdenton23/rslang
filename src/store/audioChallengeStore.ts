@@ -1,10 +1,15 @@
+import { GameInitators } from '../components/enum';
 import { IAudioChallengeStore } from '../components/interfaces';
 
 export default {
   words: [],
   correctWords: [],
   wrongWords: [],
-  questionNumber: 0,
+  needLearnWords: [],
+  wordForOptions: [],
+  questionIndex: 0,
+  currentQuestionNumber: 0,
+  currentQuestion: 0,
   currentPage: 0,
   currentGroup: 0,
   currentInRow: 0,
@@ -14,4 +19,6 @@ export default {
   numPressHandler: null,
   spacePressHandler: null,
   arrowRightPressHandler: null,
+  gameInitiator: GameInitators.menu,
+  isGameFinished: false,
 } as IAudioChallengeStore;

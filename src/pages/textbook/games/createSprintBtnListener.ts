@@ -3,11 +3,12 @@ import renderSprintResult from '../../../games/sprint/results/renderSprintResult
 import renderSprintGame from '../../../games/sprint/sprintGame/renderSprintGame';
 import startTimer from '../../../games/sprint/startTimer';
 import { loadSprintGame, resetSprintStore } from '../../../games/sprint/utils';
+import { IRouter } from '../../../router/types';
 import { BASE_LINK } from '../../../services/constants';
 import sprintStore from '../../../store/sprintStore';
 import textbookStore from '../../../store/textbookStore';
 
-const sprintBtnListener = (elem: HTMLElement) => {
+const sprintBtnListener = (elem: HTMLElement, router: IRouter) => {
   const sprintBtn = elem.querySelector('.btn-sprint') as HTMLButtonElement;
   sprintBtn.addEventListener('click', () => {
     sprintStore.gameInitiator = GameInitators.textbook;
@@ -28,6 +29,7 @@ const sprintBtnListener = (elem: HTMLElement) => {
       renderSprintGame,
       startTimer,
       renderSprintResult,
+      router,
     };
 
     loadSprintGame(options);

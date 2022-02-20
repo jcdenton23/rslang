@@ -1,9 +1,9 @@
 import { Keys } from '../../../../components/enum';
-import { IrenderAudioChallengeGame, IWord } from '../../../../components/interfaces';
+import { IKeyPressListener } from '../../../../components/interfaces';
 import audioChallengeStore from '../../../../store/audioChallengeStore';
 import audioChallengeAnswersHandler from '../../answers/createAnswersHandler';
 
-const numPressListener = (el: HTMLElement, word: IWord, renderAudioChallengeGame: IrenderAudioChallengeGame) => {
+const numPressListener = ({ el, word, renderAudioChallengeGame, router }: IKeyPressListener) => {
   const optionButtons = el.querySelectorAll('.audio-challenge__item-btns .btn') as NodeListOf<HTMLButtonElement>;
   const getOptionId = (index: number, buttons: NodeListOf<HTMLButtonElement>) => buttons[index - 1].dataset.optionId;
 
@@ -26,6 +26,7 @@ const numPressListener = (el: HTMLElement, word: IWord, renderAudioChallengeGame
       word,
       optionId: String(optionId),
       renderAudioChallengeGame,
+      router,
     };
 
     audioChallengeAnswersHandler(options);

@@ -4,7 +4,7 @@ import sprintAnswerHandler from '../answers/createAnswerHandler';
 import { IAnswer } from './createClickAnswerListener';
 
 const arrowsAnswerListener = (props: IAnswer) => {
-  const { word, translateWord, renderSprintGame, renderSprintResult, startTimer } = props;
+  const { word, translateWord, renderSprintGame, renderSprintResult, startTimer, router } = props;
 
   const checkAnswer = (answer: Answers) => {
     sprintAnswerHandler({
@@ -14,6 +14,7 @@ const arrowsAnswerListener = (props: IAnswer) => {
       renderSprintResult,
       startTimer,
       type: answer,
+      router,
     });
   };
 

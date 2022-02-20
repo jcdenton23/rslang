@@ -2,10 +2,12 @@ import { BASE_LINK } from '../../services/constants';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import authStore from '../../store/authStore';
 import { Difficulty, LearnedIn, Method } from '../enum';
-import { IWordInfo, IRequests, IResponseWordInfo } from '../interfaces';
+import { IAgregatedResponse, IRequests, IResponseWordInfo, IWordInfo } from '../interfaces';
 import { setStatistics } from '../statistic/utils';
-import { getHeaderForUser } from '../utils';
-import getAllUserWords from './getUserWords';
+
+const getHeaderForUser = () =>
+  // eslint-disable-next-line implicit-arrow-linebreak
+  new Headers({ 'Content-Type': 'application/json', Authorization: `Bearer ${authStore.token}` });
 
 export async function getWordInfo(wordId: string) {
   const url = `${BASE_LINK}users/${authStore.userId}/words/${wordId}`;
@@ -99,7 +101,7 @@ export async function toggleLearned(wordId: string) {
       if (!wordInfo.optional.firstLearned) {
         wordInfo.optional.firstLearned = new Date().toISOString().slice(0, 10);
         wordInfo.optional.learnedIn = LearnedIn.textbook;
-        await getAllUserWords();
+
         await setStatistics();
       }
       wordInfo.difficulty = Difficulty.normal;
@@ -116,14 +118,45 @@ export async function toggleLearned(wordId: string) {
 }
 
 export async function updateWord(wordId: string, isCorrect: boolean, pageName: LearnedIn) {
-  const wordInfo = await getWordInfo(wordId);
+  if (authStore.name) {
+    const wordInfo = await getWordInfo(wordId);
 
-  if (wordInfo) {
-    const { difficulty, optional } = wordInfo;
-    const currentWordInfo = updateWordInfo(isCorrect, pageName, { difficulty, optional });
-    await fetchWord(wordId, Method.PUT, currentWordInfo);
-  } else {
-    const currentWordInfo = updateWordInfo(isCorrect, pageName);
-    await fetchWord(wordId, Method.POST, currentWordInfo);
+    if (wordInfo) {
+      const { difficulty, optional } = wordInfo;
+      const currentWordInfo = updateWordInfo(isCorrect, pageName, { difficulty, optional });
+      await fetchWord(wordId, Method.PUT, currentWordInfo);
+    } else {
+      const currentWordInfo = updateWordInfo(isCorrect, pageName);
+      await fetchWord(wordId, Method.POST, currentWordInfo);
+    }
   }
+}
+
+export async function getLearnedAndHardWords(page: number, group: number) {
+  // eslint-disable-next-line max-len
+  const filter = `{"$and":[{"$or":[{"userWord.difficulty":"hard"},{"userWord.optional.learned":true}]}, {"$and":[{"page":${page}, "userWord":{"$exists": true}}]}]}`;
+  const url = `${BASE_LINK}users/${authStore.userId}/aggregatedWords?group=${group}&filter=${filter}`;
+  const headers = getHeaderForUser();
+
+  const request: IRequests = {
+    url,
+    options: { headers },
+    showNotification: false,
+  };
+
+  return fetchWithErrorHandling<IAgregatedResponse[]>(request);
+}
+
+export async function getUnlearnedUserWords(page: number, group: number) {
+  const filter = `{"$and":[{"$or":[{"userWord.optional.learned":false},{"userWord":null}]}, {"page":${page}}]}`;
+  const url = `${BASE_LINK}users/${authStore.userId}/aggregatedWords?group=${group}&wordsPerPage=20&filter=${filter}`;
+  const headers = getHeaderForUser();
+
+  const request: IRequests = {
+    url,
+    options: { headers },
+    showNotification: false,
+  };
+
+  return fetchWithErrorHandling<IAgregatedResponse[]>(request);
 }

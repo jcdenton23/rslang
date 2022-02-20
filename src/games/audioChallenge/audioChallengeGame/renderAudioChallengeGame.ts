@@ -1,4 +1,5 @@
 import { IWord } from '../../../components/interfaces';
+import { IRouter } from '../../../router/types';
 import { BASE_LINK } from '../../../services/constants';
 import audioChallengeStore from '../../../store/audioChallengeStore';
 import audioQuestionListener from './createAudioQuestionListener';
@@ -8,12 +9,12 @@ import arrowRightPressListener from './keyPressListeners/createArrowRightListene
 import numPressListener from './keyPressListeners/createNumPressListener';
 import spacePressListener from './keyPressListeners/createSpacePressListener';
 
-const renderAudioChallengeGame = (word: IWord, optionsWords: IWord[]) => {
+const renderAudioChallengeGame = (word: IWord, optionsWords: IWord[], router: IRouter) => {
   const audioChallenge = document.createElement('div');
   const [option1, option2, option3, option4] = optionsWords;
   audioChallenge.classList.add('audio-challenge');
   audioChallenge.innerHTML = `
-        <h3 class="title title--fz20">${audioChallengeStore.questionNumber + 1} / 20</h3>
+        <h3 class="title title--fz20">${audioChallengeStore.currentQuestionNumber + 1} / 20</h3>
         <div class="audio-challenge__item card">
             <div class="audio-challenge__item-word title--fz20"></div>
             <div class="audio-challenge__item-volume">
@@ -38,11 +39,11 @@ const renderAudioChallengeGame = (word: IWord, optionsWords: IWord[]) => {
     `;
 
   audioQuestionListener(audioChallenge);
-  clickOptionListener(audioChallenge, word, renderAudioChallengeGame);
-  dunnoBtnListener(audioChallenge, word, renderAudioChallengeGame);
-  numPressListener(audioChallenge, word, renderAudioChallengeGame);
+  clickOptionListener({ el: audioChallenge, word, renderAudioChallengeGame, router });
+  dunnoBtnListener({ elem: audioChallenge, word, renderAudioChallengeGame, router });
+  numPressListener({ el: audioChallenge, word, renderAudioChallengeGame, router });
   spacePressListener(audioChallenge);
-  arrowRightPressListener(word, renderAudioChallengeGame);
+  arrowRightPressListener(word, renderAudioChallengeGame, router);
   return audioChallenge;
 };
 export default renderAudioChallengeGame;

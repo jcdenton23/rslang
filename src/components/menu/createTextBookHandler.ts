@@ -1,6 +1,4 @@
 import addMainContent from '../../pages/addMainContent';
-import getTextbookElement from '../../pages/textbook/textbookPage';
-import { getMainPageElement } from '../../pages/main/mainPage';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import { BASE_LINK } from '../../services/constants';
 import textbookStore from '../../store/textbookStore';
@@ -12,8 +10,11 @@ import { removeListeners } from '../../utils';
 import authStore from '../../store/authStore';
 import { IWord } from '../interfaces';
 import getAllUserWords from '../words/getUserWords';
+import { checkIsPageLearned } from '../../pages/textbook/groupPagination/utils';
+import { Routes } from '../enum';
+import { IRouter } from '../../router/types';
 
-const textbookLinkHandler = async () => {
+const textbookLinkHandler = async (router: IRouter) => {
   removeListeners();
   updateHeader('Textbook');
   const spinner = renderSpinner('black', 40);
@@ -32,10 +33,13 @@ const textbookLinkHandler = async () => {
   const res = await fetchWithErrorHandling<IWord[]>({ url, finallyCallback, showNotification: true });
   if (res) {
     textbookStore.words = res;
-    addMainContent(getTextbookElement());
+    router.push(Routes.textbook);
+    if (authStore.name) {
+      await checkIsPageLearned(textbookPage, textbookGroup);
+    }
     updatePaginationButtons();
   } else {
-    addMainContent(getMainPageElement());
+    router.push(Routes.main);
   }
 };
 

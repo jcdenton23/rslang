@@ -1,11 +1,19 @@
 import renderCards from '.';
 import { BorderBootstrap } from '../../../components/enum';
+import { IUpdateCards } from '../../../components/interfaces';
 
-export const updateCards = (cardClassName: string) => {
+export const updateCards = (props: IUpdateCards) => {
+  const { cardClassName, loadHardwordCards, isHardCard, checkIsPageLearned } = props;
   const textbookWrapper = document.querySelector('.textbook__wrapper') as HTMLDivElement;
   const cards = textbookWrapper.querySelector('.textbook__cards') as HTMLDivElement;
   cards.remove();
-  textbookWrapper.appendChild(renderCards(cardClassName));
+  const options = {
+    cardClassName,
+    loadHardwordCards,
+    isHardCard,
+    checkIsPageLearned,
+  };
+  textbookWrapper.appendChild(renderCards(options));
 };
 
 export const getCardClassName = (groupNumber: number) => {

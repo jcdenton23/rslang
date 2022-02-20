@@ -11,7 +11,7 @@ const correctAnswerHandler = (word: IWord) => {
   sprintStore.currentInRow += 1;
   const { maxInRow, currentInRow } = sprintStore;
   sprintStore.maxInRow = currentInRow > maxInRow ? currentInRow : maxInRow;
-  audio.src = '../../../public/assets/sounds/correct.wav';
+  audio.src = './public/assets/sounds/correct.wav';
   audio.play();
   updateWord(word.id, true, LearnedIn.sprint);
 };

@@ -79,3 +79,15 @@ export enum LearnedIn {
   audio = 'Audio',
   textbook = 'textbook',
 }
+
+export enum Filters {
+  hard = '{"userWord.difficulty":"hard"}',
+}
+
+export enum Routes {
+  main = 'main',
+  textbook = 'textbook',
+  games = 'games',
+  statistic = 'statistic',
+  textbookHandler = 'textbookHandler',
+}

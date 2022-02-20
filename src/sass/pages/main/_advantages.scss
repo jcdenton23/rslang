@@ -11,6 +11,8 @@
   }
 
   &__item {
+    min-width: 200px;
+    max-width: 250px;
     padding: 30px 25px;
 
     &-icon {

@@ -1,6 +1,8 @@
 import renderPromo from './promo';
 import renderAdvantages from './advantages';
 import renderTeams from './team';
+import { Routes } from '../../components/enum';
+import { IRouter } from '../../router/types';
 
 export const renderMainTag = () => {
   const main = document.createElement('main');
@@ -8,7 +10,7 @@ export const renderMainTag = () => {
   document.body.appendChild(main);
 };
 
-export const getMainPageElement = (): HTMLDivElement => {
+export const getMainPageElement = (router: IRouter): HTMLDivElement => {
   const elem = document.createElement('div');
   elem.classList.add('main-page');
   elem.innerHTML = `
@@ -16,5 +18,10 @@ export const getMainPageElement = (): HTMLDivElement => {
     ${renderAdvantages()}
     ${renderTeams()}
   `;
+
+  const btnStart = elem.querySelector('.btn-main-start') as HTMLButtonElement;
+  btnStart.addEventListener('click', () => {
+    router.push(Routes.textbookHandler);
+  });
   return elem;
 };

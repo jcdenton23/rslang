@@ -1,4 +1,5 @@
 import { Modal } from 'bootstrap';
+import { IRouter } from '../router/types';
 
 export interface IRequests {
   url: string;
@@ -44,6 +45,7 @@ export interface ITextbookStore {
   textbookPage: number;
   textbookGroup: number;
   cardClassName: string;
+  isPageLearned: boolean;
 }
 
 export interface ISprintStore {
@@ -51,6 +53,7 @@ export interface ISprintStore {
   translateWords: IWord[];
   correctWords: IWord[];
   wrongWords: IWord[];
+  needLearnWords: IWord[];
   questionNumber: number;
   correctAnswers: number;
   wrongAnswers: number;
@@ -63,18 +66,19 @@ export interface ISprintStore {
   timerId: number;
   gameInitiator: string;
   btnPressHandler: ((e: KeyboardEvent) => void) | null;
+  isGameFinished: boolean;
 }
 
 export interface IStartTimer {
-  (time: number, selector: string): void;
+  (time: number, selector: string, router: IRouter): void;
 }
 
 export interface IGamesStartPage {
-  (): HTMLElement;
+  (router: IRouter): HTMLElement;
 }
 
 export interface ISprintResult {
-  (a: IStartTimer): HTMLElement;
+  (a: IStartTimer, router: IRouter): HTMLElement;
 }
 
 export interface IRenderSprint {
@@ -82,6 +86,7 @@ export interface IRenderSprint {
   translateWord: IWord;
   renderSprintResult: ISprintResult;
   startTimer: IStartTimer;
+  router: IRouter;
 }
 
 export interface IRenderSprintGame {
@@ -94,6 +99,7 @@ export interface IModalStore {
 
 export interface IUserWordsStore {
   words: IResponseWordInfo[] | null;
+  hardWords: IWord[];
 }
 
 export interface IOptionalWord {
@@ -119,7 +125,10 @@ export interface IAudioChallengeStore {
   words: IWord[];
   correctWords: IWord[];
   wrongWords: IWord[];
-  questionNumber: number;
+  needLearnWords: IWord[];
+  wordForOptions: IWord[];
+  questionIndex: number;
+  currentQuestionNumber: number;
   currentPage: number;
   currentGroup: number;
   currentInRow: number;
@@ -129,10 +138,86 @@ export interface IAudioChallengeStore {
   numPressHandler: ((e: KeyboardEvent) => void) | null;
   spacePressHandler: ((e: KeyboardEvent) => void) | null;
   arrowRightPressHandler: ((e: KeyboardEvent) => void) | null;
+  gameInitiator: string;
+  isGameFinished: boolean;
 }
 
 export interface IrenderAudioChallengeGame {
-  (word: IWord, optionsWords: IWord[]): HTMLElement;
+  (word: IWord, optionsWords: IWord[], router: IRouter): HTMLElement;
+}
+
+export interface IAgregatedWord {
+  _id: string;
+  group: number;
+  page: number;
+  word: string;
+  image: string;
+  audio: string;
+  audioMeaning: string;
+  audioExample: string;
+  textMeaning: string;
+  textExample: string;
+  transcription: string;
+  textExampleTranslate: string;
+  textMeaningTranslate: string;
+  wordTranslate: string;
+  options: IWordInfo;
+}
+
+export interface ICount {
+  count: number;
+}
+export interface IAgregatedResponse {
+  paginatedResults: IAgregatedWord[];
+  totalCount: ICount[];
+}
+
+export interface IloadHardwordCards {
+  (finallyCallback: () => void, cardClassName: string): void;
+}
+
+export interface ICheckPageIsLearned {
+  (page: number, group: number): void;
+}
+
+export interface IRenderCard {
+  word: IWord;
+  cardClassName: string;
+  loadHardwordCards?: IloadHardwordCards;
+  isHardCard?: boolean;
+  checkIsPageLearned: ICheckPageIsLearned;
+}
+
+export interface IAnswerHandler {
+  word: IWord;
+  optionId: string;
+  renderAudioChallengeGame: IrenderAudioChallengeGame;
+  router: IRouter;
+}
+
+export interface IKeyPressListener {
+  el: HTMLElement;
+  word: IWord;
+  renderAudioChallengeGame: IrenderAudioChallengeGame;
+  router: IRouter;
+}
+
+export interface IRenderCards {
+  cardClassName: string;
+  loadHardwordCards?: IloadHardwordCards;
+  isHardCard: boolean;
+  checkIsPageLearned: ICheckPageIsLearned;
+}
+
+export interface IUpdateCards {
+  cardClassName: string;
+  loadHardwordCards?: IloadHardwordCards;
+  isHardCard: boolean;
+  checkIsPageLearned: ICheckPageIsLearned;
+}
+
+export interface IRenderAuidoChallengeResults {
+  (renderAudioChallengeGame: IrenderAudioChallengeGame, router: IRouter): HTMLDivElement;
 }
 
 export interface IGamesResult {
