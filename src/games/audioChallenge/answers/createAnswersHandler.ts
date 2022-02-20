@@ -1,6 +1,7 @@
 import audioChallengeStore from '../../../store/audioChallengeStore';
 import renderAudioChallengeAnswer from './renderAudioChallengeAnswer';
 import { IAnswerHandler } from '../../../components/interfaces';
+import { updateWord } from '../../../components/words/utils';
 
 const correctAnswerHandler = ({ word, optionId, renderAudioChallengeGame, router }: IAnswerHandler) => {
   const selectedOption = document.querySelector(`button[data-option-id="${optionId}"]`) as HTMLButtonElement;
@@ -12,6 +13,7 @@ const correctAnswerHandler = ({ word, optionId, renderAudioChallengeGame, router
   const { maxInRow, currentInRow } = audioChallengeStore;
   audioChallengeStore.maxInRow = currentInRow > maxInRow ? currentInRow : maxInRow;
   renderAudioChallengeAnswer(word, renderAudioChallengeGame, router);
+  updateWord(word.id, true);
 };
 
 const wrongAnswerHandler = ({ word, optionId, renderAudioChallengeGame, router }: IAnswerHandler) => {
@@ -24,6 +26,7 @@ const wrongAnswerHandler = ({ word, optionId, renderAudioChallengeGame, router }
   audioChallengeStore.maxInRow = currentInRow > maxInRow ? currentInRow : maxInRow;
   audioChallengeStore.currentInRow = 0;
   renderAudioChallengeAnswer(word, renderAudioChallengeGame, router);
+  updateWord(word.id, false);
 };
 
 const audioChallengeAnswersHandler = ({ word, optionId, renderAudioChallengeGame, router }: IAnswerHandler) => {

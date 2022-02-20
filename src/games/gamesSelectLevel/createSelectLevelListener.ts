@@ -35,6 +35,7 @@ const selectLevelListener = (el: HTMLElement, gameName: string, router: IRouter)
       }
 
       if (gameName === Games.audio) {
+        audioChallengeStore.gameInitiator = GameInitators.menu;
         resetAudioChallengeStore();
         audioChallengeStore.currentGroup = Number(group) - 1;
         audioChallengeStore.currentPage = getRandomNum(0, 29);

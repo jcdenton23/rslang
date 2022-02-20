@@ -36,9 +36,7 @@ const renderTeam = () => `<section id="team" class="team">
                             fill="#212121" />
                     </svg>
                 </a>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
-                    quibusdam voluptates, laborum non suscipit modi voluptate, natus officia earum ea placeat a
-                    quod magni velit eveniet, possimus rerum sequi consectetur?</p>
+                <p>Developed main page, textbook page, card of words, "audio challenge" and "sprint" games.</p>
             </div>
         </div>
 
@@ -80,9 +78,7 @@ const renderTeam = () => `<section id="team" class="team">
                             fill="#212121" />
                     </svg>
                 </a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae provident
-                    nulla ab nemo mollitia recusandae quod quidem unde! Iusto, nemo. Repudiandae, assumenda
-                    architecto.</p>
+                <p>Did basic project settings, authorization, statistic page. Wrote the logic for sending requests.</p>
             </div>
         </div>
     </div>

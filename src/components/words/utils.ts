@@ -152,3 +152,17 @@ export async function getLearnedAndHardWords(page: number, group: number) {
 
   return fetchWithErrorHandling<IAgregatedResponse[]>(request);
 }
+
+export async function getUnlearnedUserWords(page: number, group: number) {
+  const filter = `{"$and":[{"$or":[{"userWord.optional.learned":false},{"userWord":null}]}, {"page":${page}}]}`;
+  const url = `${BASE_LINK}users/${authStore.userId}/aggregatedWords?group=${group}&wordsPerPage=20&filter=${filter}`;
+  const headers = getHeaderForUser();
+
+  const request: IRequests = {
+    url,
+    options: { headers },
+    showNotification: false,
+  };
+
+  return fetchWithErrorHandling<IAgregatedResponse[]>(request);
+}

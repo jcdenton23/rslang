@@ -1,3 +1,4 @@
+import { GameInitators } from '../../../components/enum';
 import renderAudioChallengeGame from '../../../games/audioChallenge/audioChallengeGame/renderAudioChallengeGame';
 import loadAudioGame, { resetAudioChallengeStore } from '../../../games/audioChallenge/utils';
 import { IRouter } from '../../../router/types';
@@ -8,6 +9,7 @@ import textbookStore from '../../../store/textbookStore';
 const audioChallengeBtnListener = (elem: HTMLElement, router: IRouter) => {
   const audioBtn = elem.querySelector('.btn-audio') as HTMLButtonElement;
   audioBtn.addEventListener('click', () => {
+    audioChallengeStore.gameInitiator = GameInitators.textbook;
     resetAudioChallengeStore();
 
     const textbookWrapper = document.querySelector('.textbook__wrapper') as HTMLDivElement;

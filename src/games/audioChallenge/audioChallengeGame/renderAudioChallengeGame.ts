@@ -14,7 +14,7 @@ const renderAudioChallengeGame = (word: IWord, optionsWords: IWord[], router: IR
   const [option1, option2, option3, option4] = optionsWords;
   audioChallenge.classList.add('audio-challenge');
   audioChallenge.innerHTML = `
-        <h3 class="title title--fz20">${audioChallengeStore.questionNumber + 1} / 20</h3>
+        <h3 class="title title--fz20">${audioChallengeStore.currentQuestionNumber + 1} / 20</h3>
         <div class="audio-challenge__item card">
             <div class="audio-challenge__item-word title--fz20"></div>
             <div class="audio-challenge__item-volume">
