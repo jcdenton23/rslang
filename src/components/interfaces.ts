@@ -107,8 +107,9 @@ export interface IOptionalWord {
   correctAnswer: number;
   wrongAnswer: number;
   learned: boolean;
+  firstEncounter: string;
+  encounterIn: string;
   firstLearned?: string;
-  learnedIn?: string;
 }
 
 export interface IWordInfo {
@@ -221,7 +222,6 @@ export interface IRenderAuidoChallengeResults {
 }
 
 export interface IGamesResult {
-  newWords: number;
   maxInRow: number;
   correctAnswers: number;
   wrongAnswers: number;

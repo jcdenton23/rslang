@@ -2,6 +2,7 @@ import { LearnedIn } from '../../../components/enum';
 import { IStartTimer } from '../../../components/interfaces';
 import { getGameStatistics } from '../../../components/statistic/utils';
 import { IRouter } from '../../../router/types';
+import authStore from '../../../store/authStore';
 import sprintStore from '../../../store/sprintStore';
 import { removeListeners } from '../../../utils';
 import renderResult from '../../results/renderResult';
@@ -35,8 +36,9 @@ const renderSprintResult = (startTimer: IStartTimer, router: IRouter) => {
             </div>
         </div>
   `;
-
-  getGameStatistics(LearnedIn.sprint, sprintStore);
+  if (authStore.name) {
+    getGameStatistics(LearnedIn.sprint, sprintStore);
+  }
 
   removeListeners();
   const correctResults = results.querySelector('.results__correct-words') as HTMLDivElement;

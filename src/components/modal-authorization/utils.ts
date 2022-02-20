@@ -7,6 +7,7 @@ import { Method, Routes } from '../enum';
 import renderHeader from '../header';
 import createLoginListeners from '../header/createLoginListeners';
 import { IAuth, IUser } from '../interfaces';
+import getAllUserWords from '../words/getUserWords';
 
 function clearForm() {
   document.querySelectorAll('#login-modal form')?.forEach((form) => {
@@ -18,6 +19,8 @@ function clearForm() {
 export async function signIn(user: IUser, finallyCallback: () => void) {
   const url = `${BASE_LINK}signin`;
   const headers = new Headers({ 'Content-Type': 'application/json' });
+  const statisticsLink = document.querySelector('.statistic-link') as HTMLElement;
+  statisticsLink.classList.remove('hide');
 
   const request = {
     url,
@@ -44,6 +47,7 @@ export async function signIn(user: IUser, finallyCallback: () => void) {
     renderHeader();
     createLoginListeners();
     clearForm();
+    getAllUserWords();
     router.push(Routes.main);
   }
 }

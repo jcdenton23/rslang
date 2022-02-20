@@ -23,7 +23,9 @@ const sprintAnswerHandler = async (props: ISprintAnswer) => {
 
   const gamesContent = clearAndGetElement('.games__content') as HTMLDivElement;
   const answerCondition = type === Answers.correct ? word.id === translateWord.id : word.id !== translateWord.id;
-
+  if (sprintStore.btnPressHandler) {
+    document.removeEventListener('keydown', sprintStore.btnPressHandler);
+  }
   if (answerCondition) {
     correctAnswerHandler(word);
   } else {

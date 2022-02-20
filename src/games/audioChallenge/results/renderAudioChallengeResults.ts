@@ -3,6 +3,7 @@ import { IrenderAudioChallengeGame } from '../../../components/interfaces';
 import { getGameStatistics } from '../../../components/statistic/utils';
 import { IRouter } from '../../../router/types';
 import audioChallengeStore from '../../../store/audioChallengeStore';
+import authStore from '../../../store/authStore';
 import { removeListeners } from '../../../utils';
 import renderResult from '../../results/renderResult';
 import tryAgainBtnListener from './createTryAgainBtnListener';
@@ -34,7 +35,10 @@ const renderAudioChallengeResults = (renderAudioChallengeGame: IrenderAudioChall
             </div>
         </div>
   `;
-  getGameStatistics(LearnedIn.audio, audioChallengeStore);
+  if (authStore.name) {
+    getGameStatistics(LearnedIn.audio, audioChallengeStore);
+  }
+
   removeListeners();
   const correctResults = results.querySelector('.results__correct-words') as HTMLDivElement;
   const wrongResults = results.querySelector('.results__wrong-words') as HTMLDivElement;

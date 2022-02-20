@@ -9,10 +9,10 @@ import createSpinnerWrapper from '../Spinner/utils';
 import { removeListeners } from '../../utils';
 import authStore from '../../store/authStore';
 import { IWord } from '../interfaces';
-import getAllUserWords from '../words/getUserWords';
 import { checkIsPageLearned } from '../../pages/textbook/groupPagination/utils';
 import { Routes } from '../enum';
 import { IRouter } from '../../router/types';
+import getAllUserWords from '../words/getUserWords';
 
 const textbookLinkHandler = async (router: IRouter) => {
   removeListeners();

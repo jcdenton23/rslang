@@ -22,10 +22,21 @@ export async function getWordInfo(wordId: string) {
   return fetchWithErrorHandling<IResponseWordInfo>(request);
 }
 
-function createWordInfo({ difficulty = Difficulty.normal, learned = false }) {
+function createWordInfo({
+  difficulty = Difficulty.normal,
+  learned = false,
+  encounterIn = LearnedIn.textbook,
+}): IWordInfo {
   return {
     difficulty,
-    optional: { streak: 0, correctAnswer: 0, wrongAnswer: 0, learned },
+    optional: {
+      streak: 0,
+      correctAnswer: 0,
+      wrongAnswer: 0,
+      learned,
+      firstEncounter: new Date().toISOString().slice(0, 10),
+      encounterIn,
+    },
   };
 }
 
@@ -33,7 +44,7 @@ export function updateWordInfo(isCorrect: boolean, pageName: LearnedIn, wordInfo
   const GOOD_HARD_SCORE = 5;
   const GOOD_NORMAL_SCORE = 3;
 
-  const currentWord: IWordInfo = wordInfo || createWordInfo({});
+  const currentWord = wordInfo || createWordInfo({ encounterIn: pageName });
 
   if (isCorrect) {
     currentWord.optional.streak += 1;
@@ -54,7 +65,6 @@ export function updateWordInfo(isCorrect: boolean, pageName: LearnedIn, wordInfo
     currentWord.difficulty = Difficulty.normal;
     if (!currentWord.optional.firstLearned) {
       currentWord.optional.firstLearned = new Date().toISOString().slice(0, 10);
-      currentWord.optional.learnedIn = pageName;
     }
   }
   return currentWord;
@@ -100,9 +110,6 @@ export async function toggleLearned(wordId: string) {
     } else {
       if (!wordInfo.optional.firstLearned) {
         wordInfo.optional.firstLearned = new Date().toISOString().slice(0, 10);
-        wordInfo.optional.learnedIn = LearnedIn.textbook;
-
-        await setStatistics();
       }
       wordInfo.difficulty = Difficulty.normal;
     }
@@ -112,9 +119,12 @@ export async function toggleLearned(wordId: string) {
     await fetchWord(wordId, method, wordInfo);
   } else {
     const newWordInfo = createWordInfo({ learned: true });
-
+    if (!newWordInfo.optional.firstLearned) {
+      newWordInfo.optional.firstLearned = new Date().toISOString().slice(0, 10);
+    }
     await fetchWord(wordId, method, newWordInfo);
   }
+  await setStatistics();
 }
 
 export async function updateWord(wordId: string, isCorrect: boolean, pageName: LearnedIn) {

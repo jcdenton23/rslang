@@ -1,3 +1,4 @@
+import { LearnedIn } from '../../../components/enum';
 import { IrenderAudioChallengeGame, IWord } from '../../../components/interfaces';
 import { updateWord } from '../../../components/words/utils';
 import { IRouter } from '../../../router/types';
@@ -11,7 +12,7 @@ export const dunnoBtnHandler = (word: IWord, renderAudioChallengeGame: IrenderAu
   audioChallengeStore.maxInRow = currentInRow > maxInRow ? currentInRow : maxInRow;
   audioChallengeStore.currentInRow = 0;
   renderAudioChallengeAnswer(word, renderAudioChallengeGame, router);
-  updateWord(word.id, false);
+  updateWord(word.id, false, LearnedIn.audio);
 };
 
 interface IDunnoBtnListener {
