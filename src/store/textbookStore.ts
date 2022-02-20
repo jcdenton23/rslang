@@ -6,4 +6,5 @@ export default {
   textbookPage: 0,
   textbookGroup: 0,
   cardClassName: BorderBootstrap.primary,
+  isPageLearned: false,
 } as ITextbookStore;

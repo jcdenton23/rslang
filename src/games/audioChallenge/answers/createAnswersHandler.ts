@@ -1,8 +1,8 @@
-import { IrenderAudioChallengeGame, IWord } from '../../../components/interfaces';
 import audioChallengeStore from '../../../store/audioChallengeStore';
 import renderAudioChallengeAnswer from './renderAudioChallengeAnswer';
+import { IAnswerHandler } from '../../../components/interfaces';
 
-const correctAnswerHandler = (word: IWord, optionId: string, renderAudioChallengeGame: IrenderAudioChallengeGame) => {
+const correctAnswerHandler = ({ word, optionId, renderAudioChallengeGame, router }: IAnswerHandler) => {
   const selectedOption = document.querySelector(`button[data-option-id="${optionId}"]`) as HTMLButtonElement;
   selectedOption.classList.remove('btn-outline-primary');
   selectedOption.classList.add('btn-success');
@@ -11,10 +11,10 @@ const correctAnswerHandler = (word: IWord, optionId: string, renderAudioChalleng
   audioChallengeStore.currentInRow += 1;
   const { maxInRow, currentInRow } = audioChallengeStore;
   audioChallengeStore.maxInRow = currentInRow > maxInRow ? currentInRow : maxInRow;
-  renderAudioChallengeAnswer(word, renderAudioChallengeGame);
+  renderAudioChallengeAnswer(word, renderAudioChallengeGame, router);
 };
 
-const wrongAnswerHandler = (word: IWord, optionId: string, renderAudioChallengeGame: IrenderAudioChallengeGame) => {
+const wrongAnswerHandler = ({ word, optionId, renderAudioChallengeGame, router }: IAnswerHandler) => {
   const selectedOption = document.querySelector(`button[data-option-id="${optionId}"]`) as HTMLButtonElement;
   selectedOption.classList.remove('btn-outline-primary');
   selectedOption.classList.add('btn-danger');
@@ -23,22 +23,14 @@ const wrongAnswerHandler = (word: IWord, optionId: string, renderAudioChallengeG
   audioChallengeStore.wrongAnswers += 1;
   audioChallengeStore.maxInRow = currentInRow > maxInRow ? currentInRow : maxInRow;
   audioChallengeStore.currentInRow = 0;
-  renderAudioChallengeAnswer(word, renderAudioChallengeGame);
+  renderAudioChallengeAnswer(word, renderAudioChallengeGame, router);
 };
 
-interface IAudioChallangeAnsHandler {
-  word: IWord;
-  optionId: string;
-  renderAudioChallengeGame: IrenderAudioChallengeGame;
-}
-
-const audioChallengeAnswersHandler = (props: IAudioChallangeAnsHandler) => {
-  const { word, optionId, renderAudioChallengeGame } = props;
-
+const audioChallengeAnswersHandler = ({ word, optionId, renderAudioChallengeGame, router }: IAnswerHandler) => {
   if (optionId === word.id) {
-    correctAnswerHandler(word, optionId, renderAudioChallengeGame);
+    correctAnswerHandler({ word, optionId, renderAudioChallengeGame, router });
   } else {
-    wrongAnswerHandler(word, optionId, renderAudioChallengeGame);
+    wrongAnswerHandler({ word, optionId, renderAudioChallengeGame, router });
   }
 };
 

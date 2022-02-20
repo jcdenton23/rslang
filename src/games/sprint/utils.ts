@@ -1,12 +1,12 @@
 import renderSpinner from '../../components/Spinner/renderSpinner';
 import createSpinnerWrapper from '../../components/Spinner/utils';
 import renderTimer from '../../components/timer';
-import addMainContent from '../../pages/addMainContent';
-import { getMainPageElement } from '../../pages/main/mainPage';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import sprintStore from '../../store/sprintStore';
 import { clearAndGetElement, shuffleArray } from '../../utils';
 import { IRenderSprintGame, IRequests, ISprintResult, IStartTimer, IWord } from '../../components/interfaces';
+import { Routes } from '../../components/enum';
+import { IRouter } from '../../router/types';
 
 export const resetSprintStore = () => {
   sprintStore.score = 0;
@@ -26,10 +26,11 @@ interface ILoadSprintGame {
   renderSprintGame: IRenderSprintGame;
   startTimer: IStartTimer;
   renderSprintResult: ISprintResult;
+  router: IRouter;
 }
 
 export const loadSprintGame = async (props: ILoadSprintGame) => {
-  const { url, renderSprintGame, startTimer, renderSprintResult } = props;
+  const { url, renderSprintGame, startTimer, renderSprintResult, router } = props;
 
   const main = document.getElementById('main') as HTMLDivElement;
   const gamesContent = clearAndGetElement('.games__content') as HTMLDivElement;
@@ -53,20 +54,21 @@ export const loadSprintGame = async (props: ILoadSprintGame) => {
     sprintStore.words = shuffleArray(res);
     sprintStore.translateWords = shuffleArray(res);
     main.prepend(renderTimer());
-    startTimer(sprintStore.time, '.timer');
+    startTimer(sprintStore.time, '.timer', router);
     const options = {
       word: sprintStore.words[0],
       translateWord: sprintStore.translateWords[0],
       renderSprintResult,
       startTimer,
+      router,
     };
     gamesContent.append(renderSprintGame(options));
   } else {
-    addMainContent(getMainPageElement());
+    router.push(Routes.main);
   }
 };
 
-export const loadSprintNewWords = async (url: string) => {
+export const loadSprintNewWords = async (url: string, router: IRouter) => {
   const gamesContent = clearAndGetElement('.games__content') as HTMLDivElement;
 
   const spinner = renderSpinner('black', 40);
@@ -89,6 +91,6 @@ export const loadSprintNewWords = async (url: string) => {
     sprintStore.translateWords = shuffleArray(res);
     sprintStore.questionNumber = 0;
   } else {
-    addMainContent(getMainPageElement());
+    router.push(Routes.main);
   }
 };

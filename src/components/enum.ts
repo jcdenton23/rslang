@@ -73,3 +73,15 @@ export enum Keys {
   ArrowRight = 'ArrowRight',
   space = ' ',
 }
+
+export enum Filters {
+  hard = '{"userWord.difficulty":"hard"}',
+}
+
+export enum Routes {
+  main = 'main',
+  textbook = 'textbook',
+  games = 'games',
+  statistic = 'statistic',
+  textbookHander = 'textbookHandler',
+}

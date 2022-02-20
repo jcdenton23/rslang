@@ -1,5 +1,6 @@
 import { Answers } from '../../../components/enum';
 import { IRenderSprintGame, ISprintResult, IStartTimer, IWord } from '../../../components/interfaces';
+import { IRouter } from '../../../router/types';
 import { BASE_LINK } from '../../../services/constants';
 import sprintStore from '../../../store/sprintStore';
 import { clearAndGetElement, getRandomNum } from '../../../utils';
@@ -14,10 +15,11 @@ interface ISprintAnswer {
   renderSprintGame: IRenderSprintGame;
   renderSprintResult: ISprintResult;
   startTimer: IStartTimer;
+  router: IRouter;
 }
 
 const sprintAnswerHandler = async (props: ISprintAnswer) => {
-  const { word, translateWord, type, renderSprintGame, renderSprintResult, startTimer } = props;
+  const { word, translateWord, type, renderSprintGame, renderSprintResult, startTimer, router } = props;
 
   const { words, translateWords } = sprintStore;
   const gamesContent = clearAndGetElement('.games__content') as HTMLDivElement;
@@ -34,12 +36,12 @@ const sprintAnswerHandler = async (props: ISprintAnswer) => {
   } else if (sprintStore.currentPage) {
     const { currentPage, currentGroup } = sprintStore;
     const url = `${BASE_LINK}words?group=${currentGroup}&page=${currentPage - 1}`;
-    loadSprintNewWords(url);
+    loadSprintNewWords(url, router);
     sprintStore.currentPage -= 1;
   } else {
     const timerEl = document.querySelector('.timer') as HTMLDivElement;
     timerEl.remove();
-    gamesContent.append(renderSprintResult(startTimer));
+    gamesContent.append(renderSprintResult(startTimer, router));
     return;
   }
 
@@ -52,6 +54,7 @@ const sprintAnswerHandler = async (props: ISprintAnswer) => {
     translateWord: translateWords[nextTranslateIdx],
     renderSprintResult,
     startTimer,
+    router,
   };
 
   gamesContent.append(renderSprintGame(options));

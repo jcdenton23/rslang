@@ -5,7 +5,7 @@ const renderFooter = () => {
   <div class="container">
     <div class="footer__info">
         <a href="https://rs.school/js/" class="footer__rs" target="_blank">
-            <img src="../../public/assets/icons/rs_school.svg" alt="rs-school logo">
+            <img src="./public/assets/icons/rs_school.svg" alt="rs-school logo">
         </a>
         <div class="footer__githubs">
             <a href="https://github.com/jcdenton23" class="footer__git" target="_blank">

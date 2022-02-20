@@ -1,4 +1,5 @@
 import { IWord } from '../../../components/interfaces';
+import { updateWord } from '../../../components/words/utils';
 import sprintStore from '../../../store/sprintStore';
 
 const correctAnswerHandler = (word: IWord) => {
@@ -9,8 +10,9 @@ const correctAnswerHandler = (word: IWord) => {
   sprintStore.currentInRow += 1;
   const { maxInRow, currentInRow } = sprintStore;
   sprintStore.maxInRow = currentInRow > maxInRow ? currentInRow : maxInRow;
-  audio.src = '../../../public/assets/sounds/correct.wav';
+  audio.src = './public/assets/sounds/correct.wav';
   audio.play();
+  updateWord(word.id, true);
 };
 
 export default correctAnswerHandler;

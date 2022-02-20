@@ -1,11 +1,12 @@
 import renderHeader from '../components/header';
 import renderFooter from '../components/footer';
 import renderMenu from '../components/menu';
-import addMainContent from './addMainContent';
-import { renderMainTag, getMainPageElement } from './main/mainPage';
+import { renderMainTag } from './main/mainPage';
 import createLoginListeners from '../components/header/createLoginListeners';
 import { getLocalUser } from '../components/utils';
 import renderLoginModal from '../components/modal-authorization/renderLoginModal';
+import router from '../router';
+import { Routes } from '../components/enum';
 
 const renderAllMarkup = () => {
   getLocalUser();
@@ -14,7 +15,7 @@ const renderAllMarkup = () => {
   renderHeader();
   createLoginListeners();
   renderMainTag();
-  addMainContent(getMainPageElement());
+  router.push(Routes.main);
   renderFooter();
 };
 

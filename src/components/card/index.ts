@@ -1,19 +1,32 @@
-import { IWord } from '../interfaces';
+import { IRenderCard } from '../interfaces';
 import { BASE_LINK } from '../../services/constants';
 import createAudioListener from './createAudioListener';
 import userWordsStore from '../../store/userWordsStore';
 import { Difficulty } from '../enum';
 import authStore from '../../store/authStore';
 import createButtonListener from './createButtonListener';
+import createRemoveBtnListener from './createRemoveBtnListener';
+import initializeCardStyles from './utils';
 
-const renderCard = (word: IWord, classCardName: string) => {
+const renderCard = (props: IRenderCard) => {
+  const { word, cardClassName, loadHardwordCards, isHardCard, checkIsPageLearned } = props;
   const userWord = userWordsStore.words?.find((currentWord) => currentWord.wordId === word.id);
 
   const learned = userWord?.optional.learned;
   const difficulty = userWord?.difficulty;
   const card = document.createElement('div');
-  card.classList.add('textbook__card', classCardName);
+  card.classList.add('textbook__card', cardClassName);
   card.dataset.id = word.id;
+
+  const removeBtn = `
+  <button type="button" id="btn-remove" 
+      class="btn btn-outline-warning">Remove</button>
+  `;
+
+  const wordAnswers = `<div>
+  <span title="Correct answers" class="badge bg-success">${userWord ? userWord.optional.correctAnswer : '0'}</span>
+  <span title="Wrong answers" class="badge bg-danger">${userWord ? userWord.optional.wrongAnswer : '0'}</span>
+</div>`;
 
   const buttons = `
 <button type="button" id="btn-learned" 
@@ -27,14 +40,14 @@ class="btn btn-outline-warning ${difficulty === Difficulty.hard ? 'active' : ''}
     </div>
     <div class="textbook__card-info">
     <h3 class="textbook__card-title">${word.word} <span>${word.transcription}</span></h3>
+    ${authStore.name ? wordAnswers : ''}
     <div class="textbook__card-volume">
     <i class="fas fa-volume-up"></i>
     <audio src="${BASE_LINK}${word.audio}"></audio>
-    <audio src="${BASE_LINK}${word.audioMeaning}"></audio>
-    <audio src="${BASE_LINK}${word.audioExample}"></audio>
     </div>
     <p class="textbook__card-translate translate">${word.wordTranslate}</p>
-    ${authStore.name ? buttons : ''}
+    ${authStore.name && !isHardCard ? buttons : ''}
+    ${authStore.name && isHardCard ? removeBtn : ''}
     <div class="textbook__card-meaning">
       <p>${word.textMeaning}</p>
       <p class="translate">${word.textMeaningTranslate}</p>
@@ -48,10 +61,19 @@ class="btn btn-outline-warning ${difficulty === Difficulty.hard ? 'active' : ''}
 
   card.innerHTML = markup;
 
-  createAudioListener(card);
+  createAudioListener(card, word);
   if (authStore.name) {
-    createButtonListener(card);
+    initializeCardStyles(card, difficulty, learned);
   }
+
+  if (authStore.name && !isHardCard) {
+    createButtonListener(card, checkIsPageLearned);
+  }
+
+  if (authStore.name && isHardCard) {
+    createRemoveBtnListener(card, cardClassName, loadHardwordCards);
+  }
+
   return card;
 };
 

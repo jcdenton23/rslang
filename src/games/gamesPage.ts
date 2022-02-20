@@ -1,6 +1,7 @@
+import { IRouter } from '../router/types';
 import renderGamesStartPage from './gamesStartPage/gamesStartPage';
 
-const getGamesPageElement = (): HTMLDivElement => {
+const getGamesPageElement = (router: IRouter): HTMLDivElement => {
   const elem = document.createElement('div');
   elem.classList.add('games-page');
   elem.innerHTML = `
@@ -12,7 +13,7 @@ const getGamesPageElement = (): HTMLDivElement => {
     </section>
     `;
   const gamesContentEl = elem.querySelector('.games__content') as HTMLDivElement;
-  gamesContentEl.append(renderGamesStartPage());
+  gamesContentEl.append(renderGamesStartPage(router));
   return elem;
 };
 
