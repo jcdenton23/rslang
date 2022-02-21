@@ -25,8 +25,7 @@ export function clearStatistics() {
     },
   };
 
-  Object.entries(clearObjectStatistics).forEach((line) => {
-    const [key, value] = line;
+  Object.entries(clearObjectStatistics).forEach(([key, value]) => {
     statisticsStore[key] = value;
   });
 }
@@ -41,8 +40,7 @@ export default async function getStatistics() {
   });
 
   if (response) {
-    Object.entries(response).forEach((line) => {
-      const [key, value] = line;
+    Object.entries(response).forEach(([key, value]) => {
       if (key !== 'id') {
         statisticsStore[key] = value;
       }
