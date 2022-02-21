@@ -1,12 +1,18 @@
 .team {
   padding: 40px 0;
+  @media only screen and (max-width: 528px) {
+    padding: 20px 0;
+  }
 
   &__wrapper {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    margin-top: 60px;
+    margin-top: 50px;
+    @media only screen and (max-width: 528px) {
+      margin-top: 25px;
+    }
   }
 
   &__item {
@@ -33,6 +39,9 @@
 
     h3 {
       color: $main-color;
+      @media only screen and (max-width: 528px) {
+        font-size: 15px;
+      }
     }
 
     h4 {
@@ -43,6 +52,9 @@
 
     p {
       margin-top: 10px;
+      @media only screen and (max-width: 528px) {
+        font-size: 12px;
+      }
     }
   }
 }

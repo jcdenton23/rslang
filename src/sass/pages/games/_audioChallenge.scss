@@ -10,6 +10,9 @@
     max-width: 750px;
     padding: 25px 30px;
     text-align: center;
+    @media only screen and (max-width: 528px) {
+      min-width: 315px;
+    }
 
     &-word {
       height: 20px;

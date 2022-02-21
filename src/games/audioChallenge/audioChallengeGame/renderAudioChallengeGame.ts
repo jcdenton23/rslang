@@ -38,7 +38,7 @@ const renderAudioChallengeGame = (word: IWord, optionsWords: IWord[], router: IR
         </div>
     `;
 
-  audioQuestionListener(audioChallenge);
+  audioQuestionListener(audioChallenge, word);
   clickOptionListener({ el: audioChallenge, word, renderAudioChallengeGame, router });
   dunnoBtnListener({ elem: audioChallenge, word, renderAudioChallengeGame, router });
   numPressListener({ el: audioChallenge, word, renderAudioChallengeGame, router });

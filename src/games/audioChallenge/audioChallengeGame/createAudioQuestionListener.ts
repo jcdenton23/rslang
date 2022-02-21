@@ -1,6 +1,10 @@
-const audioQuestionListener = (elem: HTMLElement) => {
+import { IWord } from '../../../components/interfaces';
+import { BASE_LINK } from '../../../services/constants';
+
+const audioQuestionListener = (elem: HTMLElement, word: IWord) => {
   const audioWrapper = elem.querySelector('.audio-challenge__item-volume') as HTMLDivElement;
-  const audioFile = audioWrapper.querySelector('audio') as HTMLAudioElement;
+  const audioFile = new Audio();
+  audioFile.src = `${BASE_LINK}${word.audio}`;
   audioFile.play();
 
   let isPlay = false;

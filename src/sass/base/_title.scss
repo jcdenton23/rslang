@@ -16,14 +16,29 @@
   &--fz20 {
     font-size: 20px;
     line-height: 30px;
+    @media only screen and (max-width: 992px) {
+      font-size: 16px;
+    }
   }
 
   &--fz36 {
     font-size: 36px;
+    @media only screen and (max-width: 992px) {
+      font-size: 26px;
+    }
+    @media only screen and (max-width: 768px) {
+      font-size: 20px;
+    }
   }
 
   &--fz48 {
     font-size: 48px;
+    @media only screen and (max-width: 992px) {
+      font-size: 38px;
+    }
+    @media only screen and (max-width: 768px) {
+      font-size: 30px;
+    }
   }
 
   &__section-title {
