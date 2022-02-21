@@ -74,6 +74,12 @@ export enum Keys {
   space = ' ',
 }
 
+export enum LearnedIn {
+  sprint = 'Sprint',
+  audio = 'Audio',
+  textbook = 'textbook',
+}
+
 export enum Filters {
   hard = '{"userWord.difficulty":"hard"}',
 }

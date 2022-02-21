@@ -7,6 +7,10 @@ import renderAudioChallengeResults from '../results/renderAudioChallengeResults'
 import { loadNewAudioChallengeWords } from '../utils';
 
 const nextBtnListener = async (renderAudioChallengeGame: IrenderAudioChallengeGame, router: IRouter) => {
+  if (audioChallengeStore.arrowRightPressHandler) {
+    document.removeEventListener('keydown', audioChallengeStore.arrowRightPressHandler);
+  }
+
   const gamesContent = clearAndGetElement('.games__content') as HTMLDivElement;
   audioChallengeStore.currentQuestionNumber += 1;
 

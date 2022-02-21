@@ -1,6 +1,7 @@
 import { Filters } from '../../../components/enum';
 import { IAgregatedResponse, IRequests } from '../../../components/interfaces';
-import { getAllUserWords, getLearnedAndHardWords } from '../../../components/words/utils';
+import getAllUserWords from '../../../components/words/getUserWords';
+import { getLearnedAndHardWords } from '../../../components/words/utils';
 import { BASE_LINK } from '../../../services/constants';
 import fetchWithErrorHandling from '../../../services/fetchWithErrorHandling';
 import authStore from '../../../store/authStore';

@@ -2,6 +2,7 @@ import { Button } from 'bootstrap';
 import textbookStore from '../../store/textbookStore';
 import { ICheckPageIsLearned } from '../interfaces';
 import renderSpinner from '../Spinner/renderSpinner';
+import getAllUserWords from '../words/getUserWords';
 import { toggleDifficulty, toggleLearned } from '../words/utils';
 
 const buttonListener = (card: HTMLDivElement, checkIsPageLearned: ICheckPageIsLearned) => {
@@ -36,6 +37,7 @@ const buttonListener = (card: HTMLDivElement, checkIsPageLearned: ICheckPageIsLe
     const spinner = renderSpinner('black', 16);
     btnLearnedOnPage.append(spinner);
 
+    await getAllUserWords();
     await toggleLearned(id as string);
     if (checkIsPageLearned) await checkIsPageLearned(textbookPage, textbookGroup);
 

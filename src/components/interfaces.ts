@@ -107,6 +107,9 @@ export interface IOptionalWord {
   correctAnswer: number;
   wrongAnswer: number;
   learned: boolean;
+  firstEncounter: string;
+  encounterIn: string;
+  firstLearned?: string;
 }
 
 export interface IWordInfo {
@@ -216,4 +219,22 @@ export interface IUpdateCards {
 
 export interface IRenderAuidoChallengeResults {
   (renderAudioChallengeGame: IrenderAudioChallengeGame, router: IRouter): HTMLDivElement;
+}
+
+export interface IGamesResult {
+  maxInRow: number;
+  correctAnswers: number;
+  wrongAnswers: number;
+}
+
+export interface IOptionalStatistics {
+  currentDate: string;
+  sprint: IGamesResult;
+  audioChallenge: IGamesResult;
+}
+
+export interface IStatistics {
+  learnedWords: number;
+  optional: IOptionalStatistics;
+  [key: string]: number | IOptionalStatistics;
 }

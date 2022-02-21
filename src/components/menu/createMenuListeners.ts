@@ -1,7 +1,9 @@
-import textbookLinkHandler from './createTextBookHandler';
 import mainLinkHandler from './createMainHandler';
 import gamesLinkHandler from './createGamesHandler';
+import getStatistics from '../statistic/utils';
+import statisticsLinkHandler from './createStatisticsHandler';
 import router from '../../router';
+import textbookLinkHandler from './createTextBookHandler';
 
 const menuListeners = () => {
   const menu = document.querySelector('.menu') as HTMLDivElement;
@@ -30,6 +32,10 @@ const menuListeners = () => {
     }
     if (target.closest('.games-link')) {
       gamesLinkHandler();
+    }
+    if (target.closest('.statistic-link')) {
+      statisticsLinkHandler();
+      getStatistics();
     }
   });
 };

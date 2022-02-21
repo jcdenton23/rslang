@@ -1,29 +1,13 @@
 import { BASE_LINK } from '../../services/constants';
 import fetchWithErrorHandling from '../../services/fetchWithErrorHandling';
 import authStore from '../../store/authStore';
-import userWordsStore from '../../store/userWordsStore';
-import { Difficulty, Method } from '../enum';
-import { IWordInfo, IRequests, IResponseWordInfo, IAgregatedResponse } from '../interfaces';
+import { Difficulty, LearnedIn, Method } from '../enum';
+import { IAgregatedResponse, IRequests, IResponseWordInfo, IWordInfo } from '../interfaces';
+import { setStatistics } from '../statistic/utils';
 
 const getHeaderForUser = () =>
   // eslint-disable-next-line implicit-arrow-linebreak
   new Headers({ 'Content-Type': 'application/json', Authorization: `Bearer ${authStore.token}` });
-
-export async function getAllUserWords() {
-  const url = `${BASE_LINK}users/${authStore.userId}/words`;
-
-  const headers = getHeaderForUser();
-
-  const request = {
-    url,
-    options: { headers },
-    showNotification: false,
-  };
-
-  const response = await fetchWithErrorHandling<IResponseWordInfo[]>(request);
-
-  userWordsStore.words = response || [];
-}
 
 export async function getWordInfo(wordId: string) {
   const url = `${BASE_LINK}users/${authStore.userId}/words/${wordId}`;
@@ -38,18 +22,29 @@ export async function getWordInfo(wordId: string) {
   return fetchWithErrorHandling<IResponseWordInfo>(request);
 }
 
-function createWordInfo({ difficulty = Difficulty.normal, learned = false }) {
+function createWordInfo({
+  difficulty = Difficulty.normal,
+  learned = false,
+  encounterIn = LearnedIn.textbook,
+}): IWordInfo {
   return {
     difficulty,
-    optional: { streak: 0, correctAnswer: 0, wrongAnswer: 0, learned },
+    optional: {
+      streak: 0,
+      correctAnswer: 0,
+      wrongAnswer: 0,
+      learned,
+      firstEncounter: new Date().toISOString().slice(0, 10),
+      encounterIn,
+    },
   };
 }
 
-export function updateWordInfo(isCorrect: boolean, wordInfo?: IWordInfo) {
+export function updateWordInfo(isCorrect: boolean, pageName: LearnedIn, wordInfo?: IWordInfo) {
   const GOOD_HARD_SCORE = 5;
   const GOOD_NORMAL_SCORE = 3;
 
-  const currentWord = wordInfo || createWordInfo({});
+  const currentWord = wordInfo || createWordInfo({ encounterIn: pageName });
 
   if (isCorrect) {
     currentWord.optional.streak += 1;
@@ -68,6 +63,9 @@ export function updateWordInfo(isCorrect: boolean, wordInfo?: IWordInfo) {
   if (canHard || canNormal) {
     currentWord.optional.learned = true;
     currentWord.difficulty = Difficulty.normal;
+    if (!currentWord.optional.firstLearned) {
+      currentWord.optional.firstLearned = new Date().toISOString().slice(0, 10);
+    }
   }
   return currentWord;
 }
@@ -83,7 +81,7 @@ export async function fetchWord(wordId: string, method: string, { difficulty, op
       body: JSON.stringify({ difficulty, optional }),
       headers,
     },
-    showNotification: true,
+    showNotification: false,
   };
 
   await fetchWithErrorHandling<IResponseWordInfo>(request);
@@ -110,6 +108,9 @@ export async function toggleLearned(wordId: string) {
     if (wordInfo.optional.learned) {
       wordInfo.optional.streak = 0;
     } else {
+      if (!wordInfo.optional.firstLearned) {
+        wordInfo.optional.firstLearned = new Date().toISOString().slice(0, 10);
+      }
       wordInfo.difficulty = Difficulty.normal;
     }
 
@@ -118,21 +119,24 @@ export async function toggleLearned(wordId: string) {
     await fetchWord(wordId, method, wordInfo);
   } else {
     const newWordInfo = createWordInfo({ learned: true });
-
+    if (!newWordInfo.optional.firstLearned) {
+      newWordInfo.optional.firstLearned = new Date().toISOString().slice(0, 10);
+    }
     await fetchWord(wordId, method, newWordInfo);
   }
+  await setStatistics();
 }
 
-export async function updateWord(wordId: string, isCorrect: boolean) {
+export async function updateWord(wordId: string, isCorrect: boolean, pageName: LearnedIn) {
   if (authStore.name) {
     const wordInfo = await getWordInfo(wordId);
 
     if (wordInfo) {
       const { difficulty, optional } = wordInfo;
-      const currentWordInfo = updateWordInfo(isCorrect, { difficulty, optional });
+      const currentWordInfo = updateWordInfo(isCorrect, pageName, { difficulty, optional });
       await fetchWord(wordId, Method.PUT, currentWordInfo);
     } else {
-      const currentWordInfo = updateWordInfo(isCorrect);
+      const currentWordInfo = updateWordInfo(isCorrect, pageName);
       await fetchWord(wordId, Method.POST, currentWordInfo);
     }
   }

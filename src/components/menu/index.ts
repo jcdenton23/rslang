@@ -1,3 +1,4 @@
+import authStore from '../../store/authStore';
 import menuListeners from './createMenuListeners';
 
 const renderMenu = () => {
@@ -29,7 +30,9 @@ const renderMenu = () => {
                         <li class="menu__link main-link"><a href="#">Main</a></li>
                         <li class="menu__link textbook-link"><a href="#">Textbook</a></li>
                         <li class="menu__link games-link"><a href="#">Minigames</a></li>
-                        <li class="menu__link statistic-link"><a href="#">Statistic</a></li>
+                        <li class="menu__link statistic-link ${authStore.name ? '' : 'hide'}">
+                        <a href="#">Statistic</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
