@@ -6,6 +6,10 @@
   &__wrapper {
     display: flex;
     justify-content: space-between;
+    @media only screen and (max-width: 528px) {
+      flex-direction: column;
+      gap: 20px;
+    }
   }
 
   &__title {
@@ -18,6 +22,14 @@
     line-height: 21px;
     color: #ffffff;
     border: none;
+  }
+
+  .authorized-user {
+    padding-right: 85px;
+    @media only screen and (max-width: 528px) {
+      align-self: flex-end;
+      padding-right: 0;
+    }
   }
 }
 
