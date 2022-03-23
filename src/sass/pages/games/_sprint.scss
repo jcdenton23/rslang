@@ -1,0 +1,17 @@
+.sprint {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+
+  &__item {
+    display: flex;
+    max-width: 440px;
+    padding: 25px 30px;
+    text-align: center;
+
+    &-word {
+      font-size: 20px;
+    }
+  }
+}

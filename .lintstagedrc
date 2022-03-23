@@ -1,0 +1,8 @@
+{
+  "src/**/*.+(js|ts)": [
+    "eslint"
+  ],
+  "src/**/*.scss": [
+    "stylelint"
+  ]
+}

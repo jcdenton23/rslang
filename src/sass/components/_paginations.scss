@@ -1,0 +1,38 @@
+.group-pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  @media only screen and (max-width: 528px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    margin-bottom: 0;
+    color: $main-color;
+  }
+
+  &__items {
+    margin-bottom: 0;
+    cursor: pointer;
+
+    .page-item.active {
+      a {
+        background-color: $blue-300;
+      }
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  @media only screen and (max-width: 528px) {
+    gap: 5px;
+  }
+
+  .current-page {
+    color: $main-color;
+  }
+}

@@ -1,0 +1,52 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+
+  &__wrapper {
+    display: flex;
+    gap: 10px;
+    max-width: 430px;
+    max-height: 400px;
+    padding: 25px 30px;
+    overflow: auto;
+    text-align: center;
+  }
+
+  &__item {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__word {
+    font-size: 16px;
+  }
+
+  &__word-translate {
+    font-size: 16px;
+    color: #808080;
+  }
+
+  &__volume {
+    cursor: pointer;
+  }
+
+  &__correct {
+    .fas {
+      color: green;
+    }
+  }
+
+  &__wrong {
+    .fas {
+      color: tomato;
+    }
+  }
+
+  &__row {
+    .fas {
+      color: $main-color;
+    }
+  }
+}
