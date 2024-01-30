@@ -2,7 +2,7 @@
 
 ## Attention: Unsupported Project
 
-This project is no longer maintained and is provided for demonstration purposes only. Please note that it may contain outdated dependencies and does not receive updates since its release.
+This project is no longer actively supported. It serves as a demonstration of skills and technologies used during its development.
 
 ## Project Overview
 
@@ -20,6 +20,7 @@ The project utilizes the following technologies and tools:
 - **eslint** - for linting code.
 - **stylelint** - for linting styles.
 - **prettier** - for code formatting.
+- **GitHub Actions** - for continuous integration and workflow automation.
 - **husky** - for running scripts before commits.
 - **lint-staged** - for running linters on pre-committed files.
 
