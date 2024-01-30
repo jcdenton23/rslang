@@ -1,0 +1,44 @@
+.audio-challenge {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+
+  &__item {
+    display: flex;
+    min-width: 450px;
+    max-width: 750px;
+    padding: 25px 30px;
+    text-align: center;
+    @media only screen and (max-width: 528px) {
+      min-width: 315px;
+    }
+
+    &-word {
+      height: 20px;
+      color: $main-color;
+    }
+
+    &-volume {
+      margin-top: 20px;
+      font-size: 35px;
+      cursor: pointer;
+    }
+
+    &-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+      white-space: nowrap;
+    }
+
+    .btn-audio-dunno,
+    .btn-audio-next {
+      width: 150px;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+  }
+}

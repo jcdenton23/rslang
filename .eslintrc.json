@@ -1,0 +1,23 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "sonarjs"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:prettier/recommended",
+    "airbnb-base",
+    "airbnb-typescript/base",
+    "plugin:sonarjs/recommended"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": 2,
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "no-console": "warn",
+    "max-len": ["error", { "code": 120 }],
+    "object-curly-newline": ["error", { "multiline": true }]
+  }
+}
