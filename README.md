@@ -14,7 +14,7 @@ The project utilizes the following technologies and tools:
 
 - **HTML** - for structuring the content.
 - **CSS (SCSS)** - for styling the user interface.
-- **Typescript** - for adding static typing to JavaScript.
+- **TypeScript** - for enhancing code quality and development experience.
 - **Bootstrap** - for styling and UI components.
 - **Webpack** - for bundling and managing project assets.
 - **eslint** - for linting code.
